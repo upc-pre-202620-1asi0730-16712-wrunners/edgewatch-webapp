@@ -1,7 +1,10 @@
 {
   "name": "edgewatch-webapp",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "description": "EdgeWatch Web Application",
+  "author": "WebRunners",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",
