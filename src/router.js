@@ -1,10 +1,32 @@
 import {createRouter, createWebHistory} from "vue-router";
+import traceabilityRoutes from "@/traceability/presentation/traceability-routes.js";
+import equipmentRoutes from "@/equipment/presentation/equipment-routes.js";
+import processMonitoringRoutes from "@/process-monitoring/presentation/process-monitoring-routes.js";
 
-const routes = [];
+const home = () => import("@/shared/presentation/views/home.vue");
+const about = () => import("@/shared/presentation/views/about.vue");
+const pageNotFound = () => import("@/shared/presentation/views/page-not-found.vue");
+
+const routes = [
+    {path: "/home",               name: "home",               component: home,          meta: {title: "Home"}},
+    {path: "/about",              name: "about",              component: about,         meta: {title: "About"}},
+    {path: "/traceability",       name: "traceability",       children: traceabilityRoutes},
+    {path: "/equipment",          name: "equipment",          children: equipmentRoutes},
+    {path: "/process-monitoring", name: "process-monitoring", children: processMonitoringRoutes},
+    {path: "/",                   name: "default",            redirect: "/home"},
+    {path: "/:pathMatch(.*)*",    name: "not-found",          component: pageNotFound,  meta: {title: "Page Not Found"}}
+];
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes
+});
+
+/** Sets the browser tab title from the route metadata. */
+router.beforeEach((to, from, next) => {
+    const baseTitle = "EdgeWatch";
+    document.title = to.meta?.title ? `${baseTitle} - ${to.meta.title}` : baseTitle;
+    next();
 });
 
 export default router;
