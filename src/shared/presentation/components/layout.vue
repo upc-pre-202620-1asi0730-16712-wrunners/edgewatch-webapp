@@ -1,20 +1,24 @@
 <script setup lang="js">
-import {ref} from "vue";
+import {computed, ref} from "vue";
+import {useI18n} from "vue-i18n";
+import LanguageSwitcher from "./language-switcher.vue";
+import FooterContent from "./footer-content.vue";
 
 /**
  * Application shell: toolbar with the navigation options and the routed view.
  */
+const {t} = useI18n();
 const drawerVisible = ref(false);
 
-const options = [
-  {label: "Home",           to: "/home",                              icon: "pi pi-home"},
-  {label: "Recuperations",  to: "/traceability/recuperations",        icon: "pi pi-wrench"},
-  {label: "Components",     to: "/traceability/components",           icon: "pi pi-box"},
-  {label: "Customers",      to: "/traceability/customers",            icon: "pi pi-building"},
-  {label: "HVOF Systems",   to: "/equipment/hvof-systems",            icon: "pi pi-cog"},
-  {label: "Spray Sessions", to: "/process-monitoring/spray-sessions", icon: "pi pi-chart-line"},
-  {label: "About",          to: "/about",                             icon: "pi pi-info-circle"}
-];
+const options = computed(() => [
+  {label: t("option.home"),           to: "/home",                              icon: "pi pi-home"},
+  {label: t("option.recuperations"),  to: "/traceability/recuperations",        icon: "pi pi-wrench"},
+  {label: t("option.components"),     to: "/traceability/components",           icon: "pi pi-box"},
+  {label: t("option.customers"),      to: "/traceability/customers",            icon: "pi pi-building"},
+  {label: t("option.hvof-systems"),   to: "/equipment/hvof-systems",            icon: "pi pi-cog"},
+  {label: t("option.spray-sessions"), to: "/process-monitoring/spray-sessions", icon: "pi pi-chart-line"},
+  {label: t("option.about"),          to: "/about",                             icon: "pi pi-info-circle"}
+]);
 </script>
 
 <template>
@@ -28,11 +32,12 @@ const options = [
         </div>
       </template>
       <template #end>
-        <nav class="hidden md:flex align-items-center gap-1">
+        <nav class="hidden md:flex align-items-center gap-1"><language-switcher class="ml-2"/>
           <router-link v-for="option in options" :key="option.to" :to="option.to" custom v-slot="{ navigate, isActive }">
             <pv-button :label="option.label" :icon="option.icon" text class="text-white" :class="{'font-bold underline': isActive}" @click="navigate"/>
           </router-link>
         </nav>
+
       </template>
     </pv-toolbar>
 
@@ -47,6 +52,7 @@ const options = [
     <main class="flex-grow-1">
       <router-view/>
     </main>
+    <footer-content/>
   </div>
 </template>
 
