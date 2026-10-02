@@ -1,1 +1,37 @@
-{}
+{
+  "option": {
+    "home": "Inicio",
+    "recuperations": "Recuperaciones",
+    "components": "Componentes",
+    "customers": "Clientes",
+    "hvof-systems": "Sistemas HVOF",
+    "spray-sessions": "Sesiones de rociado",
+    "about": "Acerca de"
+  },
+  "home": {
+    "title": "Bienvenido a EdgeWatch",
+    "content": "Trazabilidad y monitoreo de proceso para la recuperación de componentes por HVOF."
+  },
+  "about": {
+    "title": "Acerca de nosotros",
+    "content": "EdgeWatch es una plataforma de WebRunners que vincula cada sesión de rociado HVOF con el componente recuperado y su cliente."
+  },
+  "customers": { "title": "Clientes" },
+  "components": { "title": "Componentes" },
+  "recuperations": { "title": "Recuperaciones" },
+  "hvof-systems": { "title": "Sistemas HVOF" },
+  "spray-sessions": { "title": "Sesiones de rociado" },
+  "page-not-found": {
+    "title": "Página no encontrada",
+    "content": "La ruta {unavailable-route} no está disponible.",
+    "go-home": "Ir a Inicio"
+  },
+  "authoring-phrase": {
+    "intro": "Hecho con",
+    "use": "utilizando",
+    "author": "por el equipo de desarrollo de {brand}"
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados."
+  }
+}

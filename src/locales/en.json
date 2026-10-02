@@ -1,1 +1,37 @@
-{}
+{
+  "option": {
+    "home": "Home",
+    "recuperations": "Recuperations",
+    "components": "Components",
+    "customers": "Customers",
+    "hvof-systems": "HVOF Systems",
+    "spray-sessions": "Spray Sessions",
+    "about": "About Us"
+  },
+  "home": {
+    "title": "Welcome to EdgeWatch",
+    "content": "Traceability and process monitoring for HVOF component recovery."
+  },
+  "about": {
+    "title": "About us",
+    "content": "EdgeWatch is a platform by WebRunners that traces every HVOF spray session back to the recovered component and its customer."
+  },
+  "customers": { "title": "Customers" },
+  "components": { "title": "Components" },
+  "recuperations": { "title": "Recuperations" },
+  "hvof-systems": { "title": "HVOF Systems" },
+  "spray-sessions": { "title": "Spray Sessions" },
+  "page-not-found": {
+    "title": "Page not found",
+    "content": "The path {unavailable-route} is not available.",
+    "go-home": "Go Home"
+  },
+  "authoring-phrase": {
+    "intro": "Made with",
+    "use": "using",
+    "author": "by {brand} Developer Team"
+  },
+  "footer": {
+    "rights": "All rights reserved."
+  }
+}
