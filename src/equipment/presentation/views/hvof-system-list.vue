@@ -3,10 +3,13 @@ import {computed, onMounted} from "vue";
 import {useRouter} from "vue-router";
 import {useI18n} from "vue-i18n";
 import useEquipmentStore from "@/equipment/application/equipment.store.js";
+import useIamStore from "@/iam/application/iam.store.js";
+import {ROLE} from "@/iam/domain/model/role.entity.js";
 
 const {t} = useI18n();
 const router = useRouter();
 const store = useEquipmentStore();
+const iam = useIamStore();
 
 const systems = computed(() => store.hvofSystems);
 const statusSeverity = (status) => ({ACTIVE: "success", MAINTENANCE: "warn", OUT_OF_SERVICE: "danger"}[status] ?? "secondary");
@@ -22,7 +25,7 @@ onMounted(() => store.fetchAll());
   <section class="p-4 md:p-5">
     <div class="flex align-items-center justify-content-between mb-3">
       <h1 class="m-0 text-3xl font-bold text-color">{{ t('hvof-systems.title') }}</h1>
-      <pv-button :label="t('hvof-systems.new')" icon="pi pi-plus" @click="navigateToNew"/>
+      <pv-button v-if="iam.hasRole(ROLE.ORG_ADMIN, ROLE.MAINTENANCE_SUPERVISOR, ROLE.QUALITY_ENGINEER)" :label="t('hvof-systems.new')" icon="pi pi-plus" @click="navigateToNew"/>
     </div>
     <pv-message v-if="store.errors.length" severity="error" class="mb-3">{{ t('errors.occurred') }}</pv-message>
     <pv-data-table :value="systems" :loading="!store.hvofSystemsLoaded" paginator :rows="10" sort-field="code" :sort-order="1" striped-rows>

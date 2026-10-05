@@ -4,11 +4,14 @@ import {useRoute, useRouter} from "vue-router";
 import {useI18n} from "vue-i18n";
 import {useConfirm} from "primevue/useconfirm";
 import useEquipmentStore from "@/equipment/application/equipment.store.js";
+import useIamStore from "@/iam/application/iam.store.js";
+import {ROLE} from "@/iam/domain/model/role.entity.js";
 
 const {t} = useI18n();
 const route = useRoute();
 const router = useRouter();
 const store = useEquipmentStore();
+const iam = useIamStore();
 const confirm = useConfirm();
 
 const systemId = computed(() => parseInt(route.params.id));
@@ -80,7 +83,7 @@ onMounted(() => store.fetchAll());
                   </template>
                 </pv-column>
               </pv-data-table>
-              <pv-button :label="t('controllers.new')" icon="pi pi-plus" @click="newController"/>
+              <pv-button v-if="iam.hasRole(ROLE.ORG_ADMIN, ROLE.MAINTENANCE_SUPERVISOR, ROLE.QUALITY_ENGINEER)" :label="t('controllers.new')" icon="pi pi-plus" @click="newController"/>
             </div>
           </pv-tab-panel>
           <pv-tab-panel value="subsystems">
@@ -110,12 +113,12 @@ onMounted(() => store.fetchAll());
                     </pv-data-table>
                     <div class="flex gap-2 mt-3">
                       <pv-button :label="t('common.edit')" icon="pi pi-pencil" text @click="editSubsystem(sub.id)"/>
-                      <pv-button :label="t('subsystems.new-part')" icon="pi pi-plus" text @click="newPart(sub.id)"/>
+                      <pv-button v-if="iam.hasRole(ROLE.ORG_ADMIN, ROLE.MAINTENANCE_SUPERVISOR, ROLE.QUALITY_ENGINEER)" :label="t('subsystems.new-part')" icon="pi pi-plus" text @click="newPart(sub.id)"/>
                     </div>
                   </pv-accordion-content>
                 </pv-accordion-panel>
               </pv-accordion>
-              <pv-button :label="t('subsystems.new')" icon="pi pi-plus" @click="newSubsystem"/>
+              <pv-button v-if="iam.hasRole(ROLE.ORG_ADMIN, ROLE.MAINTENANCE_SUPERVISOR, ROLE.QUALITY_ENGINEER)" :label="t('subsystems.new')" icon="pi pi-plus" @click="newSubsystem"/>
             </div>
           </pv-tab-panel>
           <pv-tab-panel value="recipes">
@@ -138,7 +141,7 @@ onMounted(() => store.fetchAll());
                   </template>
                 </pv-column>
               </pv-data-table>
-              <pv-button :label="t('recipes.new')" icon="pi pi-plus" @click="newRecipe"/>
+              <pv-button v-if="iam.hasRole(ROLE.ORG_ADMIN, ROLE.QUALITY_ENGINEER)" :label="t('recipes.new')" icon="pi pi-plus" @click="newRecipe"/>
             </div>
           </pv-tab-panel>
         </pv-tab-panels>
