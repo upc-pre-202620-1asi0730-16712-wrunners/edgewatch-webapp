@@ -65,6 +65,18 @@ export class TraceabilityApi extends BaseApi {
         return this.#recuperationsEndpoint.getAllBy({supplierOrganizationId: id});
     }
 
+    getRecuperationById(id) {
+        return this.#recuperationsEndpoint.getById(id);
+    }
+
+    createRecuperation(resource) {
+        return this.#recuperationsEndpoint.create(resource);
+    }
+
+    updateRecuperation(resource) {
+        return this.#recuperationsEndpoint.update(resource.id, resource);
+    }
+
     patchRecuperation(id, changes) {
         return this.#recuperationsEndpoint.patch(id, changes);
     }
