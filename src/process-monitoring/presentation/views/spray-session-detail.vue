@@ -1,11 +1,12 @@
 <script setup lang="js">
-import {computed, onMounted, onUnmounted, watch} from "vue";
+import {computed, onMounted, onUnmounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {useI18n} from "vue-i18n";
 import useProcessMonitoringStore from "@/process-monitoring/application/process-monitoring.store.js";
 import useEquipmentStore from "@/equipment/application/equipment.store.js";
 import useTraceabilityStore from "@/traceability/application/traceability.store.js";
 import ParameterCard from "@/process-monitoring/presentation/components/parameter-card.vue";
+import AbortSessionDialog from "@/process-monitoring/presentation/components/abort-session-dialog.vue";
 import {classify, ProcessReading} from "@/process-monitoring/domain/model/process-reading.entity.js";
 
 const {t} = useI18n();
@@ -16,6 +17,7 @@ const equipment = useEquipmentStore();
 const traceability = useTraceabilityStore();
 
 const isDev = import.meta.env.DEV;
+const abortVisible = ref(false);
 const sessionId = computed(() => parseInt(route.params.id));
 const session = computed(() => store.getSessionById(sessionId.value));
 const system = computed(() => session.value ? equipment.getHvofSystemById(session.value.hvofSystemId) : null);
@@ -46,6 +48,15 @@ const simulateReading = () => {
         subsystemId: mapping?.subsystemId ?? null, partId: mapping?.partId ?? null, value,
         unitSymbol: p.unitSymbol, unitCategory: p.unitCategory, band: classify(value, p), mappingPending: !mapping
     }));
+};
+
+const complete = () => session.value && store.completeSession(session.value.id);
+
+const abort = (reason) => {
+    if (!session.value) return;
+    store.abortSession(session.value.id, reason).then(() => {
+        if (recuperation.value) traceability.patchRecuperation(recuperation.value.id, {status: "REWORK"});
+    });
 };
 
 const back = () => router.push({name: "process-monitoring-spray-sessions"});
@@ -94,9 +105,12 @@ onUnmounted(() => store.clearReadings());
       </div>
 
       <div v-if="session.isActive" class="flex gap-2 mt-3">
+        <pv-button :label="t('session-detail.complete')" icon="pi pi-check-circle" @click="complete"/>
+        <pv-button :label="t('session-detail.abort')" icon="pi pi-stop-circle" severity="danger" @click="abortVisible = true"/>
         <pv-button v-if="isDev" :label="t('session-detail.simulate')" icon="pi pi-wifi" outlined @click="simulateReading"/>
       </div>
     </template>
+    <abort-session-dialog v-model:visible="abortVisible" @confirm="abort"/>
   </section>
 </template>
 
