@@ -415,7 +415,22 @@
     "use": "utilizando",
     "author": "por el equipo de desarrollo de {brand}"
   },
+  "language-switcher": { "label": "Seleccionar el idioma de la aplicación" },
   "footer": {
-    "rights": "Todos los derechos reservados."
+    "rights": "Todos los derechos reservados.",
+    "terms": "Términos y Condiciones"
+  },
+  "terms": {
+    "title": "Términos y Condiciones",
+    "updated": "Última actualización: 5 de octubre de 2026",
+    "intro": "Estos términos regulan el uso de EdgeWatch, la plataforma desarrollada por WebRunners para la trazabilidad y el monitoreo de procesos de recubrimiento HVOF. Al crear una cuenta o usar la plataforma, su organización los acepta.",
+    "s1": { "title": "1. Servicio", "content": "EdgeWatch permite a los proveedores de recuperación registrar clientes, componentes, órdenes de recuperación, equipos HVOF y sesiones de rociado, y a los propietarios de activos revisar la evidencia relacionada con sus componentes. La plataforma apoya la toma de decisiones; no reemplaza el criterio técnico de los ingenieros responsables de cada proceso." },
+    "s2": { "title": "2. Cuentas y roles", "content": "Cada organización es responsable de las cuentas que crea, de los roles que asigna y de mantener la confidencialidad de sus credenciales. El acceso a cada función está restringido por rol, y cada usuario debe actuar solo dentro de los permisos otorgados por su organización." },
+    "s3": { "title": "3. Propiedad y confidencialidad de los datos", "content": "Los datos del proceso, las lecturas, las órdenes de trabajo y los documentos pertenecen a la organización que los registra. WebRunners no vende ni comparte esta información con terceros y solo la usa para brindar el servicio, con la confidencialidad que se espera de profesionales de la ingeniería de software." },
+    "s4": { "title": "4. Protección de datos personales", "content": "Los datos personales de los usuarios (nombre, correo corporativo y rol) se tratan conforme a la Ley N.° 29733, Ley de Protección de Datos Personales del Perú, y su reglamento. Los usuarios pueden solicitar el acceso, la rectificación o la eliminación de sus datos contactando a WebRunners." },
+    "s5": { "title": "5. Uso aceptable", "content": "Los usuarios deben registrar información veraz, no deben alterar lecturas ni evidencias de calidad y no deben usar la plataforma para perjudicar los intereses de clientes, proveedores o terceros. Falsificar registros de calidad es causal de suspensión de la cuenta." },
+    "s6": { "title": "6. Disponibilidad y responsabilidad", "content": "WebRunners trabaja para mantener la plataforma disponible y corregir oportunamente cualquier defecto, y notificará a las organizaciones los incidentes que afecten su información. WebRunners no se responsabiliza por decisiones tomadas sin validar los datos registrados en la plataforma." },
+    "s7": { "title": "7. Ética profesional", "content": "WebRunners desarrolla y opera EdgeWatch siguiendo el Código de Ética de Ingeniería de Software de ACM/IEEE y el Código de Ética del Colegio de Ingenieros del Perú: actuar en favor del interés público, ser honestos sobre las capacidades y limitaciones del producto y proteger la seguridad de las personas involucradas en los procesos industriales." },
+    "s8": { "title": "8. Cambios y contacto", "content": "Estos términos pueden actualizarse; los cambios relevantes se comunicarán dentro de la plataforma antes de entrar en vigencia. Las consultas pueden enviarse al equipo de WebRunners mediante los canales de contacto publicados en el sitio web de EdgeWatch." }
   }
 }
