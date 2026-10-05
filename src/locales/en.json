@@ -18,7 +18,31 @@
     "title": "About us",
     "content": "EdgeWatch is a platform by WebRunners that traces every HVOF spray session back to the recovered component and its customer."
   },
-  "customers": { "title": "Customers", "delete-header": "Confirm deletion" },
+  "customers": {
+    "title": "Customers",
+    "id": "ID",
+    "legal-name": "Legal name",
+    "ruc": "RUC",
+    "mine-site": "Mine site",
+    "actions": "Actions",
+    "new": "New Customer",
+    "confirm-delete": "Are you sure you want to delete {name}?",
+    "delete-header": "Confirm deletion",
+    "empty": "No customers registered yet."
+  },
+  "customer": {
+    "new-title": "New Customer",
+    "edit-title": "Edit Customer",
+    "legal-name": "Legal name",
+    "ruc": "RUC",
+    "mine-site": "Mine site",
+    "save": "Save",
+    "cancel": "Cancel",
+    "error": {
+      "legal-name-required": "Legal name is required",
+      "ruc-invalid": "RUC must have 11 digits"
+    }
+  },
   "components": { "title": "Components" },
   "component": { "title": "Components", "type-option": { "HYDRAULIC_ROD": "Hydraulic rod", "CYLINDER_BLOCK": "Cylinder block" } },
   "recuperations": { "title": "Recuperations" },
@@ -298,7 +322,7 @@
     "none": "Your organization has no active subscription yet.",
     "choose": "Choose a plan"
   },
-  "common": { "view": "View", "edit": "Edit", "yes": "Yes", "no": "No" },
+  "common": { "view": "View", "edit": "Edit", "delete": "Delete", "back": "Back", "yes": "Yes", "no": "No" },
   "errors": { "occurred": "An error occurred while loading the data." },
   "page-not-found": {
     "title": "Page not found",
