@@ -18,6 +18,7 @@
   },
   "customers": { "title": "Customers", "delete-header": "Confirm deletion" },
   "components": { "title": "Components" },
+  "component": { "title": "Components", "type-option": { "HYDRAULIC_ROD": "Hydraulic rod", "CYLINDER_BLOCK": "Cylinder block" } },
   "recuperations": { "title": "Recuperations" },
   "hvof-systems": {
     "title": "HVOF Systems",
