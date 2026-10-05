@@ -31,15 +31,15 @@ const options = computed(() => [
     <pv-toolbar class="bg-primary border-noround shadow-2 px-3">
       <template #start>
         <div class="flex align-items-center gap-2">
-          <pv-button icon="pi pi-bars" text rounded class="text-white md:hidden" @click="drawerVisible = true"/>
-          <img src="/edgewatch-logo.svg" alt="EdgeWatch logo" class="h-2rem text-white"/>
-          <h1 class="m-0 text-xl font-bold text-white">EdgeWatch</h1>
+          <pv-button icon="pi pi-bars" text rounded class="text-black md:hidden" @click="drawerVisible = true"/>
+          <img src="/edgewatch-logo.svg" alt="EdgeWatch logo" class="h-2rem text-black"/>
+          <h1 class="m-0 text-xl font-bold text-black">EdgeWatch</h1>
         </div>
       </template>
       <template #end>
         <nav class="hidden md:flex align-items-center gap-1"><authentication-section/><language-switcher class="ml-2"/>
           <router-link v-for="option in options" :key="option.to" :to="option.to" custom v-slot="{ navigate, isActive }">
-            <pv-button :label="option.label" :icon="option.icon" text class="text-white" :class="{'font-bold underline': isActive}" @click="navigate"/>
+            <pv-button :label="option.label" :icon="option.icon" text class="text-black" :class="{'font-bold underline': isActive}" @click="navigate"/>
           </router-link>
         </nav>
 
