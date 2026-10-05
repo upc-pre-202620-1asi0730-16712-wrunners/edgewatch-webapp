@@ -4,11 +4,13 @@ import {useRoute, useRouter} from "vue-router";
 import {useI18n} from "vue-i18n";
 import useEquipmentStore from "@/equipment/application/equipment.store.js";
 import {FUEL_TYPES, HvofSystem} from "@/equipment/domain/model/hvof-system.entity.js";
+import useIamStore from "@/iam/application/iam.store.js";
 
 const {t} = useI18n();
 const route = useRoute();
 const router = useRouter();
 const store = useEquipmentStore();
+const iam = useIamStore();
 
 const systemId = route.params.id ? parseInt(route.params.id) : null;
 const isEdit = computed(() => systemId !== null);
@@ -40,7 +42,7 @@ const submit = () => {
     const system = new HvofSystem({
         id: systemId,
         code: form.code.trim(),
-        organizationId: existing?.organizationId ?? 1,
+        organizationId: existing?.organizationId ?? iam.organizationId,
         serialNumber: form.serialNumber.trim(),
         status: existing?.status ?? "ACTIVE",
         systemManufacturer: form.systemManufacturer.trim(),

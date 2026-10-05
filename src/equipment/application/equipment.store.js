@@ -6,6 +6,7 @@ import {ControllerAssembler} from "@/equipment/infrastructure/controller.assembl
 import {HvofSubsystemAssembler} from "@/equipment/infrastructure/hvof-subsystem.assembler.js";
 import {HvofPartAssembler} from "@/equipment/infrastructure/hvof-part.assembler.js";
 import {RecipeAssembler} from "@/equipment/infrastructure/recipe.assembler.js";
+import useIamStore from "@/iam/application/iam.store.js";
 
 const equipmentApi = new EquipmentApi();
 
@@ -28,7 +29,9 @@ const useEquipmentStore = defineStore("equipment", () => {
     const activeHvofSystems = computed(() => hvofSystems.value.filter(s => s.isActive));
 
     function fetchHvofSystems() {
-        equipmentApi.getHvofSystems().then(response => {
+        const organizationId = useIamStore().organizationId;
+        if (!organizationId) return;
+        equipmentApi.getHvofSystemsByOrganizationId(organizationId).then(response => {
             hvofSystems.value = HvofSystemAssembler.toEntitiesFromResponse(response);
             hvofSystemsLoaded.value = true;
         }).catch(error => errors.value.push(error));
