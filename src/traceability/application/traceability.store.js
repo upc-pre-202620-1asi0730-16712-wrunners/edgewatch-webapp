@@ -2,7 +2,7 @@ import {defineStore} from "pinia";
 import {computed, ref} from "vue";
 import {TraceabilityApi} from "@/traceability/infrastructure/traceability-api.js";
 import {CustomerAssembler} from "@/traceability/infrastructure/customer.assembler.js";
-import {Component} from "@/traceability/domain/model/component.entity.js";
+import {ComponentAssembler} from "@/traceability/infrastructure/component.assembler.js";
 import useIamStore from "@/iam/application/iam.store.js";
 
 const traceabilityApi = new TraceabilityApi();
@@ -16,6 +16,7 @@ const useTraceabilityStore = defineStore("traceability", () => {
     /** @type {import('vue').Ref<Customer[]>} */
     const customers = ref([]);
     const customersLoaded = ref(false);
+    /** @type {import('vue').Ref<Component[]>} */
     const components = ref([]);
     const componentsLoaded = ref(false);
     const recuperations = ref([]);
@@ -23,6 +24,9 @@ const useTraceabilityStore = defineStore("traceability", () => {
     const errors = ref([]);
 
     const customersCount = computed(() => customersLoaded.value ? customers.value.length : 0);
+    /** Components that belong to the customers of the signed-in organization. */
+    const organizationComponents = computed(() => components.value.filter(c => customers.value.some(customer => customer.id === c.customerId)));
+    const componentsCount = computed(() => componentsLoaded.value ? organizationComponents.value.length : 0);
     const openRecuperations = computed(() => recuperations.value.filter(r => !CLOSED_RECUPERATION_STATUSES.includes(r.status)));
 
     function fetchCustomers() {
@@ -72,8 +76,33 @@ const useTraceabilityStore = defineStore("traceability", () => {
 
     function fetchComponents() {
         traceabilityApi.getComponents().then(response => {
-            components.value = response.data.map(resource => new Component({...resource}));
+            components.value = ComponentAssembler.toEntitiesFromResponse(response);
             componentsLoaded.value = true;
+        }).catch(error => errors.value.push(error));
+    }
+
+    function getComponentById(id) {
+        const idNum = parseInt(id);
+        return components.value.find(component => component.id === idNum);
+    }
+
+    function addComponent(component) {
+        const resource = ComponentAssembler.toResourceFromEntity(component);
+        delete resource.id;
+        return traceabilityApi.createComponent(resource).then(response => {
+            const created = ComponentAssembler.toEntityFromResource(response.data);
+            components.value.push(created);
+            return created;
+        }).catch(error => errors.value.push(error));
+    }
+
+    function updateComponent(component) {
+        const resource = ComponentAssembler.toResourceFromEntity(component);
+        return traceabilityApi.updateComponent(resource).then(response => {
+            const updated = ComponentAssembler.toEntityFromResource(response.data);
+            const index = components.value.findIndex(c => c.id === updated.id);
+            if (index !== -1) components.value[index] = updated;
+            return updated;
         }).catch(error => errors.value.push(error));
     }
 
@@ -98,7 +127,7 @@ const useTraceabilityStore = defineStore("traceability", () => {
     }
 
     function componentSerialOf(componentId) {
-        return components.value.find(c => c.id === componentId)?.serialNumber ?? `#${componentId}`;
+        return getComponentById(componentId)?.serialNumber ?? `#${componentId}`;
     }
 
     function patchRecuperation(id, changes) {
@@ -111,10 +140,11 @@ const useTraceabilityStore = defineStore("traceability", () => {
     }
 
     return {
-        customers, customersLoaded, customersCount, components, componentsLoaded, recuperations, recuperationsLoaded,
-        openRecuperations, errors,
+        customers, customersLoaded, customersCount, components, componentsLoaded, organizationComponents, componentsCount,
+        recuperations, recuperationsLoaded, openRecuperations, errors,
         fetchCustomers, getCustomerById, customerNameOf, addCustomer, updateCustomer, deleteCustomer,
-        fetchComponents, fetchRecuperations, fetchAll, getRecuperationById, componentSerialOf, patchRecuperation
+        fetchComponents, getComponentById, componentSerialOf, addComponent, updateComponent,
+        fetchRecuperations, fetchAll, getRecuperationById, patchRecuperation
     };
 });
 
