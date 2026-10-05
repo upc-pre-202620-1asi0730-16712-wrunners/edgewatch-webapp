@@ -2,6 +2,7 @@ import {defineStore} from "pinia";
 import {computed, ref} from "vue";
 import {ProcessMonitoringApi} from "@/process-monitoring/infrastructure/process-monitoring-api.js";
 import {SpraySessionAssembler} from "@/process-monitoring/infrastructure/spray-session.assembler.js";
+import {ProcessReadingAssembler} from "@/process-monitoring/infrastructure/process-reading.assembler.js";
 
 const processMonitoringApi = new ProcessMonitoringApi();
 
@@ -12,8 +13,24 @@ const useProcessMonitoringStore = defineStore("process-monitoring", () => {
     const sessions = ref([]);
     const sessionsLoaded = ref(false);
     const errors = ref([]);
+    const readings = ref([]);
+    const lastUpdate = ref(null);
+    let pollingHandle = null;
 
     const activeSessions = computed(() => sessions.value.filter(s => s.isActive));
+
+    /** Map parameter → latest reading. */
+    const latestByParameter = computed(() => {
+        const map = new Map();
+        for (const r of readings.value) map.set(r.parameter, r);
+        return map;
+    });
+
+    const bandCounts = computed(() => {
+        const counts = {nominal: 0, out_of_nominal: 0, warning: 0, shutdown: 0};
+        for (const r of readings.value) counts[r.band]++;
+        return counts;
+    });
 
     function fetchSessions() {
         processMonitoringApi.getSessions().then(response => {
@@ -42,7 +59,42 @@ const useProcessMonitoringStore = defineStore("process-monitoring", () => {
         return upsertSession(processMonitoringApi.createSession(resource));
     }
 
-    return {sessions, sessionsLoaded, activeSessions, errors, fetchSessions, getSessionById, startSession, upsertSession};
+    function loadReadings(sessionId) {
+        return processMonitoringApi.getReadingsBySessionId(sessionId).then(response => {
+            readings.value = ProcessReadingAssembler.toEntitiesFromResponse(response);
+            lastUpdate.value = new Date();
+        }).catch(error => errors.value.push(error));
+    }
+
+    function startPolling(sessionId, everyMs = 5000) {
+        stopPolling();
+        loadReadings(sessionId);
+        pollingHandle = setInterval(() => loadReadings(sessionId), everyMs);
+    }
+
+    function stopPolling() {
+        if (pollingHandle) clearInterval(pollingHandle);
+        pollingHandle = null;
+    }
+
+    function clearReadings() {
+        stopPolling();
+        readings.value = [];
+        lastUpdate.value = null;
+    }
+
+    function addReading(reading) {
+        const resource = ProcessReadingAssembler.toResourceFromEntity(reading);
+        delete resource.id;
+        return processMonitoringApi.createReading(resource).then(response => {
+            readings.value.push(ProcessReadingAssembler.toEntityFromResource(response.data));
+        }).catch(error => errors.value.push(error));
+    }
+
+    return {
+        sessions, sessionsLoaded, activeSessions, errors, fetchSessions, getSessionById, startSession, upsertSession,
+        readings, lastUpdate, latestByParameter, bandCounts, loadReadings, startPolling, stopPolling, clearReadings, addReading
+    };
 });
 
 export default useProcessMonitoringStore;
