@@ -203,6 +203,12 @@
     "simulate": "Simular lectura",
     "complete": "Completar",
     "abort": "Abortar",
+    "abort-title": "Abortar sesión",
+    "abort-reason": "Motivo",
+    "abort-notes": "Notas (opcional)",
+    "abort-confirm": "Abortar sesión",
+    "abort-cancel": "Seguir corriendo",
+    "abort-reason-option": { "FLAME_OUT": "Pérdida de llama", "POWDER_DEPLETED": "Polvo agotado", "MACHINE_FAULT": "Falla de máquina", "OPERATOR_DECISION": "Decisión del operador", "OTHER": "Otro" },
     "band": { "nominal": "Nominal", "out_of_nominal": "Fuera de nominal", "warning": "Advertencia", "shutdown": "Parada" },
     "parameter": {
       "fuel_gas_flow": "Flujo de combustible", "oxygen_flow": "Flujo de oxígeno", "cooling_air_flow": "Flujo de aire de enfriamiento",

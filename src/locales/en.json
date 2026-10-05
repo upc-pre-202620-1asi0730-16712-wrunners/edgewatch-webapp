@@ -203,6 +203,12 @@
     "simulate": "Simulate reading",
     "complete": "Complete",
     "abort": "Abort",
+    "abort-title": "Abort session",
+    "abort-reason": "Reason",
+    "abort-notes": "Notes (optional)",
+    "abort-confirm": "Abort session",
+    "abort-cancel": "Keep running",
+    "abort-reason-option": { "FLAME_OUT": "Flame out", "POWDER_DEPLETED": "Powder depleted", "MACHINE_FAULT": "Machine fault", "OPERATOR_DECISION": "Operator decision", "OTHER": "Other" },
     "band": { "nominal": "Nominal", "out_of_nominal": "Out of nominal", "warning": "Warning", "shutdown": "Shutdown" },
     "parameter": {
       "fuel_gas_flow": "Fuel gas flow", "oxygen_flow": "Oxygen flow", "cooling_air_flow": "Cooling air flow",

@@ -1,4 +1,5 @@
 export const SESSION_STATUSES = ["active", "completed", "aborted", "interrupted"];
+export const ABORT_REASONS = ["FLAME_OUT", "POWDER_DEPLETED", "MACHINE_FAULT", "OPERATOR_DECISION", "OTHER"];
 
 /**
  * Domain entity: a spray session run on an HVOF system for a recuperation order with a recipe.
