@@ -21,6 +21,7 @@ const options = computed(() => [
   {label: t("option.hvof-systems"),   to: "/equipment/hvof-systems",            icon: "pi pi-cog",         visible: iam.isSupplier},
   {label: t("option.spray-sessions"), to: "/process-monitoring/spray-sessions", icon: "pi pi-chart-line",  visible: iam.isSupplier},
   {label: t("option.users"),          to: "/iam/users",                         icon: "pi pi-users",       visible: iam.isAdmin},
+  {label: t("option.subscription"),   to: "/billing/subscription",              icon: "pi pi-credit-card", visible: iam.isAdmin},
   {label: t("option.about"),          to: "/about",                             icon: "pi pi-info-circle", visible: true}
 ].filter(o => o.visible));
 </script>
