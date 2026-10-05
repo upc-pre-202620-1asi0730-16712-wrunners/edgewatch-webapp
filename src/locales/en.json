@@ -1,0 +1,436 @@
+{
+  "option": {
+    "home": "Home",
+    "recuperations": "Recuperations",
+    "components": "Components",
+    "customers": "Customers",
+    "hvof-systems": "HVOF Systems",
+    "spray-sessions": "Spray Sessions",
+    "users": "Users",
+    "subscription": "Subscription",
+    "about": "About Us"
+  },
+  "home": {
+    "title": "Welcome to EdgeWatch",
+    "content": "Traceability and process monitoring for HVOF component recovery."
+  },
+  "about": {
+    "title": "About us",
+    "content": "EdgeWatch is a platform by WebRunners that traces every HVOF spray session back to the recovered component and its customer."
+  },
+  "customers": {
+    "title": "Customers",
+    "id": "ID",
+    "legal-name": "Legal name",
+    "ruc": "RUC",
+    "mine-site": "Mine site",
+    "actions": "Actions",
+    "new": "New Customer",
+    "confirm-delete": "Are you sure you want to delete {name}?",
+    "delete-header": "Confirm deletion",
+    "empty": "No customers registered yet."
+  },
+  "customer": {
+    "new-title": "New Customer",
+    "edit-title": "Edit Customer",
+    "legal-name": "Legal name",
+    "ruc": "RUC",
+    "mine-site": "Mine site",
+    "save": "Save",
+    "cancel": "Cancel",
+    "error": {
+      "legal-name-required": "Legal name is required",
+      "ruc-invalid": "RUC must have 11 digits"
+    }
+  },
+  "components": {
+    "title": "Components",
+    "serial-number": "Serial number",
+    "part-number": "Part number",
+    "type": "Type",
+    "machine": "Machine",
+    "customer": "Customer",
+    "pcr-target-hours": "PCR target (h)",
+    "status": "Status",
+    "actions": "Actions",
+    "new": "New Component",
+    "empty": "No components registered yet."
+  },
+  "component": {
+    "title": "Components",
+    "new-title": "New Component",
+    "edit-title": "Edit Component",
+    "serial-number": "Serial number",
+    "part-number": "Part number",
+    "type": "Component type",
+    "machine-manufacturer": "Machine manufacturer",
+    "machine-model": "Machine model",
+    "customer": "Customer",
+    "pcr-target-hours": "PCR target hours",
+    "save": "Save",
+    "cancel": "Cancel",
+    "type-option": {
+      "HYDRAULIC_ROD": "Hydraulic rod",
+      "CYLINDER_BLOCK": "Cylinder block",
+      "SHAFT": "Shaft",
+      "IMPELLER": "Impeller",
+      "OTHER": "Other"
+    },
+    "status-option": {
+      "RECEIVED": "Received",
+      "IN_RECUPERATION": "In recuperation",
+      "IN_SERVICE": "In service",
+      "RETURNED": "Returned",
+      "SCRAPPED": "Scrapped"
+    },
+    "error": {
+      "required": "This field is required",
+      "pcr-min": "PCR target must be greater than 0"
+    }
+  },
+  "recuperations": {
+    "title": "Recuperations",
+    "work-order": "WO",
+    "manufacturing-order": "OF",
+    "component": "Component",
+    "customer": "Customer",
+    "status": "Status",
+    "received-at": "Received",
+    "actions": "Actions",
+    "new": "New Recuperation",
+    "empty": "No recuperation orders registered yet."
+  },
+  "recuperation": {
+    "new-title": "New Recuperation",
+    "edit-title": "Edit Recuperation",
+    "component": "Component",
+    "customer": "Customer",
+    "work-order": "Work order (WO)",
+    "manufacturing-order": "Manufacturing order (OF)",
+    "segment": "Segment",
+    "operation": "Operation",
+    "weight": "Weight",
+    "weight-unit": "Unit",
+    "hourmeter": "Hourmeter at entry (h)",
+    "powder-supplier": "Powder supplier",
+    "powder-lot": "Powder lot",
+    "powder-composition": "Powder composition",
+    "received-at": "Received at",
+    "save": "Save",
+    "cancel": "Cancel",
+    "status-option": {
+      "RECEIVED": "Received",
+      "IN_PROGRESS": "In progress",
+      "COMPLETED": "Completed",
+      "DELIVERED": "Delivered",
+      "REWORK": "Rework"
+    },
+    "error": { "required": "This field is required" }
+  },
+  "hvof-systems": {
+    "title": "HVOF Systems",
+    "code": "Code",
+    "manufacturer": "Manufacturer",
+    "model": "Model",
+    "fuel-type": "Fuel",
+    "status": "Status",
+    "actions": "Actions",
+    "new": "New HVOF System",
+    "empty": "No HVOF systems registered yet."
+  },
+  "hvof-system": {
+    "new-title": "New HVOF System",
+    "edit-title": "Edit HVOF System",
+    "code": "Code",
+    "serial-number": "Serial number",
+    "manufacturer": "System manufacturer",
+    "model": "System model",
+    "fuel-type": "Fuel type",
+    "save": "Save",
+    "cancel": "Cancel",
+    "tab-controllers": "Controllers",
+    "tab-subsystems": "Subsystems",
+    "tab-recipes": "Recipes",
+    "back": "Back to list",
+    "fuel-option": { "HYDROGEN": "Hydrogen", "PROPANE": "Propane", "KEROSENE": "Kerosene", "NATURAL_GAS": "Natural gas" },
+    "status-option": { "ACTIVE": "Active", "MAINTENANCE": "Maintenance", "OUT_OF_SERVICE": "Out of service" },
+    "error": { "required": "This field is required" }
+  },
+  "controllers": {
+    "number": "#",
+    "device-type": "Device",
+    "manufacturer": "Manufacturer",
+    "model": "Model",
+    "ip-address": "IP address",
+    "protocols": "Protocols",
+    "actions": "Actions",
+    "new": "New Controller",
+    "empty": "No controllers registered yet."
+  },
+  "controller": {
+    "new-title": "New Controller",
+    "edit-title": "Edit Controller",
+    "device-type": "Device type",
+    "manufacturer": "Manufacturer",
+    "model": "Model",
+    "part-number": "Part number",
+    "serial-number": "Serial number",
+    "ip-address": "IP address",
+    "port": "Port",
+    "rack": "Rack",
+    "slot": "Slot",
+    "protocols": "Supported protocols",
+    "save": "Save",
+    "cancel": "Cancel",
+    "error": { "required": "This field is required", "ip-invalid": "Enter a valid IPv4 address" }
+  },
+  "subsystems": {
+    "new": "New Subsystem",
+    "empty": "No subsystems registered yet.",
+    "parameters": "Parameters",
+    "parts": "Parts",
+    "new-part": "New Part",
+    "no-parts": "No parts registered.",
+    "confirm-delete-part": "Delete part {serial}?"
+  },
+  "subsystem": {
+    "new-title": "New Subsystem",
+    "edit-title": "Edit Subsystem",
+    "type": "Subsystem type",
+    "name": "Name",
+    "alias": "Alias (as in the controller)",
+    "parameters": "Parameters (type and press Enter)",
+    "save": "Save",
+    "cancel": "Cancel",
+    "type-option": {
+      "GAS_CONSOLE": "Gas console", "POWDER_FEEDER": "Powder feeder", "COOLING_UNIT": "Cooling unit",
+      "MANIPULATOR": "Manipulator", "DUST_COLLECTOR": "Dust collector", "SPRAY_GUN": "Spray gun"
+    },
+    "error": { "required": "This field is required" }
+  },
+  "part": {
+    "new-title": "New Part",
+    "type": "Part type",
+    "serial-number": "Serial number",
+    "manufacturer": "Manufacturer",
+    "save": "Save",
+    "cancel": "Cancel",
+    "type-option": {
+      "MASS_FLOW_CONTROLLER": "Mass flow controller", "HOPPER": "Hopper", "CARRIER_GAS_MFC": "Carrier gas MFC",
+      "COOLANT_PUMP": "Coolant pump", "TEMPERATURE_SENSOR": "Temperature sensor", "SPINDLE_VFD": "Spindle VFD",
+      "AXIS_DRIVE": "Axis drive", "NOZZLE": "Nozzle"
+    }
+  },
+  "recipes": {
+    "number": "#",
+    "name": "Name",
+    "powder": "Powder",
+    "status": "Status",
+    "parameters": "Parameters",
+    "actions": "Actions",
+    "new": "New Recipe",
+    "publish": "Publish",
+    "empty": "No recipes defined yet.",
+    "status-option": { "DRAFT": "Draft", "ACTIVE": "Active", "RETIRED": "Retired" }
+  },
+  "recipe": {
+    "new-title": "New Recipe",
+    "edit-title": "Edit Recipe",
+    "number": "Recipe number",
+    "name": "Name",
+    "powder": "Powder specification",
+    "applicabilities": "Applicable components",
+    "component-type": "Component type",
+    "machine-model": "Machine model",
+    "position": "Position",
+    "add-applicability": "Add component",
+    "parameters": "Parameters and threshold bands",
+    "parameter": "Parameter",
+    "setpoint": "SP",
+    "lsd": "LSD",
+    "law": "LAW",
+    "nmin": "Min",
+    "nmax": "Max",
+    "haw": "HAW",
+    "hsd": "HSD",
+    "unit": "Unit",
+    "unit-category": "Category",
+    "add-parameter": "Add parameter",
+    "save": "Save",
+    "cancel": "Cancel",
+    "error": {
+      "required": "This field is required",
+      "order": "Thresholds must satisfy LSD < LAW < Min ≤ SP ≤ Max < HAW < HSD",
+      "no-parameters": "Add at least one parameter"
+    }
+  },
+  "spray-sessions": {
+    "title": "Spray Sessions",
+    "id": "ID",
+    "started-at": "Started",
+    "hvof-system": "HVOF System",
+    "recuperation": "Order (WO)",
+    "recipe": "Recipe",
+    "status": "Status",
+    "deviations": "Deviations",
+    "actions": "Actions",
+    "start": "Start Session",
+    "open": "Open",
+    "filter-system": "HVOF System",
+    "filter-recuperation": "Order",
+    "filter-from": "From",
+    "filter-to": "To",
+    "clear-filters": "Clear",
+    "empty": "No sessions match the selected filters.",
+    "status-option": { "active": "Active", "completed": "Completed", "aborted": "Aborted", "interrupted": "Interrupted" }
+  },
+  "spray-session": {
+    "start-title": "Start Spray Session",
+    "hvof-system": "HVOF System",
+    "recuperation": "Recuperation order",
+    "recipe": "Recipe",
+    "recipe-hint": "Only active recipes of the selected system",
+    "start": "Start Session",
+    "cancel": "Cancel",
+    "error": { "required": "This field is required", "no-active-recipes": "The selected system has no active recipes" }
+  },
+  "session-detail": {
+    "title": "Session",
+    "back": "Back to sessions",
+    "started": "Started",
+    "ended": "Ended",
+    "recipe": "Recipe",
+    "order": "Order",
+    "system": "System",
+    "readings": "readings",
+    "last-update": "Last update",
+    "live": "LIVE",
+    "no-readings": "No readings received yet.",
+    "setpoint": "SP",
+    "simulate": "Simulate reading",
+    "complete": "Complete",
+    "abort": "Abort",
+    "abort-title": "Abort session",
+    "abort-reason": "Reason",
+    "abort-notes": "Notes (optional)",
+    "abort-confirm": "Abort session",
+    "abort-cancel": "Keep running",
+    "abort-reason-option": { "FLAME_OUT": "Flame out", "POWDER_DEPLETED": "Powder depleted", "MACHINE_FAULT": "Machine fault", "OPERATOR_DECISION": "Operator decision", "OTHER": "Other" },
+    "band": { "nominal": "Nominal", "out_of_nominal": "Out of nominal", "warning": "Warning", "shutdown": "Shutdown" },
+    "parameter": {
+      "fuel_gas_flow": "Fuel gas flow", "oxygen_flow": "Oxygen flow", "cooling_air_flow": "Cooling air flow",
+      "powder_feed_rate": "Powder feed rate", "carrier_gas_flow": "Carrier gas flow", "hopper_pressure": "Hopper pressure",
+      "coolant_flow": "Coolant flow", "coolant_outlet_temp": "Coolant outlet temp", "spindle_speed": "Spindle speed"
+    }
+  },
+  "iam": {
+    "sign-up": {
+      "title": "Register your organization",
+      "organization-step": "Organization",
+      "admin-step": "Administrator",
+      "organization-name": "Organization name",
+      "ruc": "RUC",
+      "organization-type": "Organization type",
+      "supplier": "Recuperation Supplier",
+      "supplier-hint": "We operate HVOF systems and recover components for our customers",
+      "asset-owner": "Asset Owner",
+      "asset-owner-hint": "We own the components and send them to recuperation suppliers",
+      "full-name": "Full name",
+      "email": "Email",
+      "password": "Password",
+      "next": "Next",
+      "back": "Back",
+      "submit": "Create organization",
+      "have-account": "Already registered?",
+      "sign-in-link": "Sign in"
+    },
+    "sign-in": {
+      "title": "Sign in",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "no-account": "New organization?",
+      "sign-up-link": "Register",
+      "failed": "Invalid email or password"
+    },
+    "section": {
+      "welcome": "Hi, {name}",
+      "sign-in": "Sign in",
+      "sign-up": "Register",
+      "sign-out": "Sign out"
+    },
+    "error": {
+      "required": "This field is required",
+      "email": "Enter a valid email",
+      "ruc": "RUC must have 11 digits",
+      "password-min": "At least 8 characters"
+    },
+    "users": {
+      "title": "Users and roles",
+      "name": "Name",
+      "email": "Email",
+      "roles": "Roles",
+      "status": "Status",
+      "actions": "Actions",
+      "edit-roles": "Edit roles",
+      "roles-title": "Roles of {name}",
+      "save": "Save roles",
+      "cancel": "Cancel",
+      "role-option": {
+        "ROLE_ORG_ADMIN": "Organization admin", "ROLE_QUALITY_ENGINEER": "Quality & research engineer",
+        "ROLE_MAINTENANCE_SUPERVISOR": "Machine maintenance supervisor", "ROLE_HVOF_OPERATOR": "HVOF operator",
+        "ROLE_OPERATIONS_SUPERVISOR": "Operations supervisor", "ROLE_RELIABILITY_ENGINEER": "Reliability engineer",
+        "ROLE_PROCUREMENT_ANALYST": "Procurement analyst"
+      }
+    }
+  },
+  "billing": {
+    "plans-title": "Choose your plan",
+    "plans-hint": "Only the plan that matches your organization type can be selected.",
+    "per-month": "/ month",
+    "monitored-systems": "monitored HVOF systems",
+    "tracked-components": "tracked components",
+    "select": "Select plan",
+    "current": "Current plan",
+    "not-available": "Not available for your organization type",
+    "subscription-title": "Subscription",
+    "plan": "Plan",
+    "valid-from": "Valid from",
+    "valid-until": "Valid until",
+    "status": "Status",
+    "days-left": "{days} days left",
+    "expiring-soon": "Expiring soon",
+    "none": "Your organization has no active subscription yet.",
+    "choose": "Choose a plan"
+  },
+  "common": { "view": "View", "edit": "Edit", "delete": "Delete", "back": "Back", "yes": "Yes", "no": "No" },
+  "errors": { "occurred": "An error occurred while loading the data." },
+  "page-not-found": {
+    "title": "Page not found",
+    "content": "The path {unavailable-route} is not available.",
+    "go-home": "Go Home"
+  },
+  "authoring-phrase": {
+    "intro": "Made with",
+    "use": "using",
+    "author": "by {brand} Developer Team"
+  },
+  "language-switcher": { "label": "Select the application language" },
+  "footer": {
+    "rights": "All rights reserved.",
+    "terms": "Terms & Conditions"
+  },
+  "terms": {
+    "title": "Terms & Conditions",
+    "updated": "Last updated: October 5, 2026",
+    "intro": "These terms govern the use of EdgeWatch, the platform developed by WebRunners for the traceability and monitoring of HVOF coating processes. By creating an account or using the platform, your organization accepts them.",
+    "s1": { "title": "1. Service", "content": "EdgeWatch lets recuperation suppliers register customers, components, recuperation orders, HVOF equipment and spray sessions, and lets asset owners review the evidence related to their components. The platform supports decisions; it does not replace the technical judgment of the engineers responsible for each process." },
+    "s2": { "title": "2. Accounts and roles", "content": "Each organization is responsible for the accounts it creates, the roles it assigns and for keeping its credentials confidential. Access to each function is restricted by role, and every user must act only within the permissions granted by their organization." },
+    "s3": { "title": "3. Data ownership and confidentiality", "content": "Process data, readings, work orders and documents belong to the organization that registers them. WebRunners does not sell or share this information with third parties and only uses it to provide the service, under the confidentiality expected from software engineering professionals." },
+    "s4": { "title": "4. Personal data protection", "content": "Personal data of users (name, corporate email and role) is processed in accordance with Peruvian Law No. 29733 on Personal Data Protection and its regulations. Users may request access, correction or deletion of their data by contacting WebRunners." },
+    "s5": { "title": "5. Acceptable use", "content": "Users must register truthful information, must not alter readings or quality evidence, and must not use the platform to harm the interests of customers, suppliers or third parties. Falsifying quality records is grounds for suspending the account." },
+    "s6": { "title": "6. Availability and responsibility", "content": "WebRunners works to keep the platform available and to correct any defect promptly, and will notify organizations of incidents that affect their information. WebRunners is not liable for decisions taken without validating the data recorded in the platform." },
+    "s7": { "title": "7. Professional ethics", "content": "WebRunners develops and operates EdgeWatch following the ACM/IEEE Software Engineering Code of Ethics and the Code of Ethics of the Colegio de Ingenieros del Perú: acting in the public interest, being honest about the capabilities and limitations of the product, and protecting the safety of the people involved in industrial processes." },
+    "s8": { "title": "8. Changes and contact", "content": "These terms may be updated; relevant changes will be communicated within the platform before they take effect. Questions can be sent to the WebRunners team through the contact channels published on the EdgeWatch website." }
+  }
+}
