@@ -3,6 +3,7 @@ import traceabilityRoutes from "@/traceability/presentation/traceability-routes.
 import equipmentRoutes from "@/equipment/presentation/equipment-routes.js";
 import processMonitoringRoutes from "@/process-monitoring/presentation/process-monitoring-routes.js";
 import iamRoutes from "@/iam/presentation/iam-routes.js";
+import billingRoutes from "@/billing/presentation/billing-routes.js";
 import {authenticationGuard} from "@/iam/infrastructure/authentication.guard.js";
 
 const home = () => import("@/shared/presentation/views/home.vue");
@@ -16,6 +17,7 @@ const routes = [
     {path: "/equipment",          name: "equipment",          meta: {requiresSupplier: true}, children: equipmentRoutes},
     {path: "/process-monitoring", name: "process-monitoring", meta: {requiresSupplier: true}, children: processMonitoringRoutes},
     {path: "/iam",                name: "iam",                children: iamRoutes},
+    {path: "/billing",            name: "billing",            children: billingRoutes},
     {path: "/",                   name: "default",            redirect: "/home"},
     {path: "/:pathMatch(.*)*",    name: "not-found",          component: pageNotFound,  meta: {title: "Page Not Found"}}
 ];
