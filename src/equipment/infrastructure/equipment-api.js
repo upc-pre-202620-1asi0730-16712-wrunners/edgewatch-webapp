@@ -31,6 +31,10 @@ export class EquipmentApi extends BaseApi {
         return this.#hvofSystemsEndpoint.getAll();
     }
 
+    getHvofSystemsByOrganizationId(id) {
+        return this.#hvofSystemsEndpoint.getAllBy({organizationId: id});
+    }
+
     createHvofSystem(resource) {
         return this.#hvofSystemsEndpoint.create(resource);
     }

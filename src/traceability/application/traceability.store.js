@@ -5,6 +5,7 @@ import {defineStore} from "pinia";
 import {computed, ref} from "vue";
 import {TraceabilityApi} from "@/traceability/infrastructure/traceability-api.js";
 import {Component} from "@/traceability/domain/model/component.entity.js";
+import useIamStore from "@/iam/application/iam.store.js";
 
 const traceabilityApi = new TraceabilityApi();
 
@@ -31,7 +32,9 @@ const useTraceabilityStore = defineStore("traceability", () => {
     }
 
     function fetchRecuperations() {
-        traceabilityApi.getRecuperations().then(response => {
+        const organizationId = useIamStore().organizationId;
+        if (!organizationId) return;
+        traceabilityApi.getRecuperationsByOrganizationId(organizationId).then(response => {
             recuperations.value = response.data.map(resource => ({...resource, linkedSessions: resource.linkedSessions ?? []}));
             recuperationsLoaded.value = true;
         }).catch(error => errors.value.push(error));
