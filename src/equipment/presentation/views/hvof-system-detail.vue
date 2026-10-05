@@ -15,6 +15,7 @@ const systemId = computed(() => parseInt(route.params.id));
 const system = computed(() => store.getHvofSystemById(systemId.value));
 const controllers = computed(() => store.controllersOf(systemId.value));
 const subsystems = computed(() => store.subsystemsOf(systemId.value));
+const recipes = computed(() => store.recipesOf(systemId.value));
 
 const back = () => router.push({name: "equipment-hvof-systems"});
 const newController = () => router.push({name: "equipment-controller-new", params: {id: systemId.value}});
@@ -28,6 +29,10 @@ const confirmDeletePart = (part) => confirm.require({
     acceptLabel: t("common.yes"), rejectLabel: t("common.no"), acceptClass: "p-button-danger",
     accept: () => store.deletePart(part.id)
 });
+const newRecipe = () => router.push({name: "equipment-recipe-new", params: {id: systemId.value}});
+const editRecipe = (recipeId) => router.push({name: "equipment-recipe-edit", params: {id: systemId.value, recipeId}});
+const publishRecipe = (recipeId) => store.publishRecipe(recipeId);
+const recipeSeverity = (status) => ({DRAFT: "warn", ACTIVE: "success", RETIRED: "secondary"}[status]);
 
 onMounted(() => store.fetchAll());
 </script>
@@ -48,6 +53,7 @@ onMounted(() => store.fetchAll());
         <pv-tab-list>
           <pv-tab value="controllers">{{ t('hvof-system.tab-controllers') }}</pv-tab>
           <pv-tab value="subsystems">{{ t('hvof-system.tab-subsystems') }}</pv-tab>
+          <pv-tab value="recipes">{{ t('hvof-system.tab-recipes') }}</pv-tab>
         </pv-tab-list>
         <pv-tab-panels>
           <pv-tab-panel value="controllers">
@@ -110,6 +116,29 @@ onMounted(() => store.fetchAll());
                 </pv-accordion-panel>
               </pv-accordion>
               <pv-button :label="t('subsystems.new')" icon="pi pi-plus" @click="newSubsystem"/>
+            </div>
+          </pv-tab-panel>
+          <pv-tab-panel value="recipes">
+            <div class="flex flex-column gap-3 align-items-start">
+              <p v-if="recipes.length === 0" class="m-0 text-color-secondary">{{ t('recipes.empty') }}</p>
+              <pv-data-table v-else :value="recipes" class="w-full" striped-rows>
+                <pv-column field="recipeNumber" :header="t('recipes.number')" style="width: 4rem"/>
+                <pv-column field="name" :header="t('recipes.name')"/>
+                <pv-column field="powderSpecification" :header="t('recipes.powder')"/>
+                <pv-column :header="t('recipes.status')">
+                  <template #body="{ data }"><pv-tag :value="t('recipes.status-option.' + data.status)" :severity="recipeSeverity(data.status)"/></template>
+                </pv-column>
+                <pv-column :header="t('recipes.parameters')">
+                  <template #body="{ data }">{{ data.parameters.length }}</template>
+                </pv-column>
+                <pv-column :header="t('recipes.actions')" style="width: 7rem">
+                  <template #body="{ data }">
+                    <pv-button icon="pi pi-pencil" text rounded @click="editRecipe(data.id)"/>
+                    <pv-button v-if="data.status === 'DRAFT'" icon="pi pi-upload" text rounded v-tooltip.top="t('recipes.publish')" @click="publishRecipe(data.id)"/>
+                  </template>
+                </pv-column>
+              </pv-data-table>
+              <pv-button :label="t('recipes.new')" icon="pi pi-plus" @click="newRecipe"/>
             </div>
           </pv-tab-panel>
         </pv-tab-panels>
