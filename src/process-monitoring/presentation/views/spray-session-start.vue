@@ -6,12 +6,14 @@ import useProcessMonitoringStore from "@/process-monitoring/application/process-
 import useEquipmentStore from "@/equipment/application/equipment.store.js";
 import useTraceabilityStore from "@/traceability/application/traceability.store.js";
 import {SpraySession} from "@/process-monitoring/domain/model/spray-session.entity.js";
+import useIamStore from "@/iam/application/iam.store.js";
 
 const {t} = useI18n();
 const router = useRouter();
 const store = useProcessMonitoringStore();
 const equipment = useEquipmentStore();
 const traceability = useTraceabilityStore();
+const iam = useIamStore();
 
 const submitted = ref(false);
 const form = reactive({hvofSystemId: null, recuperationId: null, recipeNumber: null});
@@ -34,7 +36,7 @@ const submit = () => {
     submitted.value = true;
     if (!formValid.value) return;
     const session = new SpraySession({
-        hvofSystemId: form.hvofSystemId, recuperationId: form.recuperationId, operatorId: 4,
+        hvofSystemId: form.hvofSystemId, recuperationId: form.recuperationId, operatorId: iam.userId,
         recipeNumber: form.recipeNumber, startedAt: new Date().toISOString(), status: "active"
     });
     store.startSession(session).then(created => {
