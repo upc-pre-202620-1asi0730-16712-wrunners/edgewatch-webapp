@@ -45,6 +45,18 @@ export class TraceabilityApi extends BaseApi {
         return this.#componentsEndpoint.getAll();
     }
 
+    getComponentById(id) {
+        return this.#componentsEndpoint.getById(id);
+    }
+
+    createComponent(resource) {
+        return this.#componentsEndpoint.create(resource);
+    }
+
+    updateComponent(resource) {
+        return this.#componentsEndpoint.update(resource.id, resource);
+    }
+
     getRecuperations() {
         return this.#recuperationsEndpoint.getAll();
     }
