@@ -16,6 +16,7 @@ const useProcessMonitoringStore = defineStore("process-monitoring", () => {
     const readings = ref([]);
     const lastUpdate = ref(null);
     let pollingHandle = null;
+    const deviations = ref(new Map());
 
     const activeSessions = computed(() => sessions.value.filter(s => s.isActive));
 
@@ -101,10 +102,20 @@ const useProcessMonitoringStore = defineStore("process-monitoring", () => {
         }).catch(error => errors.value.push(error));
     }
 
+    function loadDeviations(sessionId) {
+        if (deviations.value.has(sessionId)) return;
+        Promise.all([
+            processMonitoringApi.getReadingsBySessionIdAndBand(sessionId, "warning"),
+            processMonitoringApi.getReadingsBySessionIdAndBand(sessionId, "shutdown")
+        ]).then(([w, s]) => {
+            deviations.value = new Map(deviations.value).set(sessionId, w.data.length + s.data.length);
+        }).catch(() => { deviations.value = new Map(deviations.value).set(sessionId, -1); });
+    }
+
     return {
         sessions, sessionsLoaded, activeSessions, errors, fetchSessions, getSessionById, startSession, upsertSession,
         readings, lastUpdate, latestByParameter, bandCounts, loadReadings, startPolling, stopPolling, clearReadings, addReading,
-        completeSession, abortSession
+        completeSession, abortSession, deviations, loadDeviations
     };
 });
 
