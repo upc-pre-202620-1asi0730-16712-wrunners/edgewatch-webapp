@@ -157,7 +157,36 @@
       "no-parameters": "Agrega al menos un parámetro"
     }
   },
-  "spray-sessions": { "title": "Sesiones de rociado" },
+  "spray-sessions": {
+    "title": "Sesiones de rociado",
+    "id": "ID",
+    "started-at": "Inicio",
+    "hvof-system": "Sistema HVOF",
+    "recuperation": "Orden (WO)",
+    "recipe": "Receta",
+    "status": "Estado",
+    "deviations": "Desviaciones",
+    "actions": "Acciones",
+    "start": "Iniciar sesión",
+    "open": "Abrir",
+    "filter-system": "Sistema HVOF",
+    "filter-recuperation": "Orden",
+    "filter-from": "Desde",
+    "filter-to": "Hasta",
+    "clear-filters": "Limpiar",
+    "empty": "Ninguna sesión coincide con los filtros.",
+    "status-option": { "active": "Activa", "completed": "Completada", "aborted": "Abortada", "interrupted": "Interrumpida" }
+  },
+  "spray-session": {
+    "start-title": "Iniciar sesión de rociado",
+    "hvof-system": "Sistema HVOF",
+    "recuperation": "Orden de recuperación",
+    "recipe": "Receta",
+    "recipe-hint": "Solo recetas activas del sistema seleccionado",
+    "start": "Iniciar sesión",
+    "cancel": "Cancelar",
+    "error": { "required": "Este campo es obligatorio", "no-active-recipes": "El sistema seleccionado no tiene recetas activas" }
+  },
   "common": { "view": "Ver", "edit": "Editar", "yes": "Sí", "no": "No" },
   "errors": { "occurred": "Ocurrió un error al cargar los datos." },
   "page-not-found": {
