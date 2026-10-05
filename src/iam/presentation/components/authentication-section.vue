@@ -15,7 +15,7 @@ const toggle = (event) => menu.value.toggle(event);
 
 <template>
   <template v-if="store.isSignedIn">
-    <pv-button :label="t('iam.section.welcome', {name: store.fullName})" icon="pi pi-user" text class="text-white" @click="toggle"/>
+    <pv-button :label="t('iam.section.welcome', {name: store.fullName})" icon="pi pi-user" text class="text-black" @click="toggle"/>
     <pv-menu ref="menu" :model="items" popup>
       <template #start>
         <div class="px-3 py-2 text-sm text-color-secondary">{{ store.email }}<br><small>{{ store.organizationType }}</small></div>
@@ -23,7 +23,7 @@ const toggle = (event) => menu.value.toggle(event);
     </pv-menu>
   </template>
   <template v-else>
-    <pv-button :label="t('iam.section.sign-in')" text class="text-white" @click="router.push({name: 'iam-sign-in'})"/>
-    <pv-button :label="t('iam.section.sign-up')" outlined class="text-white border-white" @click="router.push({name: 'iam-sign-up'})"/>
+    <pv-button :label="t('iam.section.sign-in')" text class="text-black" @click="router.push({name: 'iam-sign-in'})"/>
+    <pv-button :label="t('iam.section.sign-up')" outlined class="text-black border-black" @click="router.push({name: 'iam-sign-up'})"/>
   </template>
 </template>
