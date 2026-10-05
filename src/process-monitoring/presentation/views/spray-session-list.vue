@@ -5,12 +5,15 @@ import {useI18n} from "vue-i18n";
 import useProcessMonitoringStore from "@/process-monitoring/application/process-monitoring.store.js";
 import useEquipmentStore from "@/equipment/application/equipment.store.js";
 import useTraceabilityStore from "@/traceability/application/traceability.store.js";
+import useIamStore from "@/iam/application/iam.store.js";
+import {ROLE} from "@/iam/domain/model/role.entity.js";
 
 const {t} = useI18n();
 const router = useRouter();
 const store = useProcessMonitoringStore();
 const equipment = useEquipmentStore();
 const traceability = useTraceabilityStore();
+const iam = useIamStore();
 
 const filters = reactive({hvofSystemId: null, recuperationId: null, from: null, to: null});
 
@@ -50,7 +53,7 @@ onMounted(() => {
   <section class="p-4 md:p-5">
     <div class="flex align-items-center justify-content-between mb-3">
       <h1 class="m-0 text-3xl font-bold text-color">{{ t('spray-sessions.title') }}</h1>
-      <pv-button :label="t('spray-sessions.start')" icon="pi pi-play" @click="startSession"/>
+      <pv-button v-if="iam.hasRole(ROLE.ORG_ADMIN, ROLE.HVOF_OPERATOR, ROLE.OPERATIONS_SUPERVISOR)" :label="t('spray-sessions.start')" icon="pi pi-play" @click="startSession"/>
     </div>
     <div class="flex flex-wrap align-items-center gap-2 mb-3">
       <pv-select v-model="filters.hvofSystemId" :options="systemOptions" option-label="label" option-value="value" show-clear :placeholder="t('spray-sessions.filter-system')" class="w-12rem"/>
