@@ -18,9 +18,76 @@
     "title": "Acerca de nosotros",
     "content": "EdgeWatch es una plataforma de WebRunners que vincula cada sesión de rociado HVOF con el componente recuperado y su cliente."
   },
-  "customers": { "title": "Clientes", "delete-header": "Confirmar eliminación" },
-  "components": { "title": "Componentes" },
-  "component": { "title": "Componentes", "type-option": { "HYDRAULIC_ROD": "Vástago hidráulico", "CYLINDER_BLOCK": "Bloque de cilindros" } },
+  "customers": {
+    "title": "Clientes",
+    "id": "ID",
+    "legal-name": "Razón social",
+    "ruc": "RUC",
+    "mine-site": "Sede / unidad minera",
+    "actions": "Acciones",
+    "new": "Nuevo cliente",
+    "confirm-delete": "¿Seguro que deseas eliminar {name}?",
+    "delete-header": "Confirmar eliminación",
+    "empty": "Aún no hay clientes registrados."
+  },
+  "customer": {
+    "new-title": "Nuevo cliente",
+    "edit-title": "Editar cliente",
+    "legal-name": "Razón social",
+    "ruc": "RUC",
+    "mine-site": "Sede / unidad minera",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "error": {
+      "legal-name-required": "La razón social es obligatoria",
+      "ruc-invalid": "El RUC debe tener 11 dígitos"
+    }
+  },
+  "components": {
+    "title": "Componentes",
+    "serial-number": "N.º de serie",
+    "part-number": "Part number",
+    "type": "Tipo",
+    "machine": "Máquina",
+    "customer": "Cliente",
+    "pcr-target-hours": "PCR objetivo (h)",
+    "status": "Estado",
+    "actions": "Acciones",
+    "new": "Nuevo componente",
+    "empty": "Aún no hay componentes registrados."
+  },
+  "component": {
+    "title": "Componentes",
+    "new-title": "Nuevo componente",
+    "edit-title": "Editar componente",
+    "serial-number": "Número de serie",
+    "part-number": "Part number",
+    "type": "Tipo de componente",
+    "machine-manufacturer": "Fabricante de la máquina",
+    "machine-model": "Modelo de la máquina",
+    "customer": "Cliente",
+    "pcr-target-hours": "Horas objetivo de PCR",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "type-option": {
+      "HYDRAULIC_ROD": "Vástago hidráulico",
+      "CYLINDER_BLOCK": "Bloque de cilindros",
+      "SHAFT": "Eje",
+      "IMPELLER": "Impulsor",
+      "OTHER": "Otro"
+    },
+    "status-option": {
+      "RECEIVED": "Recibido",
+      "IN_RECUPERATION": "En recuperación",
+      "IN_SERVICE": "En servicio",
+      "RETURNED": "Retornado",
+      "SCRAPPED": "Dado de baja"
+    },
+    "error": {
+      "required": "Este campo es obligatorio",
+      "pcr-min": "El PCR objetivo debe ser mayor que 0"
+    }
+  },
   "recuperations": { "title": "Recuperaciones" },
   "hvof-systems": {
     "title": "Sistemas HVOF",
@@ -298,7 +365,7 @@
     "none": "Tu organización aún no tiene una suscripción activa.",
     "choose": "Elegir un plan"
   },
-  "common": { "view": "Ver", "edit": "Editar", "yes": "Sí", "no": "No" },
+  "common": { "view": "Ver", "edit": "Editar", "delete": "Eliminar", "back": "Volver", "yes": "Sí", "no": "No" },
   "errors": { "occurred": "Ocurrió un error al cargar los datos." },
   "page-not-found": {
     "title": "Página no encontrada",
