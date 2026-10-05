@@ -5,6 +5,7 @@ import {HvofSystemAssembler} from "@/equipment/infrastructure/hvof-system.assemb
 import {ControllerAssembler} from "@/equipment/infrastructure/controller.assembler.js";
 import {HvofSubsystemAssembler} from "@/equipment/infrastructure/hvof-subsystem.assembler.js";
 import {HvofPartAssembler} from "@/equipment/infrastructure/hvof-part.assembler.js";
+import {RecipeAssembler} from "@/equipment/infrastructure/recipe.assembler.js";
 
 const equipmentApi = new EquipmentApi();
 
@@ -20,6 +21,8 @@ const useEquipmentStore = defineStore("equipment", () => {
     const subsystemsLoaded = ref(false);
     const parts = ref([]);
     const partsLoaded = ref(false);
+    const recipes = ref([]);
+    const recipesLoaded = ref(false);
     const errors = ref([]);
 
     const activeHvofSystems = computed(() => hvofSystems.value.filter(s => s.isActive));
@@ -49,6 +52,13 @@ const useEquipmentStore = defineStore("equipment", () => {
         equipmentApi.getParts().then(response => {
             parts.value = HvofPartAssembler.toEntitiesFromResponse(response);
             partsLoaded.value = true;
+        }).catch(error => errors.value.push(error));
+    }
+
+    function fetchRecipes() {
+        equipmentApi.getRecipes().then(response => {
+            recipes.value = RecipeAssembler.toEntitiesFromResponse(response);
+            recipesLoaded.value = true;
         }).catch(error => errors.value.push(error));
     }
 
@@ -82,6 +92,23 @@ const useEquipmentStore = defineStore("equipment", () => {
     /** Distinct parameter names declared by the subsystems of a system (feeds the recipe form). */
     function parametersOf(hvofSystemId) {
         return [...new Set(subsystemsOf(hvofSystemId).flatMap(s => s.parameterNames))];
+    }
+
+    function recipesOf(hvofSystemId) {
+        return recipes.value.filter(r => r.hvofSystemId === hvofSystemId);
+    }
+
+    function activeRecipesOf(hvofSystemId) {
+        return recipesOf(hvofSystemId).filter(r => r.isActive);
+    }
+
+    function getRecipeById(id) {
+        const idNum = parseInt(id);
+        return recipes.value.find(r => r.id === idNum);
+    }
+
+    function recipeByNumber(hvofSystemId, recipeNumber) {
+        return recipesOf(hvofSystemId).find(r => r.recipeNumber === recipeNumber);
     }
 
     /** Generic create/update helper: keeps the store rhythm in one place. */
@@ -137,11 +164,26 @@ const useEquipmentStore = defineStore("equipment", () => {
         }).catch(error => errors.value.push(error));
     }
 
+    function addRecipe(recipe) {
+        const resource = RecipeAssembler.toResourceFromEntity(recipe);
+        delete resource.id;
+        return upsert(recipes, equipmentApi.createRecipe(resource), RecipeAssembler);
+    }
+
+    function updateRecipe(recipe) {
+        return upsert(recipes, equipmentApi.updateRecipe(RecipeAssembler.toResourceFromEntity(recipe)), RecipeAssembler);
+    }
+
+    function publishRecipe(id) {
+        return upsert(recipes, equipmentApi.patchRecipe(id, {status: "ACTIVE"}), RecipeAssembler);
+    }
+
     function fetchAll() {
         if (!hvofSystemsLoaded.value) fetchHvofSystems();
         if (!controllersLoaded.value) fetchControllers();
         if (!subsystemsLoaded.value) fetchSubsystems();
         if (!partsLoaded.value) fetchParts();
+        if (!recipesLoaded.value) fetchRecipes();
     }
 
     return {
@@ -149,7 +191,8 @@ const useEquipmentStore = defineStore("equipment", () => {
         fetchHvofSystems, fetchControllers, fetchAll, getHvofSystemById, controllersOf, getControllerById,
         addHvofSystem, updateHvofSystem, addController, updateController, upsert,
         subsystems, subsystemsLoaded, parts, partsLoaded, fetchSubsystems, fetchParts, subsystemsOf, getSubsystemById,
-        partsOf, parametersOf, addSubsystem, updateSubsystem, addPart, deletePart
+        partsOf, parametersOf, addSubsystem, updateSubsystem, addPart, deletePart,
+        recipes, recipesLoaded, fetchRecipes, recipesOf, activeRecipesOf, getRecipeById, recipeByNumber, addRecipe, updateRecipe, publishRecipe
     };
 });
 
