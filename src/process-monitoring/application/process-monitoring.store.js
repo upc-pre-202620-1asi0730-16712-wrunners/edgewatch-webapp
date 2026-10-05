@@ -59,6 +59,16 @@ const useProcessMonitoringStore = defineStore("process-monitoring", () => {
         return upsertSession(processMonitoringApi.createSession(resource));
     }
 
+    function completeSession(id) {
+        stopPolling();
+        return upsertSession(processMonitoringApi.patchSession(id, {status: "completed", endedAt: new Date().toISOString()}));
+    }
+
+    function abortSession(id, reason) {
+        stopPolling();
+        return upsertSession(processMonitoringApi.patchSession(id, {status: "aborted", endedAt: new Date().toISOString(), abortReason: reason}));
+    }
+
     function loadReadings(sessionId) {
         return processMonitoringApi.getReadingsBySessionId(sessionId).then(response => {
             readings.value = ProcessReadingAssembler.toEntitiesFromResponse(response);
@@ -93,7 +103,8 @@ const useProcessMonitoringStore = defineStore("process-monitoring", () => {
 
     return {
         sessions, sessionsLoaded, activeSessions, errors, fetchSessions, getSessionById, startSession, upsertSession,
-        readings, lastUpdate, latestByParameter, bandCounts, loadReadings, startPolling, stopPolling, clearReadings, addReading
+        readings, lastUpdate, latestByParameter, bandCounts, loadReadings, startPolling, stopPolling, clearReadings, addReading,
+        completeSession, abortSession
     };
 });
 
