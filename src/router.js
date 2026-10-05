@@ -2,6 +2,7 @@ import {createRouter, createWebHistory} from "vue-router";
 import traceabilityRoutes from "@/traceability/presentation/traceability-routes.js";
 import equipmentRoutes from "@/equipment/presentation/equipment-routes.js";
 import processMonitoringRoutes from "@/process-monitoring/presentation/process-monitoring-routes.js";
+import iamRoutes from "@/iam/presentation/iam-routes.js";
 
 const home = () => import("@/shared/presentation/views/home.vue");
 const about = () => import("@/shared/presentation/views/about.vue");
@@ -13,6 +14,7 @@ const routes = [
     {path: "/traceability",       name: "traceability",       children: traceabilityRoutes},
     {path: "/equipment",          name: "equipment",          children: equipmentRoutes},
     {path: "/process-monitoring", name: "process-monitoring", children: processMonitoringRoutes},
+    {path: "/iam",                name: "iam",                children: iamRoutes},
     {path: "/",                   name: "default",            redirect: "/home"},
     {path: "/:pathMatch(.*)*",    name: "not-found",          component: pageNotFound,  meta: {title: "Page Not Found"}}
 ];
