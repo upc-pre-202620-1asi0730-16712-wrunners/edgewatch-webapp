@@ -77,6 +77,8 @@
     "error": { "required": "This field is required", "ip-invalid": "Enter a valid IPv4 address" }
   },
   "spray-sessions": { "title": "Spray Sessions" },
+  "common": { "view": "View", "edit": "Edit", "yes": "Yes", "no": "No" },
+  "errors": { "occurred": "An error occurred while loading the data." },
   "page-not-found": {
     "title": "Page not found",
     "content": "The path {unavailable-route} is not available.",
