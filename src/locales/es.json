@@ -76,6 +76,43 @@
     "cancel": "Cancelar",
     "error": { "required": "Este campo es obligatorio", "ip-invalid": "Ingresa una dirección IPv4 válida" }
   },
+  "subsystems": {
+    "new": "Nuevo subsistema",
+    "empty": "Aún no hay subsistemas registrados.",
+    "parameters": "Parámetros",
+    "parts": "Partes",
+    "new-part": "Nueva parte",
+    "no-parts": "Sin partes registradas.",
+    "confirm-delete-part": "¿Eliminar la parte {serial}?"
+  },
+  "subsystem": {
+    "new-title": "Nuevo subsistema",
+    "edit-title": "Editar subsistema",
+    "type": "Tipo de subsistema",
+    "name": "Nombre",
+    "alias": "Alias (como en el controlador)",
+    "parameters": "Parámetros (escribe y presiona Enter)",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "type-option": {
+      "GAS_CONSOLE": "Consola de gases", "POWDER_FEEDER": "Alimentador de polvo", "COOLING_UNIT": "Unidad de enfriamiento",
+      "MANIPULATOR": "Manipulador", "DUST_COLLECTOR": "Colector de polvo", "SPRAY_GUN": "Pistola de rociado"
+    },
+    "error": { "required": "Este campo es obligatorio" }
+  },
+  "part": {
+    "new-title": "Nueva parte",
+    "type": "Tipo de parte",
+    "serial-number": "Número de serie",
+    "manufacturer": "Fabricante",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "type-option": {
+      "MASS_FLOW_CONTROLLER": "Controlador de flujo másico", "HOPPER": "Tolva", "CARRIER_GAS_MFC": "MFC de gas portador",
+      "COOLANT_PUMP": "Bomba de refrigerante", "TEMPERATURE_SENSOR": "Sensor de temperatura", "SPINDLE_VFD": "Variador del husillo",
+      "AXIS_DRIVE": "Drive de eje", "NOZZLE": "Boquilla"
+    }
+  },
   "spray-sessions": { "title": "Sesiones de rociado" },
   "common": { "view": "Ver", "edit": "Editar", "yes": "Sí", "no": "No" },
   "errors": { "occurred": "Ocurrió un error al cargar los datos." },
