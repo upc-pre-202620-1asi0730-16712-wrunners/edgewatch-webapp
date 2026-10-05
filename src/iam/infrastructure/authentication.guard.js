@@ -1,6 +1,6 @@
 import useIamStore from "@/iam/application/iam.store.js";
 
-const PUBLIC_ROUTES = ["iam-sign-in", "iam-sign-up", "about", "not-found"];
+const PUBLIC_ROUTES = ["iam-sign-in", "iam-sign-up", "about", "terms", "not-found"];
 const GUEST_ONLY_ROUTES = ["iam-sign-in", "iam-sign-up"];
 
 /**

@@ -8,11 +8,13 @@ import {authenticationGuard} from "@/iam/infrastructure/authentication.guard.js"
 
 const home = () => import("@/shared/presentation/views/home.vue");
 const about = () => import("@/shared/presentation/views/about.vue");
+const termsAndConditions = () => import("@/shared/presentation/views/terms-and-conditions.vue");
 const pageNotFound = () => import("@/shared/presentation/views/page-not-found.vue");
 
 const routes = [
     {path: "/home",               name: "home",               component: home,          meta: {title: "Home"}},
     {path: "/about",              name: "about",              component: about,         meta: {title: "About"}},
+    {path: "/terms",              name: "terms",              component: termsAndConditions, meta: {title: "Terms & Conditions"}},
     {path: "/traceability",       name: "traceability",       meta: {requiresSupplier: true}, children: traceabilityRoutes},
     {path: "/equipment",          name: "equipment",          meta: {requiresSupplier: true}, children: equipmentRoutes},
     {path: "/process-monitoring", name: "process-monitoring", meta: {requiresSupplier: true}, children: processMonitoringRoutes},
