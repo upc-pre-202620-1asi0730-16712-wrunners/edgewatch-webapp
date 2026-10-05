@@ -18,6 +18,7 @@
   },
   "customers": { "title": "Customers", "delete-header": "Confirm deletion" },
   "components": { "title": "Components" },
+  "component": { "title": "Components", "type-option": { "HYDRAULIC_ROD": "Hydraulic rod", "CYLINDER_BLOCK": "Cylinder block" } },
   "recuperations": { "title": "Recuperations" },
   "hvof-systems": {
     "title": "HVOF Systems",
@@ -111,6 +112,49 @@
       "MASS_FLOW_CONTROLLER": "Mass flow controller", "HOPPER": "Hopper", "CARRIER_GAS_MFC": "Carrier gas MFC",
       "COOLANT_PUMP": "Coolant pump", "TEMPERATURE_SENSOR": "Temperature sensor", "SPINDLE_VFD": "Spindle VFD",
       "AXIS_DRIVE": "Axis drive", "NOZZLE": "Nozzle"
+    }
+  },
+  "recipes": {
+    "number": "#",
+    "name": "Name",
+    "powder": "Powder",
+    "status": "Status",
+    "parameters": "Parameters",
+    "actions": "Actions",
+    "new": "New Recipe",
+    "publish": "Publish",
+    "empty": "No recipes defined yet.",
+    "status-option": { "DRAFT": "Draft", "ACTIVE": "Active", "RETIRED": "Retired" }
+  },
+  "recipe": {
+    "new-title": "New Recipe",
+    "edit-title": "Edit Recipe",
+    "number": "Recipe number",
+    "name": "Name",
+    "powder": "Powder specification",
+    "applicabilities": "Applicable components",
+    "component-type": "Component type",
+    "machine-model": "Machine model",
+    "position": "Position",
+    "add-applicability": "Add component",
+    "parameters": "Parameters and threshold bands",
+    "parameter": "Parameter",
+    "setpoint": "SP",
+    "lsd": "LSD",
+    "law": "LAW",
+    "nmin": "Min",
+    "nmax": "Max",
+    "haw": "HAW",
+    "hsd": "HSD",
+    "unit": "Unit",
+    "unit-category": "Category",
+    "add-parameter": "Add parameter",
+    "save": "Save",
+    "cancel": "Cancel",
+    "error": {
+      "required": "This field is required",
+      "order": "Thresholds must satisfy LSD < LAW < Min ≤ SP ≤ Max < HAW < HSD",
+      "no-parameters": "Add at least one parameter"
     }
   },
   "spray-sessions": { "title": "Spray Sessions" },
