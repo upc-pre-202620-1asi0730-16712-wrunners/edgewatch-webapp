@@ -7,6 +7,7 @@
     "hvof-systems": "HVOF Systems",
     "spray-sessions": "Spray Sessions",
     "users": "Users",
+    "subscription": "Subscription",
     "about": "About Us"
   },
   "home": {
@@ -277,6 +278,25 @@
         "ROLE_PROCUREMENT_ANALYST": "Procurement analyst"
       }
     }
+  },
+  "billing": {
+    "plans-title": "Choose your plan",
+    "plans-hint": "Only the plan that matches your organization type can be selected.",
+    "per-month": "/ month",
+    "monitored-systems": "monitored HVOF systems",
+    "tracked-components": "tracked components",
+    "select": "Select plan",
+    "current": "Current plan",
+    "not-available": "Not available for your organization type",
+    "subscription-title": "Subscription",
+    "plan": "Plan",
+    "valid-from": "Valid from",
+    "valid-until": "Valid until",
+    "status": "Status",
+    "days-left": "{days} days left",
+    "expiring-soon": "Expiring soon",
+    "none": "Your organization has no active subscription yet.",
+    "choose": "Choose a plan"
   },
   "common": { "view": "View", "edit": "Edit", "yes": "Yes", "no": "No" },
   "errors": { "occurred": "An error occurred while loading the data." },
