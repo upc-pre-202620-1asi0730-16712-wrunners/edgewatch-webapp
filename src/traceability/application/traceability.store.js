@@ -3,11 +3,10 @@ import {computed, ref} from "vue";
 import {TraceabilityApi} from "@/traceability/infrastructure/traceability-api.js";
 import {CustomerAssembler} from "@/traceability/infrastructure/customer.assembler.js";
 import {ComponentAssembler} from "@/traceability/infrastructure/component.assembler.js";
+import {RecuperationAssembler} from "@/traceability/infrastructure/recuperation.assembler.js";
 import useIamStore from "@/iam/application/iam.store.js";
 
 const traceabilityApi = new TraceabilityApi();
-
-const CLOSED_RECUPERATION_STATUSES = ["DELIVERED", "CANCELLED"];
 
 /**
  * Application store of the Traceability bounded context.
@@ -19,6 +18,7 @@ const useTraceabilityStore = defineStore("traceability", () => {
     /** @type {import('vue').Ref<Component[]>} */
     const components = ref([]);
     const componentsLoaded = ref(false);
+    /** @type {import('vue').Ref<Recuperation[]>} */
     const recuperations = ref([]);
     const recuperationsLoaded = ref(false);
     const errors = ref([]);
@@ -27,7 +27,7 @@ const useTraceabilityStore = defineStore("traceability", () => {
     /** Components that belong to the customers of the signed-in organization. */
     const organizationComponents = computed(() => components.value.filter(c => customers.value.some(customer => customer.id === c.customerId)));
     const componentsCount = computed(() => componentsLoaded.value ? organizationComponents.value.length : 0);
-    const openRecuperations = computed(() => recuperations.value.filter(r => !CLOSED_RECUPERATION_STATUSES.includes(r.status)));
+    const openRecuperations = computed(() => recuperations.value.filter(r => r.isOpen));
 
     function fetchCustomers() {
         const organizationId = useIamStore().organizationId;
@@ -86,6 +86,10 @@ const useTraceabilityStore = defineStore("traceability", () => {
         return components.value.find(component => component.id === idNum);
     }
 
+    function componentSerialOf(componentId) {
+        return getComponentById(componentId)?.serialNumber ?? `#${componentId}`;
+    }
+
     function addComponent(component) {
         const resource = ComponentAssembler.toResourceFromEntity(component);
         delete resource.id;
@@ -110,33 +114,51 @@ const useTraceabilityStore = defineStore("traceability", () => {
         const organizationId = useIamStore().organizationId;
         if (!organizationId) return;
         traceabilityApi.getRecuperationsByOrganizationId(organizationId).then(response => {
-            recuperations.value = response.data.map(resource => ({...resource, linkedSessions: resource.linkedSessions ?? []}));
+            recuperations.value = RecuperationAssembler.toEntitiesFromResponse(response);
             recuperationsLoaded.value = true;
         }).catch(error => errors.value.push(error));
     }
 
+    function getRecuperationById(id) {
+        const idNum = parseInt(id);
+        return recuperations.value.find(recuperation => recuperation.id === idNum);
+    }
+
+    function addRecuperation(recuperation) {
+        const resource = RecuperationAssembler.toResourceFromEntity(recuperation);
+        delete resource.id;
+        return traceabilityApi.createRecuperation(resource).then(response => {
+            const created = RecuperationAssembler.toEntityFromResource(response.data);
+            recuperations.value.push(created);
+            return created;
+        }).catch(error => errors.value.push(error));
+    }
+
+    function updateRecuperation(recuperation) {
+        const resource = RecuperationAssembler.toResourceFromEntity(recuperation);
+        return traceabilityApi.updateRecuperation(resource).then(response => {
+            const updated = RecuperationAssembler.toEntityFromResource(response.data);
+            const index = recuperations.value.findIndex(r => r.id === updated.id);
+            if (index !== -1) recuperations.value[index] = updated;
+            return updated;
+        }).catch(error => errors.value.push(error));
+    }
+
+    /** Partial update used by Process Monitoring (status, linkedSessions). */
+    function patchRecuperation(id, changes) {
+        return traceabilityApi.patchRecuperation(id, changes).then(response => {
+            const updated = RecuperationAssembler.toEntityFromResource(response.data);
+            const index = recuperations.value.findIndex(r => r.id === updated.id);
+            if (index !== -1) recuperations.value[index] = updated;
+            return updated;
+        }).catch(error => errors.value.push(error));
+    }
+
+    /** Loads the three collections once; used by views that need all of them. */
     function fetchAll() {
         if (!customersLoaded.value) fetchCustomers();
         if (!componentsLoaded.value) fetchComponents();
         if (!recuperationsLoaded.value) fetchRecuperations();
-    }
-
-    function getRecuperationById(id) {
-        const idNum = parseInt(id);
-        return recuperations.value.find(r => r.id === idNum);
-    }
-
-    function componentSerialOf(componentId) {
-        return getComponentById(componentId)?.serialNumber ?? `#${componentId}`;
-    }
-
-    function patchRecuperation(id, changes) {
-        return traceabilityApi.patchRecuperation(id, changes).then(response => {
-            const index = recuperations.value.findIndex(r => r.id === id);
-            const updated = {...response.data, linkedSessions: response.data.linkedSessions ?? []};
-            if (index !== -1) recuperations.value[index] = updated;
-            return updated;
-        }).catch(error => errors.value.push(error));
     }
 
     return {
@@ -144,7 +166,7 @@ const useTraceabilityStore = defineStore("traceability", () => {
         recuperations, recuperationsLoaded, openRecuperations, errors,
         fetchCustomers, getCustomerById, customerNameOf, addCustomer, updateCustomer, deleteCustomer,
         fetchComponents, getComponentById, componentSerialOf, addComponent, updateComponent,
-        fetchRecuperations, fetchAll, getRecuperationById, patchRecuperation
+        fetchRecuperations, getRecuperationById, addRecuperation, updateRecuperation, patchRecuperation, fetchAll
     };
 });
 
