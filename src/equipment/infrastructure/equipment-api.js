@@ -5,6 +5,7 @@ const hvofSystemsEndpointPath = import.meta.env.VITE_HVOF_SYSTEMS_ENDPOINT_PATH;
 const controllersEndpointPath = import.meta.env.VITE_CONTROLLERS_ENDPOINT_PATH;
 const subsystemsEndpointPath = import.meta.env.VITE_HVOF_SUBSYSTEMS_ENDPOINT_PATH;
 const partsEndpointPath = import.meta.env.VITE_HVOF_PARTS_ENDPOINT_PATH;
+const recipesEndpointPath = import.meta.env.VITE_RECIPES_ENDPOINT_PATH;
 
 /**
  * API gateway of the Equipment bounded context.
@@ -15,6 +16,7 @@ export class EquipmentApi extends BaseApi {
     #controllersEndpoint;
     #subsystemsEndpoint;
     #partsEndpoint;
+    #recipesEndpoint;
 
     constructor() {
         super();
@@ -22,6 +24,7 @@ export class EquipmentApi extends BaseApi {
         this.#controllersEndpoint = new BaseEndpoint(this, controllersEndpointPath);
         this.#subsystemsEndpoint = new BaseEndpoint(this, subsystemsEndpointPath);
         this.#partsEndpoint = new BaseEndpoint(this, partsEndpointPath);
+        this.#recipesEndpoint = new BaseEndpoint(this, recipesEndpointPath);
     }
 
     getHvofSystems() {
@@ -74,5 +77,21 @@ export class EquipmentApi extends BaseApi {
 
     deletePart(id) {
         return this.#partsEndpoint.delete(id);
+    }
+
+    getRecipes() {
+        return this.#recipesEndpoint.getAll();
+    }
+
+    createRecipe(resource) {
+        return this.#recipesEndpoint.create(resource);
+    }
+
+    updateRecipe(resource) {
+        return this.#recipesEndpoint.update(resource.id, resource);
+    }
+
+    patchRecipe(id, changes) {
+        return this.#recipesEndpoint.patch(id, changes);
     }
 }
