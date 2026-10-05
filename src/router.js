@@ -3,6 +3,7 @@ import traceabilityRoutes from "@/traceability/presentation/traceability-routes.
 import equipmentRoutes from "@/equipment/presentation/equipment-routes.js";
 import processMonitoringRoutes from "@/process-monitoring/presentation/process-monitoring-routes.js";
 import iamRoutes from "@/iam/presentation/iam-routes.js";
+import {authenticationGuard} from "@/iam/infrastructure/authentication.guard.js";
 
 const home = () => import("@/shared/presentation/views/home.vue");
 const about = () => import("@/shared/presentation/views/about.vue");
@@ -11,9 +12,9 @@ const pageNotFound = () => import("@/shared/presentation/views/page-not-found.vu
 const routes = [
     {path: "/home",               name: "home",               component: home,          meta: {title: "Home"}},
     {path: "/about",              name: "about",              component: about,         meta: {title: "About"}},
-    {path: "/traceability",       name: "traceability",       children: traceabilityRoutes},
-    {path: "/equipment",          name: "equipment",          children: equipmentRoutes},
-    {path: "/process-monitoring", name: "process-monitoring", children: processMonitoringRoutes},
+    {path: "/traceability",       name: "traceability",       meta: {requiresSupplier: true}, children: traceabilityRoutes},
+    {path: "/equipment",          name: "equipment",          meta: {requiresSupplier: true}, children: equipmentRoutes},
+    {path: "/process-monitoring", name: "process-monitoring", meta: {requiresSupplier: true}, children: processMonitoringRoutes},
     {path: "/iam",                name: "iam",                children: iamRoutes},
     {path: "/",                   name: "default",            redirect: "/home"},
     {path: "/:pathMatch(.*)*",    name: "not-found",          component: pageNotFound,  meta: {title: "Page Not Found"}}
@@ -24,11 +25,11 @@ const router = createRouter({
     routes
 });
 
-/** Sets the browser tab title from the route metadata. */
+/** Sets the browser tab title from the route metadata and applies the authentication guard. */
 router.beforeEach((to, from, next) => {
     const baseTitle = "EdgeWatch";
     document.title = to.meta?.title ? `${baseTitle} - ${to.meta.title}` : baseTitle;
-    next();
+    authenticationGuard(to, from, next);
 });
 
 export default router;
