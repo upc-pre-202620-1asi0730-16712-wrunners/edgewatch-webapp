@@ -3,6 +3,8 @@ import {computed, ref} from "vue";
 import {IamApi} from "@/iam/infrastructure/iam-api.js";
 import {SignInAssembler} from "@/iam/infrastructure/sign-in.assembler.js";
 import {ROLE} from "@/iam/domain/model/role.entity.js";
+import {UserAssembler} from "@/iam/infrastructure/user.assembler.js";
+import {RoleAssembler} from "@/iam/infrastructure/role.assembler.js";
 
 const iamApi = new IamApi();
 const TOKEN_KEY = "edgewatch.token";
@@ -33,6 +35,13 @@ const useIamStore = defineStore("iam", () => {
     const isAssetOwner = computed(() => organizationType.value === "ASSET_OWNER");
     const isAdmin = computed(() => hasRole(ROLE.ORG_ADMIN));
     const currentToken = computed(() => isSignedIn.value ? localStorage.getItem(TOKEN_KEY) : null);
+
+    const users = ref([]);
+    const roles = ref([]);
+
+    const SUPPLIER_ROLES = ["ROLE_ORG_ADMIN", "ROLE_QUALITY_ENGINEER", "ROLE_MAINTENANCE_SUPERVISOR", "ROLE_HVOF_OPERATOR", "ROLE_OPERATIONS_SUPERVISOR"];
+    const ASSET_OWNER_ROLES = ["ROLE_ORG_ADMIN", "ROLE_RELIABILITY_ENGINEER", "ROLE_PROCUREMENT_ANALYST"];
+    const assignableRoles = computed(() => roles.value.filter(r => (isSupplier.value ? SUPPLIER_ROLES : ASSET_OWNER_ROLES).includes(r.name)));
 
     function hasRole(...ids) {
         return ids.some(id => roleIds.value.includes(id));
@@ -75,9 +84,28 @@ const useIamStore = defineStore("iam", () => {
         router.push({name: "iam-sign-in"});
     }
 
+    function fetchUsersAndRoles() {
+        if (!organizationId.value) return;
+        iamApi.getRoles().then(r => { roles.value = RoleAssembler.toEntitiesFromResponse(r); });
+        iamApi.getUsersByOrganizationId(organizationId.value).then(r => { users.value = UserAssembler.toEntitiesFromResponse(r); });
+    }
+
+    function roleName(roleId) {
+        return roles.value.find(r => r.id === roleId)?.name ?? `#${roleId}`;
+    }
+
+    function updateUserRoles(userId, ids) {
+        return iamApi.updateUserRoles(userId, ids.map(roleId => ({roleId}))).then(response => {
+            const updated = UserAssembler.toEntityFromResource(response.data);
+            const index = users.value.findIndex(u => u.id === updated.id);
+            if (index !== -1) users.value[index] = updated;
+        }).catch(err => { error.value = err.message; });
+    }
+
     return {
         session, error, isSignedIn, userId, email, fullName, organizationId, organizationType, roleIds,
-        isSupplier, isAssetOwner, isAdmin, currentToken, hasRole, signIn, signUp, signOut
+        isSupplier, isAssetOwner, isAdmin, currentToken, hasRole, signIn, signUp, signOut,
+        users, roles, assignableRoles, fetchUsersAndRoles, roleName, updateUserRoles
     };
 });
 
