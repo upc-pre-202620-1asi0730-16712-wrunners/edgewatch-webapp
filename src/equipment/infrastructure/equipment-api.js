@@ -3,6 +3,8 @@ import {BaseEndpoint} from "@/shared/infrastructure/base-endpoint.js";
 
 const hvofSystemsEndpointPath = import.meta.env.VITE_HVOF_SYSTEMS_ENDPOINT_PATH;
 const controllersEndpointPath = import.meta.env.VITE_CONTROLLERS_ENDPOINT_PATH;
+const subsystemsEndpointPath = import.meta.env.VITE_HVOF_SUBSYSTEMS_ENDPOINT_PATH;
+const partsEndpointPath = import.meta.env.VITE_HVOF_PARTS_ENDPOINT_PATH;
 
 /**
  * API gateway of the Equipment bounded context.
@@ -11,11 +13,15 @@ const controllersEndpointPath = import.meta.env.VITE_CONTROLLERS_ENDPOINT_PATH;
 export class EquipmentApi extends BaseApi {
     #hvofSystemsEndpoint;
     #controllersEndpoint;
+    #subsystemsEndpoint;
+    #partsEndpoint;
 
     constructor() {
         super();
         this.#hvofSystemsEndpoint = new BaseEndpoint(this, hvofSystemsEndpointPath);
         this.#controllersEndpoint = new BaseEndpoint(this, controllersEndpointPath);
+        this.#subsystemsEndpoint = new BaseEndpoint(this, subsystemsEndpointPath);
+        this.#partsEndpoint = new BaseEndpoint(this, partsEndpointPath);
     }
 
     getHvofSystems() {
@@ -44,5 +50,29 @@ export class EquipmentApi extends BaseApi {
 
     updateController(resource) {
         return this.#controllersEndpoint.update(resource.id, resource);
+    }
+
+    getSubsystems() {
+        return this.#subsystemsEndpoint.getAll();
+    }
+
+    createSubsystem(resource) {
+        return this.#subsystemsEndpoint.create(resource);
+    }
+
+    updateSubsystem(resource) {
+        return this.#subsystemsEndpoint.update(resource.id, resource);
+    }
+
+    getParts() {
+        return this.#partsEndpoint.getAll();
+    }
+
+    createPart(resource) {
+        return this.#partsEndpoint.create(resource);
+    }
+
+    deletePart(id) {
+        return this.#partsEndpoint.delete(id);
     }
 }
