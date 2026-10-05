@@ -1,7 +1,7 @@
 {
   "name": "edgewatch-webapp",
   "private": true,
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "EdgeWatch Web Application",
   "author": "WebRunners",
   "license": "MIT",
