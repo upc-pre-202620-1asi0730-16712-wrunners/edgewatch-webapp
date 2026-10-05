@@ -16,7 +16,7 @@
     "title": "About us",
     "content": "EdgeWatch is a platform by WebRunners that traces every HVOF spray session back to the recovered component and its customer."
   },
-  "customers": { "title": "Customers" },
+  "customers": { "title": "Customers", "delete-header": "Confirm deletion" },
   "components": { "title": "Components" },
   "recuperations": { "title": "Recuperations" },
   "hvof-systems": {

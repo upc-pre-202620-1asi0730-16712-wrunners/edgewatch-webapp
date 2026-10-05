@@ -16,7 +16,7 @@
     "title": "Acerca de nosotros",
     "content": "EdgeWatch es una plataforma de WebRunners que vincula cada sesión de rociado HVOF con el componente recuperado y su cliente."
   },
-  "customers": { "title": "Clientes" },
+  "customers": { "title": "Clientes", "delete-header": "Confirmar eliminación" },
   "components": { "title": "Componentes" },
   "recuperations": { "title": "Recuperaciones" },
   "hvof-systems": {
