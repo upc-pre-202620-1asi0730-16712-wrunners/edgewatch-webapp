@@ -415,7 +415,22 @@
     "use": "using",
     "author": "by {brand} Developer Team"
   },
+  "language-switcher": { "label": "Select the application language" },
   "footer": {
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "terms": "Terms & Conditions"
+  },
+  "terms": {
+    "title": "Terms & Conditions",
+    "updated": "Last updated: October 5, 2026",
+    "intro": "These terms govern the use of EdgeWatch, the platform developed by WebRunners for the traceability and monitoring of HVOF coating processes. By creating an account or using the platform, your organization accepts them.",
+    "s1": { "title": "1. Service", "content": "EdgeWatch lets recuperation suppliers register customers, components, recuperation orders, HVOF equipment and spray sessions, and lets asset owners review the evidence related to their components. The platform supports decisions; it does not replace the technical judgment of the engineers responsible for each process." },
+    "s2": { "title": "2. Accounts and roles", "content": "Each organization is responsible for the accounts it creates, the roles it assigns and for keeping its credentials confidential. Access to each function is restricted by role, and every user must act only within the permissions granted by their organization." },
+    "s3": { "title": "3. Data ownership and confidentiality", "content": "Process data, readings, work orders and documents belong to the organization that registers them. WebRunners does not sell or share this information with third parties and only uses it to provide the service, under the confidentiality expected from software engineering professionals." },
+    "s4": { "title": "4. Personal data protection", "content": "Personal data of users (name, corporate email and role) is processed in accordance with Peruvian Law No. 29733 on Personal Data Protection and its regulations. Users may request access, correction or deletion of their data by contacting WebRunners." },
+    "s5": { "title": "5. Acceptable use", "content": "Users must register truthful information, must not alter readings or quality evidence, and must not use the platform to harm the interests of customers, suppliers or third parties. Falsifying quality records is grounds for suspending the account." },
+    "s6": { "title": "6. Availability and responsibility", "content": "WebRunners works to keep the platform available and to correct any defect promptly, and will notify organizations of incidents that affect their information. WebRunners is not liable for decisions taken without validating the data recorded in the platform." },
+    "s7": { "title": "7. Professional ethics", "content": "WebRunners develops and operates EdgeWatch following the ACM/IEEE Software Engineering Code of Ethics and the Code of Ethics of the Colegio de Ingenieros del Perú: acting in the public interest, being honest about the capabilities and limitations of the product, and protecting the safety of the people involved in industrial processes." },
+    "s8": { "title": "8. Changes and contact", "content": "These terms may be updated; relevant changes will be communicated within the platform before they take effect. Questions can be sent to the WebRunners team through the contact channels published on the EdgeWatch website." }
   }
 }
