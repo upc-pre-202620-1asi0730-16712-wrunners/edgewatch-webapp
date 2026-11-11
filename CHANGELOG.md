@@ -2,6 +2,10 @@
 
 All notable changes to the EdgeWatch Web Application are documented in this file. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.0.1] - 2026-11-11
+### Added
+- PrimeUI community license key for development and `.gitattributes` normalizing line endings to LF.
+
 ## [2.0.0] - 2026-11-11
 ### Added
 - Connection to the EdgeWatch Platform REST API (JWT session, localized problem details, nested resources); the fake API remains only for Billing.
