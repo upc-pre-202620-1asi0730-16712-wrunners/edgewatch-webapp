@@ -47,7 +47,7 @@ const groups = computed(() => [
       <template v-for="group in groups" :key="group.label">
         <p class="group-label">{{ group.label }}</p>
         <router-link v-for="option in group.options" :key="option.to" :to="option.to" custom v-slot="{ navigate, isActive }">
-          <a class="nav-item" :class="{active: isActive}" :href="option.to" @click.prevent="navigate">
+          <a class="nav-item" :class="{active: isActive}" :href="option.to" @click="navigate">
             <i :class="option.icon"></i><span>{{ option.label }}</span>
           </a>
         </router-link>
