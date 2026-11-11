@@ -85,11 +85,7 @@ export class QuickStartService {
 
         // Any open order of the demo component serves; when all of them are closed a new order is opened with a fresh work order number.
         const recuperation = await step("recuperation", t.openRecuperations.find(r => r.componentId === component.id),
-            () => t.addRecuperation(new Recuperation({
-                ...demo.recuperation, workOrderNumber: this.#nextWorkOrderNumber(demo.recuperation.workOrderNumber),
-                componentId: component.id, customerId: customer.id, supplierOrganizationId: organizationId,
-                receivedAt: new Date().toISOString().slice(0, 10)
-            })));
+            () => this.#openRecuperation(demo.recuperation, component, customer, organizationId));
 
         return {hvofSystem, recipe, recuperation};
     }
@@ -106,13 +102,24 @@ export class QuickStartService {
         });
     }
 
-    /** The demo work order number, or the same number with a numeric suffix when it is already taken by a closed order. */
-    #nextWorkOrderNumber(base) {
-        const taken = new Set(this.#traceability.recuperations.map(r => r.workOrderNumber));
-        if (!taken.has(base)) return base;
-        let n = 2;
-        while (taken.has(`${base}-${n}`)) n++;
-        return `${base}-${n}`;
+    /**
+     * Opens the demo order. Work order numbers are unique across the platform (other organizations included), so on a
+     * 409 the number is retried with a numeric suffix: WO-2026-1408, WO-2026-1408-2, WO-2026-1408-3, ...
+     */
+    async #openRecuperation(demo, component, customer, organizationId) {
+        const t = this.#traceability;
+        const taken = new Set(t.recuperations.map(r => r.workOrderNumber));
+        for (let n = 1; n <= 50; n++) {
+            const workOrderNumber = n === 1 ? demo.workOrderNumber : `${demo.workOrderNumber}-${n}`;
+            if (taken.has(workOrderNumber)) continue;
+            const created = await t.addRecuperation(new Recuperation({
+                ...demo, workOrderNumber, componentId: component.id, customerId: customer.id, supplierOrganizationId: organizationId,
+                receivedAt: new Date().toISOString().slice(0, 10)
+            }));
+            if (created) return created;
+            if (t.errors[t.errors.length - 1]?.response?.status !== 409) return null;
+        }
+        return null;
     }
 
     /** The stores swallow API errors into their `errors` list; the most recent one explains a failed step. */
