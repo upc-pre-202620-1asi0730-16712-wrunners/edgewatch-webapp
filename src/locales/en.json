@@ -8,7 +8,8 @@
     "spray-sessions": "Spray Sessions",
     "users": "Users",
     "subscription": "Subscription",
-    "about": "About Us"
+    "about": "About Us",
+    "fault-cases": "Fault Cases"
   },
   "home": {
     "title": "Welcome to EdgeWatch",
@@ -381,7 +382,8 @@
     },
     "tab-live": "Live",
     "tab-trends": "Trends",
-    "analyze": "Analyze session"
+    "analyze": "Analyze session",
+    "fault-cases": "Fault cases"
   },
   "iam": {
     "sign-up": {
@@ -572,5 +574,47 @@
     "value": "Value",
     "band": "Band",
     "tag": "Tag"
+  },
+  "fault-cases": {
+    "title": "Fault Cases",
+    "manage-rules": "Manage rules",
+    "all-statuses": "All statuses",
+    "session": "Session",
+    "refresh": "Refresh",
+    "empty": "No fault cases match the filters.",
+    "detected-at": "Detected",
+    "system": "System",
+    "parameter": "Parameter",
+    "band": "Band",
+    "value": "Value",
+    "probable-cause": "Probable cause",
+    "recommended-action": "Recommended action",
+    "status": "Status",
+    "actions": "Actions",
+    "acknowledge": "Acknowledge",
+    "resolve": "Resolve",
+    "cancel": "Cancel",
+    "resolve-title": "Resolve fault case",
+    "resolution-notes": "Resolution notes (optional)",
+    "status-option": {
+      "open": "Open",
+      "acknowledged": "Acknowledged",
+      "resolved": "Resolved"
+    }
+  },
+  "fault-rules": {
+    "title": "Fault Rules",
+    "new": "New rule",
+    "hint": "When a reading leaves its band, the platform opens a fault case with the probable cause and recommended action of the matching rule. The cooldown avoids one case per reading.",
+    "empty": "No rules yet.",
+    "parameter": "Parameter",
+    "band": "Band",
+    "probable-cause": "Probable cause",
+    "recommended-action": "Recommended action",
+    "cooldown": "Cooldown (s)",
+    "actions": "Actions",
+    "new-title": "New fault rule",
+    "edit-title": "Edit fault rule",
+    "save": "Save"
   }
 }

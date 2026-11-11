@@ -8,7 +8,8 @@
     "spray-sessions": "Sesiones de rociado",
     "users": "Usuarios",
     "subscription": "Suscripción",
-    "about": "Acerca de"
+    "about": "Acerca de",
+    "fault-cases": "Casos de falla"
   },
   "home": {
     "title": "Bienvenido a EdgeWatch",
@@ -381,7 +382,8 @@
     },
     "tab-live": "En vivo",
     "tab-trends": "Tendencias",
-    "analyze": "Analizar sesión"
+    "analyze": "Analizar sesión",
+    "fault-cases": "Casos de falla"
   },
   "iam": {
     "sign-up": {
@@ -572,5 +574,47 @@
     "value": "Valor",
     "band": "Banda",
     "tag": "Tag"
+  },
+  "fault-cases": {
+    "title": "Casos de falla",
+    "manage-rules": "Gestionar reglas",
+    "all-statuses": "Todos los estados",
+    "session": "Sesión",
+    "refresh": "Actualizar",
+    "empty": "No hay casos de falla para los filtros.",
+    "detected-at": "Detectado",
+    "system": "Sistema",
+    "parameter": "Parámetro",
+    "band": "Banda",
+    "value": "Valor",
+    "probable-cause": "Causa probable",
+    "recommended-action": "Acción recomendada",
+    "status": "Estado",
+    "actions": "Acciones",
+    "acknowledge": "Reconocer",
+    "resolve": "Resolver",
+    "cancel": "Cancelar",
+    "resolve-title": "Resolver caso de falla",
+    "resolution-notes": "Notas de resolución (opcional)",
+    "status-option": {
+      "open": "Abierto",
+      "acknowledged": "Reconocido",
+      "resolved": "Resuelto"
+    }
+  },
+  "fault-rules": {
+    "title": "Reglas de falla",
+    "new": "Nueva regla",
+    "hint": "Cuando una lectura sale de su banda, la plataforma abre un caso de falla con la causa probable y la acción recomendada de la regla que coincide. El cooldown evita un caso por cada lectura.",
+    "empty": "Aún no hay reglas.",
+    "parameter": "Parámetro",
+    "band": "Banda",
+    "probable-cause": "Causa probable",
+    "recommended-action": "Acción recomendada",
+    "cooldown": "Cooldown (s)",
+    "actions": "Acciones",
+    "new-title": "Nueva regla de falla",
+    "edit-title": "Editar regla de falla",
+    "save": "Guardar"
   }
 }
