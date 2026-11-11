@@ -6,7 +6,7 @@ import pinia from "./pinia.js";
 import router from "./router.js";
 import PrimeVue from "primevue/config";
 import Chart from "primevue/chart";
-import Material from "@primeuix/themes/material";
+import {EdgeWatchPreset} from "@/shared/presentation/theme/edgewatch-preset.js";
 import "primeflex/primeflex.css";
 import "primeicons/primeicons.css";
 import {
@@ -17,9 +17,12 @@ import {
     AccordionHeader, AccordionContent, Listbox
 } from "primevue";
 
+/** Free community key from https://primeui.store; without it PrimeVue 5 shows a license banner. */
+const primeUiLicenseKey = import.meta.env.VITE_PRIME_UI_LICENSE_KEY;
+
 createApp(App)
     .use(i18n)
-    .use(PrimeVue, {ripple: true, theme: {preset: Material}})
+    .use(PrimeVue, {ripple: true, theme: {preset: EdgeWatchPreset, options: {darkModeSelector: ".edgewatch-dark"}}, license: primeUiLicenseKey})
     .use(ConfirmationService)
     .use(ToastService)
     .component("pv-button", Button)
