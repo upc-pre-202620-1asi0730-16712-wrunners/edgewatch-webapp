@@ -616,5 +616,21 @@
     "new-title": "Nueva regla de falla",
     "edit-title": "Editar regla de falla",
     "save": "Guardar"
+  },
+  "dashboard": {
+    "title": "Panel de operaciones",
+    "subtitle": "Últimos {days} días de actividad de recuperación HVOF.",
+    "active-sessions": "Sesiones activas",
+    "open-fault-cases": "Casos de falla abiertos",
+    "recent-sessions": "Sesiones iniciadas",
+    "aborted-share": "{percent}% abortadas",
+    "recuperations-in-progress": "Recuperaciones en proceso",
+    "active-systems": "{count} sistemas HVOF activos",
+    "sessions-per-day": "Sesiones por día",
+    "fault-cases-by-parameter": "Casos de falla por parámetro",
+    "latest-open-cases": "Últimos casos de falla abiertos",
+    "see-all": "Ver todos",
+    "no-open-cases": "Sin casos de falla abiertos.",
+    "no-fault-cases": "Aún no hay casos de falla."
   }
 }

@@ -616,5 +616,21 @@
     "new-title": "New fault rule",
     "edit-title": "Edit fault rule",
     "save": "Save"
+  },
+  "dashboard": {
+    "title": "Operations dashboard",
+    "subtitle": "Last {days} days of HVOF recuperation activity.",
+    "active-sessions": "Active sessions",
+    "open-fault-cases": "Open fault cases",
+    "recent-sessions": "Sessions started",
+    "aborted-share": "{percent}% aborted",
+    "recuperations-in-progress": "Recuperations in progress",
+    "active-systems": "{count} active HVOF systems",
+    "sessions-per-day": "Sessions per day",
+    "fault-cases-by-parameter": "Fault cases by parameter",
+    "latest-open-cases": "Latest open fault cases",
+    "see-all": "See all",
+    "no-open-cases": "No open fault cases.",
+    "no-fault-cases": "No fault cases yet."
   }
 }
