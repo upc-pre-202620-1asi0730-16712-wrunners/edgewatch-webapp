@@ -1,5 +1,3 @@
-// TODO(F3–F5): falta contenido. Este archivo corresponde a la Parte 2 de la guía (no incluida en new-tasks);
-// es una implementación mínima con lo que usan las partes 4–5 (componentes y órdenes de recuperación). Reemplázala por la versión de la guía.
 import {BaseApi} from "@/shared/infrastructure/base-api.js";
 import {BaseEndpoint} from "@/shared/infrastructure/base-endpoint.js";
 
@@ -27,8 +25,36 @@ export class TraceabilityApi extends BaseApi {
         return this.#customersEndpoint.getAllBy({supplierOrganizationId: id});
     }
 
+    getCustomerById(id) {
+        return this.#customersEndpoint.getById(id);
+    }
+
+    createCustomer(resource) {
+        return this.#customersEndpoint.create(resource);
+    }
+
+    updateCustomer(resource) {
+        return this.#customersEndpoint.update(resource.id, resource);
+    }
+
+    deleteCustomer(id) {
+        return this.#customersEndpoint.delete(id);
+    }
+
     getComponents() {
         return this.#componentsEndpoint.getAll();
+    }
+
+    getComponentById(id) {
+        return this.#componentsEndpoint.getById(id);
+    }
+
+    createComponent(resource) {
+        return this.#componentsEndpoint.create(resource);
+    }
+
+    updateComponent(resource) {
+        return this.#componentsEndpoint.update(resource.id, resource);
     }
 
     getRecuperations() {
@@ -37,6 +63,18 @@ export class TraceabilityApi extends BaseApi {
 
     getRecuperationsByOrganizationId(id) {
         return this.#recuperationsEndpoint.getAllBy({supplierOrganizationId: id});
+    }
+
+    getRecuperationById(id) {
+        return this.#recuperationsEndpoint.getById(id);
+    }
+
+    createRecuperation(resource) {
+        return this.#recuperationsEndpoint.create(resource);
+    }
+
+    updateRecuperation(resource) {
+        return this.#recuperationsEndpoint.update(resource.id, resource);
     }
 
     patchRecuperation(id, changes) {

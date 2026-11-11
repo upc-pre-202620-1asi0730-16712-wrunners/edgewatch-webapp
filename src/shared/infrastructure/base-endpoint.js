@@ -1,8 +1,5 @@
-// TODO(F3–F5): falta contenido. Este archivo corresponde a la Parte 2 de la guía (no incluida en new-tasks);
-// es una implementación mínima con los métodos que usan las partes 3–5. Reemplázala por la versión de la guía.
-
 /**
- * REST endpoint bound to a BaseApi instance.
+ * Generic REST endpoint. Adds getAllBy (query filters) and patch to the five CRUD operations.
  */
 export class BaseEndpoint {
     constructor(baseApi, endpointPath) {
@@ -14,12 +11,13 @@ export class BaseEndpoint {
         return this.http.get(this.endpointPath);
     }
 
-    getById(id) {
-        return this.http.get(`${this.endpointPath}/${id}`);
-    }
-
+    /** @param {Object} params json-server query filters, e.g. { hvofSystemId: 1 } */
     getAllBy(params) {
         return this.http.get(this.endpointPath, {params});
+    }
+
+    getById(id) {
+        return this.http.get(`${this.endpointPath}/${id}`);
     }
 
     create(resource) {
