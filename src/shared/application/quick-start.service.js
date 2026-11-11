@@ -56,7 +56,7 @@ export class QuickStartService {
             onStep(key, "running");
             if (existing) { onStep(key, "skipped"); return existing; }
             const created = await create();
-            if (!created) throw this.#lastError(`quick-start:${key}`);
+            if (!created || (!Array.isArray(created) && created.id == null)) throw this.#lastError(`quick-start:${key}`);
             onStep(key, "done");
             return created;
         };
@@ -83,9 +83,11 @@ export class QuickStartService {
         const component = await step("component", t.components.find(c => c.serialNumber === demo.component.serialNumber),
             () => t.addComponent(new Component({...demo.component, customerId: customer.id})));
 
-        const recuperation = await step("recuperation", t.openRecuperations.find(r => r.workOrderNumber === demo.recuperation.workOrderNumber),
+        // Any open order of the demo component serves; when all of them are closed a new order is opened with a fresh work order number.
+        const recuperation = await step("recuperation", t.openRecuperations.find(r => r.componentId === component.id),
             () => t.addRecuperation(new Recuperation({
-                ...demo.recuperation, componentId: component.id, customerId: customer.id, supplierOrganizationId: organizationId,
+                ...demo.recuperation, workOrderNumber: this.#nextWorkOrderNumber(demo.recuperation.workOrderNumber),
+                componentId: component.id, customerId: customer.id, supplierOrganizationId: organizationId,
                 receivedAt: new Date().toISOString().slice(0, 10)
             })));
 
@@ -102,6 +104,15 @@ export class QuickStartService {
             this.#traceability.fetchRecuperations();
             return session;
         });
+    }
+
+    /** The demo work order number, or the same number with a numeric suffix when it is already taken by a closed order. */
+    #nextWorkOrderNumber(base) {
+        const taken = new Set(this.#traceability.recuperations.map(r => r.workOrderNumber));
+        if (!taken.has(base)) return base;
+        let n = 2;
+        while (taken.has(`${base}-${n}`)) n++;
+        return `${base}-${n}`;
     }
 
     /** The stores swallow API errors into their `errors` list; the most recent one explains a failed step. */
