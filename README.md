@@ -1,6 +1,6 @@
 # EdgeWatch Web Application
 
-Frontend Web Application of **EdgeWatch**, the platform by **WebRunners** for the traceability and monitoring of HVOF coating processes. It is built with Vue 3, Vite, PrimeVue (Material theme), Pinia, Vue Router and Vue I18n, organized by bounded context (`iam`, `billing`, `traceability`, `equipment`, `process-monitoring`, `fault-diagnosis`, `shared`) with `domain`, `application`, `infrastructure` and `presentation` layers.
+Frontend Web Application of **EdgeWatch**, the platform by **WebRunners** for the traceability and monitoring of HVOF coating processes. It is built with Vue 3, Vite, PrimeVue (Material theme), Pinia, Vue Router and Vue I18n, organized by bounded context (`iam`, `billing`, `traceability`, `equipment`, `process-monitoring`, `fault-diagnosis`, `reporting`, `shared`) with `domain`, `application`, `infrastructure` and `presentation` layers.
 
 ## Features
 
@@ -10,8 +10,9 @@ Frontend Web Application of **EdgeWatch**, the platform by **WebRunners** for th
 - **Equipment:** HVOF systems, controllers, subsystems, parts and recipes with nominal ranges.
 - **Process Monitoring:** start spray sessions, live readings classified by band, parameter trend charts, complete/abort, session history and session analysis (statistics, deviations, CSV export).
 - **Fault Diagnosis:** fault cases opened by the platform from out-of-band readings (acknowledge/resolve) and cause-effect rules per organization.
-- **Dashboard:** operations panel with KPIs, sessions per day and fault cases by parameter.
-- **Shared:** navigation shell, language switcher (English by default, Spanish), footer with Terms & Conditions.
+- **Reporting:** customizable report templates (branding, page setup, sections of widgets with live preview) and PDF generation of session reports and quality certificates with jsPDF; every generated report is registered in the platform.
+- **Dashboard:** operations panel with KPIs, sessions per day and fault cases by parameter; quick start wizard that provisions a demo plant and starts the first session.
+- **Shared:** navy sidebar shell with grouped navigation and the EdgeWatch PrimeVue preset, language switcher (English by default, Spanish), footer with Terms & Conditions.
 
 ## Requirements
 

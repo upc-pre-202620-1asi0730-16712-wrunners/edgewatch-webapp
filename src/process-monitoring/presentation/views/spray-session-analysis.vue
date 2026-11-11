@@ -9,6 +9,8 @@ import NormalizedDeviationChart from "@/process-monitoring/presentation/componen
 import BandDistributionChart from "@/process-monitoring/presentation/components/band-distribution-chart.vue";
 import {complianceOf, groupByParameter, statisticsOf} from "@/process-monitoring/domain/model/reading-series.js";
 import {downloadCsv, toCsv} from "@/shared/infrastructure/csv-exporter.js";
+import GenerateReportDialog from "@/reporting/presentation/components/generate-report-dialog.vue";
+import {ref} from "vue";
 
 /**
  * Analysis of a spray session against its recipe: compliance, statistics per parameter, deviations and CSV export.
@@ -21,6 +23,7 @@ const equipment = useEquipmentStore();
 const traceability = useTraceabilityStore();
 
 const sessionId = computed(() => parseInt(route.params.id));
+const reportVisible = ref(false);
 const session = computed(() => store.getSessionById(sessionId.value));
 const system = computed(() => session.value ? equipment.getHvofSystemById(session.value.hvofSystemId) : null);
 const recuperation = computed(() => session.value ? traceability.getRecuperationById(session.value.recuperationId) : null);
@@ -72,6 +75,7 @@ onUnmounted(() => store.clearReadings());
         <div class="flex gap-2">
           <pv-button :label="t('analysis.export-readings')" icon="pi pi-download" outlined :disabled="!store.readings.length" @click="exportReadings"/>
           <pv-button :label="t('analysis.export-statistics')" icon="pi pi-file-excel" outlined :disabled="!statistics.length" @click="exportStatistics"/>
+          <pv-button :label="t('reports.generate')" icon="pi pi-file-pdf" @click="reportVisible = true"/>
         </div>
       </div>
       <div class="flex flex-wrap gap-2 mb-3">
@@ -142,6 +146,7 @@ onUnmounted(() => store.clearReadings());
         <pv-column field="tagPath" :header="t('analysis.tag')"/>
       </pv-data-table>
     </template>
+    <generate-report-dialog v-model:visible="reportVisible" :session-id="sessionId"/>
   </section>
 </template>
 
