@@ -7,7 +7,7 @@ import useEquipmentStore from "@/equipment/application/equipment.store.js";
 import useTraceabilityStore from "@/traceability/application/traceability.store.js";
 import ParameterCard from "@/process-monitoring/presentation/components/parameter-card.vue";
 import AbortSessionDialog from "@/process-monitoring/presentation/components/abort-session-dialog.vue";
-import {classify, ProcessReading} from "@/process-monitoring/domain/model/process-reading.entity.js";
+import {ProcessReading} from "@/process-monitoring/domain/model/process-reading.entity.js";
 
 const {t} = useI18n();
 const route = useRoute();
@@ -42,22 +42,17 @@ const simulateReading = () => {
     const p = r.parameters[Math.floor(Math.random() * r.parameters.length)];
     const spread = (p.upperShutdown - p.lowerShutdown) * 0.35;
     const value = Math.round((p.setpoint + (Math.random() - 0.5) * spread) * 10) / 10;
-    const mapping = system.value?.tagMappings.find(m => m.parameter === p.parameter);
+    const subsystem = equipment.subsystemsOf(s.hvofSystemId).find(sub => sub.parameterNames.includes(p.parameter));
+    // The platform classifies the band against the bands frozen at session start.
     store.addReading(new ProcessReading({
-        spraySessionId: s.id, epochMillis: Date.now(), tagPath: mapping?.tagPath ?? p.parameter, parameter: p.parameter,
-        subsystemId: mapping?.subsystemId ?? null, partId: mapping?.partId ?? null, value,
-        unitSymbol: p.unitSymbol, unitCategory: p.unitCategory, band: classify(value, p), mappingPending: !mapping
+        spraySessionId: s.id, epochMillis: Date.now(), tagPath: `${subsystem?.alias ?? "SIM"}.${p.parameter}`, parameter: p.parameter,
+        subsystemId: subsystem?.id ?? null, partId: null, value, unitSymbol: p.unitSymbol, unitCategory: p.unitCategory, mappingPending: !subsystem
     }));
 };
 
 const complete = () => session.value && store.completeSession(session.value.id);
 
-const abort = (reason) => {
-    if (!session.value) return;
-    store.abortSession(session.value.id, reason).then(() => {
-        if (recuperation.value) traceability.patchRecuperation(recuperation.value.id, {status: "REWORK"});
-    });
-};
+const abort = (reason) => session.value && store.abortSession(session.value.id, reason);
 
 const back = () => router.push({name: "process-monitoring-spray-sessions"});
 
