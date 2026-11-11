@@ -56,6 +56,7 @@ const complete = () => session.value && store.completeSession(session.value.id);
 const abort = (reason) => session.value && store.abortSession(session.value.id, reason);
 
 const back = () => router.push({name: "process-monitoring-spray-sessions"});
+const analyze = () => router.push({name: "process-monitoring-session-analysis", params: {id: sessionId.value}});
 
 onMounted(() => {
     if (!store.sessionsLoaded) store.fetchSessions();
@@ -113,10 +114,13 @@ onUnmounted(() => store.clearReadings());
         </pv-tab-panels>
       </pv-tabs>
 
-      <div v-if="session.isActive" class="flex gap-2 mt-3">
-        <pv-button :label="t('session-detail.complete')" icon="pi pi-check-circle" @click="complete"/>
-        <pv-button :label="t('session-detail.abort')" icon="pi pi-stop-circle" severity="danger" @click="abortVisible = true"/>
-        <pv-button v-if="isDev" :label="t('session-detail.simulate')" icon="pi pi-wifi" outlined @click="simulateReading"/>
+      <div class="flex flex-wrap gap-2 mt-3">
+        <template v-if="session.isActive">
+          <pv-button :label="t('session-detail.complete')" icon="pi pi-check-circle" @click="complete"/>
+          <pv-button :label="t('session-detail.abort')" icon="pi pi-stop-circle" severity="danger" @click="abortVisible = true"/>
+          <pv-button v-if="isDev" :label="t('session-detail.simulate')" icon="pi pi-wifi" outlined @click="simulateReading"/>
+        </template>
+        <pv-button :label="t('session-detail.analyze')" icon="pi pi-chart-bar" severity="secondary" outlined @click="analyze"/>
       </div>
     </template>
     <abort-session-dialog v-model:visible="abortVisible" @confirm="abort"/>

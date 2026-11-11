@@ -41,6 +41,7 @@ const formatDate = (iso) => iso ? new Date(iso).toLocaleString("es-PE", {dateSty
 
 const startSession = () => router.push({name: "process-monitoring-session-start"});
 const openSession = (id) => router.push({name: "process-monitoring-session-detail", params: {id}});
+const analyzeSession = (id) => router.push({name: "process-monitoring-session-analysis", params: {id}});
 
 onMounted(() => {
     if (!store.sessionsLoaded) store.fetchSessions();
@@ -84,8 +85,11 @@ onMounted(() => {
       <pv-column :header="t('spray-sessions.deviations')" style="width: 7rem">
         <template #body="{ data }">{{ deviationsOf(data.id) }}</template>
       </pv-column>
-      <pv-column :header="t('spray-sessions.actions')" style="width: 5rem">
-        <template #body="{ data }"><pv-button icon="pi pi-chart-line" text rounded v-tooltip.top="t('spray-sessions.open')" @click="openSession(data.id)"/></template>
+      <pv-column :header="t('spray-sessions.actions')" style="width: 7rem">
+        <template #body="{ data }">
+          <pv-button icon="pi pi-chart-line" text rounded v-tooltip.top="t('spray-sessions.open')" @click="openSession(data.id)"/>
+          <pv-button icon="pi pi-chart-bar" text rounded v-tooltip.top="t('spray-sessions.analyze')" @click="analyzeSession(data.id)"/>
+        </template>
       </pv-column>
     </pv-data-table>
   </section>
