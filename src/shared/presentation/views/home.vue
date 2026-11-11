@@ -30,6 +30,7 @@ const abortedShare = computed(() => {
     return ended.length ? Math.round(ended.filter(s => s.status === "aborted").length / ended.length * 100) : 0;
 });
 const recuperationsInProgress = computed(() => traceability.recuperations.filter(r => r.status === "IN_PROGRESS").length);
+const plantIsEmpty = computed(() => equipment.hvofSystemsLoaded && equipment.hvofSystems.length === 0);
 const latestOpenCases = computed(() => [...faults.openCases].sort((a, b) => b.epochMillis - a.epochMillis).slice(0, 5));
 const formatDate = (d) => new Date(d).toLocaleString("es-PE", {dateStyle: "short", timeStyle: "short"});
 
@@ -52,6 +53,19 @@ onMounted(() => {
         </div>
         <pv-button :label="t('spray-sessions.start')" icon="pi pi-play" @click="router.push({name: 'process-monitoring-session-start'})"/>
       </div>
+
+      <pv-card v-if="plantIsEmpty" class="mb-3 empty-plant">
+        <template #content>
+          <div class="flex flex-wrap align-items-center gap-3">
+            <span class="empty-icon flex align-items-center justify-content-center border-circle"><i class="pi pi-bolt"></i></span>
+            <div class="flex-grow-1">
+              <h2 class="m-0 text-xl">{{ t('dashboard.empty-title') }}</h2>
+              <p class="m-0 text-color-secondary">{{ t('dashboard.empty-description') }}</p>
+            </div>
+            <pv-button :label="t('dashboard.empty-action')" icon="pi pi-bolt" @click="router.push({name: 'quick-start'})"/>
+          </div>
+        </template>
+      </pv-card>
 
       <div class="grid mb-2">
         <div class="col-12 sm:col-6 lg:col-3"><kpi-card :label="t('dashboard.active-sessions')" :value="monitoring.activeSessions.length" icon="pi pi-play-circle" severity="info"/></div>
@@ -103,4 +117,6 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.empty-plant { border-left: 5px solid var(--edgewatch-orange); background: var(--edgewatch-orange-soft); }
+.empty-icon { width: 3rem; height: 3rem; background: var(--edgewatch-orange); color: #fff; font-size: 1.3rem; }
 </style>

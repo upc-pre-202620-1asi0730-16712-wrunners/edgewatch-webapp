@@ -31,8 +31,8 @@ const useTraceabilityStore = defineStore("traceability", () => {
 
     function fetchCustomers() {
         const organizationId = useIamStore().organizationId;
-        if (!organizationId) return;
-        traceabilityApi.getCustomersByOrganizationId(organizationId).then(response => {
+        if (!organizationId) return Promise.resolve();
+        return traceabilityApi.getCustomersByOrganizationId(organizationId).then(response => {
             customers.value = CustomerAssembler.toEntitiesFromResponse(response);
             customersLoaded.value = true;
         }).catch(error => errors.value.push(error));
@@ -75,7 +75,7 @@ const useTraceabilityStore = defineStore("traceability", () => {
     }
 
     function fetchComponents() {
-        traceabilityApi.getComponents().then(response => {
+        return traceabilityApi.getComponents().then(response => {
             components.value = ComponentAssembler.toEntitiesFromResponse(response);
             componentsLoaded.value = true;
         }).catch(error => errors.value.push(error));
@@ -112,8 +112,8 @@ const useTraceabilityStore = defineStore("traceability", () => {
 
     function fetchRecuperations() {
         const organizationId = useIamStore().organizationId;
-        if (!organizationId) return;
-        traceabilityApi.getRecuperationsByOrganizationId(organizationId).then(response => {
+        if (!organizationId) return Promise.resolve();
+        return traceabilityApi.getRecuperationsByOrganizationId(organizationId).then(response => {
             recuperations.value = RecuperationAssembler.toEntitiesFromResponse(response);
             recuperationsLoaded.value = true;
         }).catch(error => errors.value.push(error));
@@ -155,10 +155,13 @@ const useTraceabilityStore = defineStore("traceability", () => {
     }
 
     /** Loads the three collections once; used by views that need all of them. */
+    /** Loads the collections that are not loaded yet; resolves when all of them are available. */
     function fetchAll() {
-        if (!customersLoaded.value) fetchCustomers();
-        if (!componentsLoaded.value) fetchComponents();
-        if (!recuperationsLoaded.value) fetchRecuperations();
+        return Promise.all([
+            customersLoaded.value ? null : fetchCustomers(),
+            componentsLoaded.value ? null : fetchComponents(),
+            recuperationsLoaded.value ? null : fetchRecuperations()
+        ]);
     }
 
     return {
