@@ -51,6 +51,28 @@ const simulateReading = () => {
     }));
 };
 
+/** One reading per recipe parameter around its setpoint; `spreadFactor` > 0.35 pushes some values into warning/shutdown. */
+const readingsBurst = (count, spreadFactor) => {
+    const s = session.value, r = recipe.value;
+    const now = Date.now();
+    return Array.from({length: count}, (_, i) => {
+        const p = r.parameters[i % r.parameters.length];
+        const spread = (p.upperShutdown - p.lowerShutdown) * spreadFactor;
+        const value = Math.round((p.setpoint + (Math.random() - 0.5) * spread) * 10) / 10;
+        const subsystem = equipment.subsystemsOf(s.hvofSystemId).find(sub => sub.parameterNames.includes(p.parameter));
+        return new ProcessReading({
+            spraySessionId: s.id, epochMillis: now - (count - i) * 1000, tagPath: `${subsystem?.alias ?? "SIM"}.${p.parameter}`, parameter: p.parameter,
+            subsystemId: subsystem?.id ?? null, partId: null, value, unitSymbol: p.unitSymbol, unitCategory: p.unitCategory, mappingPending: !subsystem
+        });
+    });
+};
+
+/** Sends a batch of readings at once (a few seconds of telemetry) with enough spread to raise some deviations. */
+const simulateBurst = () => {
+    if (!session.value || !recipe.value || recipe.value.parameters.length === 0) return;
+    store.addReadings(session.value.id, readingsBurst(27, 0.8)).then(() => store.loadDeviations(session.value.id, true));
+};
+
 const complete = () => session.value && store.completeSession(session.value.id);
 
 const abort = (reason) => session.value && store.abortSession(session.value.id, reason);
@@ -120,6 +142,7 @@ onUnmounted(() => store.clearReadings());
           <pv-button :label="t('session-detail.complete')" icon="pi pi-check-circle" @click="complete"/>
           <pv-button :label="t('session-detail.abort')" icon="pi pi-stop-circle" severity="danger" @click="abortVisible = true"/>
           <pv-button v-if="isDev" :label="t('session-detail.simulate')" icon="pi pi-wifi" outlined @click="simulateReading"/>
+          <pv-button v-if="isDev" :label="t('session-detail.simulate-burst')" icon="pi pi-bolt" outlined @click="simulateBurst"/>
         </template>
         <pv-button :label="t('session-detail.analyze')" icon="pi pi-chart-bar" severity="secondary" outlined @click="analyze"/>
         <pv-button :label="t('session-detail.fault-cases')" icon="pi pi-exclamation-triangle" severity="secondary" outlined @click="faultCases"/>

@@ -9,11 +9,13 @@ import {authenticationGuard} from "@/iam/infrastructure/authentication.guard.js"
 
 const home = () => import("@/shared/presentation/views/home.vue");
 const about = () => import("@/shared/presentation/views/about.vue");
+const quickStart = () => import("@/shared/presentation/views/quick-start.vue");
 const termsAndConditions = () => import("@/shared/presentation/views/terms-and-conditions.vue");
 const pageNotFound = () => import("@/shared/presentation/views/page-not-found.vue");
 
 const routes = [
     {path: "/home",               name: "home",               component: home,          meta: {title: "Home"}},
+    {path: "/quick-start",        name: "quick-start",        component: quickStart,    meta: {title: "Quick Start", requiresSupplier: true}},
     {path: "/about",              name: "about",              component: about,         meta: {title: "About"}},
     {path: "/terms",              name: "terms",              component: termsAndConditions, meta: {title: "Terms & Conditions"}},
     {path: "/traceability",       name: "traceability",       meta: {requiresSupplier: true}, children: traceabilityRoutes},

@@ -17,6 +17,7 @@ const drawerVisible = ref(false);
 const groups = computed(() => [
   {label: t("nav.group.overview"), options: [
     {label: t("option.home"),           to: "/home",                              icon: "pi pi-th-large",             visible: iam.isSignedIn},
+    {label: t("option.quick-start"),    to: "/quick-start",                       icon: "pi pi-bolt",                 visible: iam.isSupplier},
     {label: t("option.spray-sessions"), to: "/process-monitoring/spray-sessions", icon: "pi pi-chart-line",           visible: iam.isSupplier},
     {label: t("option.fault-cases"),    to: "/fault-diagnosis/fault-cases",       icon: "pi pi-exclamation-triangle", visible: iam.isSupplier}
   ]},
