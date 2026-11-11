@@ -632,5 +632,18 @@
     "see-all": "Ver todos",
     "no-open-cases": "Sin casos de falla abiertos.",
     "no-fault-cases": "Aún no hay casos de falla."
+  },
+  "nav": {
+    "group": {
+      "overview": "Resumen",
+      "traceability": "Trazabilidad",
+      "equipment": "Equipos",
+      "account": "Cuenta"
+    },
+    "segment": {
+      "RECUPERATION_SUPPLIER": "Proveedor de recuperación",
+      "ASSET_OWNER": "Propietario de activos",
+      "GUEST": "Invitado"
+    }
   }
 }

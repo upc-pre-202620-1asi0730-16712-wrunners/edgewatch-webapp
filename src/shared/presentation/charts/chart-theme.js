@@ -8,7 +8,7 @@ export const BAND_COLORS = {
     shutdown: "#b91c1c"
 };
 
-export const SERIES_COLORS = ["#8b1fe0", "#0ea5e9", "#f59e0b", "#10b981", "#ef4444", "#6366f1", "#14b8a6", "#f97316", "#84cc16"];
+export const SERIES_COLORS = ["#d4781c", "#1d4f91", "#f59e0b", "#10b981", "#ef4444", "#6366f1", "#14b8a6", "#f97316", "#84cc16"];
 
 /** Reads the PrimeVue theme tokens so the charts follow the active theme. */
 export function chartTextColors() {

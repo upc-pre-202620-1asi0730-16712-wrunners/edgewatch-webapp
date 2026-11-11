@@ -632,5 +632,18 @@
     "see-all": "See all",
     "no-open-cases": "No open fault cases.",
     "no-fault-cases": "No fault cases yet."
+  },
+  "nav": {
+    "group": {
+      "overview": "Overview",
+      "traceability": "Traceability",
+      "equipment": "Equipment",
+      "account": "Account"
+    },
+    "segment": {
+      "RECUPERATION_SUPPLIER": "Recuperation supplier",
+      "ASSET_OWNER": "Asset owner",
+      "GUEST": "Guest"
+    }
   }
 }
