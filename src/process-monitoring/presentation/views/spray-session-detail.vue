@@ -7,6 +7,7 @@ import useEquipmentStore from "@/equipment/application/equipment.store.js";
 import useTraceabilityStore from "@/traceability/application/traceability.store.js";
 import ParameterCard from "@/process-monitoring/presentation/components/parameter-card.vue";
 import AbortSessionDialog from "@/process-monitoring/presentation/components/abort-session-dialog.vue";
+import ParameterTrendPanel from "@/process-monitoring/presentation/components/parameter-trend-panel.vue";
 import {ProcessReading} from "@/process-monitoring/domain/model/process-reading.entity.js";
 
 const {t} = useI18n();
@@ -92,12 +93,25 @@ onUnmounted(() => store.clearReadings());
         <span v-if="store.lastUpdate" class="text-color-secondary">· {{ t('session-detail.last-update') }} {{ formatTime(store.lastUpdate) }}</span>
       </div>
 
-      <p v-if="cards.length === 0" class="text-color-secondary">{{ t('session-detail.no-readings') }}</p>
-      <div class="grid">
-        <div v-for="reading in cards" :key="reading.parameter" class="col-12 md:col-6 lg:col-4 xl:col-3">
-          <parameter-card :reading="reading" :recipe-parameter="recipeParameterOf(reading.parameter)"/>
-        </div>
-      </div>
+      <pv-tabs value="live">
+        <pv-tab-list>
+          <pv-tab value="live">{{ t('session-detail.tab-live') }}</pv-tab>
+          <pv-tab value="trends">{{ t('session-detail.tab-trends') }}</pv-tab>
+        </pv-tab-list>
+        <pv-tab-panels>
+          <pv-tab-panel value="live">
+            <p v-if="cards.length === 0" class="text-color-secondary">{{ t('session-detail.no-readings') }}</p>
+            <div class="grid">
+              <div v-for="reading in cards" :key="reading.parameter" class="col-12 md:col-6 lg:col-4 xl:col-3">
+                <parameter-card :reading="reading" :recipe-parameter="recipeParameterOf(reading.parameter)"/>
+              </div>
+            </div>
+          </pv-tab-panel>
+          <pv-tab-panel value="trends">
+            <parameter-trend-panel :readings="store.readings" :recipe="recipe" :band-counts="store.bandCounts"/>
+          </pv-tab-panel>
+        </pv-tab-panels>
+      </pv-tabs>
 
       <div v-if="session.isActive" class="flex gap-2 mt-3">
         <pv-button :label="t('session-detail.complete')" icon="pi pi-check-circle" @click="complete"/>

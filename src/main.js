@@ -5,6 +5,7 @@ import i18n from "./i18n.js";
 import pinia from "./pinia.js";
 import router from "./router.js";
 import PrimeVue from "primevue/config";
+import Chart from "primevue/chart";
 import Material from "@primeuix/themes/material";
 import "primeflex/primeflex.css";
 import "primeicons/primeicons.css";
@@ -23,6 +24,7 @@ createApp(App)
     .use(ToastService)
     .component("pv-button", Button)
     .component("pv-card", Card)
+    .component("pv-chart", Chart)
     .component("pv-checkbox", Checkbox)
     .component("pv-chip", Chip)
     .component("pv-column", Column)
