@@ -1,6 +1,6 @@
 # EdgeWatch Web Application
 
-Frontend Web Application of **EdgeWatch**, the platform by **WebRunners** for the traceability and monitoring of HVOF coating processes. It is built with Vue 3, Vite, PrimeVue (Material theme), Pinia, Vue Router and Vue I18n, organized by bounded context (`iam`, `billing`, `traceability`, `equipment`, `process-monitoring`, `shared`) with `domain`, `application`, `infrastructure` and `presentation` layers.
+Frontend Web Application of **EdgeWatch**, the platform by **WebRunners** for the traceability and monitoring of HVOF coating processes. It is built with Vue 3, Vite, PrimeVue (Material theme), Pinia, Vue Router and Vue I18n, organized by bounded context (`iam`, `billing`, `traceability`, `equipment`, `process-monitoring`, `fault-diagnosis`, `shared`) with `domain`, `application`, `infrastructure` and `presentation` layers.
 
 ## Features
 
@@ -8,7 +8,9 @@ Frontend Web Application of **EdgeWatch**, the platform by **WebRunners** for th
 - **Billing:** plan selection and subscription status.
 - **Traceability:** customers, components (with PCR target) and recuperation orders (WO/OF).
 - **Equipment:** HVOF systems, controllers, subsystems, parts and recipes with nominal ranges.
-- **Process Monitoring:** start spray sessions, live readings classified by band, complete/abort and session history.
+- **Process Monitoring:** start spray sessions, live readings classified by band, parameter trend charts, complete/abort, session history and session analysis (statistics, deviations, CSV export).
+- **Fault Diagnosis:** fault cases opened by the platform from out-of-band readings (acknowledge/resolve) and cause-effect rules per organization.
+- **Dashboard:** operations panel with KPIs, sessions per day and fault cases by parameter.
 - **Shared:** navigation shell, language switcher (English by default, Spanish), footer with Terms & Conditions.
 
 ## Requirements
