@@ -27,9 +27,9 @@ defineProps({
 <style scoped>
 .kpi-card { border-left: 5px solid var(--kpi-color); }
 .kpi-icon { width: 2.75rem; height: 2.75rem; background: color-mix(in srgb, var(--kpi-color) 15%, transparent); color: var(--kpi-color); font-size: 1.25rem; }
-.kpi-primary { --kpi-color: #8b1fe0; }
+.kpi-primary { --kpi-color: #d4781c; }
 .kpi-success { --kpi-color: #15803d; }
 .kpi-warn    { --kpi-color: #ea580c; }
 .kpi-danger  { --kpi-color: #b91c1c; }
-.kpi-info    { --kpi-color: #0ea5e9; }
+.kpi-info    { --kpi-color: #1d4f91; }
 </style>
