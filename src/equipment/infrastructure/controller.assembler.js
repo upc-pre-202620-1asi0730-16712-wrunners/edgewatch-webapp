@@ -6,16 +6,13 @@ export class ControllerAssembler {
     }
 
     static toEntitiesFromResponse(response) {
-        if (response.status !== 200) {
-            console.error(`Error fetching controllers: ${response.status} - ${response.statusText}`);
-            return [];
-        }
+        if (response.status !== 200) return [];
         const resources = response.data instanceof Array ? response.data : response.data["controllers"];
         return resources.map(resource => this.toEntityFromResource(resource));
     }
 
     static toResourceFromEntity(entity) {
-        const {protocolNames, ...resource} = entity;
+        const {protocolNames, id, hvofSystemId, tagCatalogId, ...resource} = entity;
         return {...resource};
     }
 }

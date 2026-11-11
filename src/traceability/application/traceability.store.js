@@ -31,11 +31,11 @@ const useTraceabilityStore = defineStore("traceability", () => {
 
     function fetchCustomers() {
         const organizationId = useIamStore().organizationId;
-        if (!organizationId) return;
-        traceabilityApi.getCustomersByOrganizationId(organizationId).then(response => {
+        if (!organizationId) return Promise.resolve();
+        return traceabilityApi.getCustomersByOrganizationId(organizationId).then(response => {
             customers.value = CustomerAssembler.toEntitiesFromResponse(response);
             customersLoaded.value = true;
-        }).catch(error => errors.value.push(error));
+        }).catch(error => { errors.value.push(error); return null; });
     }
 
     function getCustomerById(id) {
@@ -54,7 +54,7 @@ const useTraceabilityStore = defineStore("traceability", () => {
             const created = CustomerAssembler.toEntityFromResource(response.data);
             customers.value.push(created);
             return created;
-        }).catch(error => errors.value.push(error));
+        }).catch(error => { errors.value.push(error); return null; });
     }
 
     function updateCustomer(customer) {
@@ -64,21 +64,21 @@ const useTraceabilityStore = defineStore("traceability", () => {
             const index = customers.value.findIndex(c => c.id === updated.id);
             if (index !== -1) customers.value[index] = updated;
             return updated;
-        }).catch(error => errors.value.push(error));
+        }).catch(error => { errors.value.push(error); return null; });
     }
 
     function deleteCustomer(id) {
         return traceabilityApi.deleteCustomer(id).then(() => {
             const index = customers.value.findIndex(c => c.id === id);
             if (index !== -1) customers.value.splice(index, 1);
-        }).catch(error => errors.value.push(error));
+        }).catch(error => { errors.value.push(error); return null; });
     }
 
     function fetchComponents() {
-        traceabilityApi.getComponents().then(response => {
+        return traceabilityApi.getComponents().then(response => {
             components.value = ComponentAssembler.toEntitiesFromResponse(response);
             componentsLoaded.value = true;
-        }).catch(error => errors.value.push(error));
+        }).catch(error => { errors.value.push(error); return null; });
     }
 
     function getComponentById(id) {
@@ -97,7 +97,7 @@ const useTraceabilityStore = defineStore("traceability", () => {
             const created = ComponentAssembler.toEntityFromResource(response.data);
             components.value.push(created);
             return created;
-        }).catch(error => errors.value.push(error));
+        }).catch(error => { errors.value.push(error); return null; });
     }
 
     function updateComponent(component) {
@@ -107,16 +107,16 @@ const useTraceabilityStore = defineStore("traceability", () => {
             const index = components.value.findIndex(c => c.id === updated.id);
             if (index !== -1) components.value[index] = updated;
             return updated;
-        }).catch(error => errors.value.push(error));
+        }).catch(error => { errors.value.push(error); return null; });
     }
 
     function fetchRecuperations() {
         const organizationId = useIamStore().organizationId;
-        if (!organizationId) return;
-        traceabilityApi.getRecuperationsByOrganizationId(organizationId).then(response => {
+        if (!organizationId) return Promise.resolve();
+        return traceabilityApi.getRecuperationsByOrganizationId(organizationId).then(response => {
             recuperations.value = RecuperationAssembler.toEntitiesFromResponse(response);
             recuperationsLoaded.value = true;
-        }).catch(error => errors.value.push(error));
+        }).catch(error => { errors.value.push(error); return null; });
     }
 
     function getRecuperationById(id) {
@@ -131,7 +131,7 @@ const useTraceabilityStore = defineStore("traceability", () => {
             const created = RecuperationAssembler.toEntityFromResource(response.data);
             recuperations.value.push(created);
             return created;
-        }).catch(error => errors.value.push(error));
+        }).catch(error => { errors.value.push(error); return null; });
     }
 
     function updateRecuperation(recuperation) {
@@ -141,7 +141,7 @@ const useTraceabilityStore = defineStore("traceability", () => {
             const index = recuperations.value.findIndex(r => r.id === updated.id);
             if (index !== -1) recuperations.value[index] = updated;
             return updated;
-        }).catch(error => errors.value.push(error));
+        }).catch(error => { errors.value.push(error); return null; });
     }
 
     /** Partial update used by Process Monitoring (status, linkedSessions). */
@@ -151,14 +151,17 @@ const useTraceabilityStore = defineStore("traceability", () => {
             const index = recuperations.value.findIndex(r => r.id === updated.id);
             if (index !== -1) recuperations.value[index] = updated;
             return updated;
-        }).catch(error => errors.value.push(error));
+        }).catch(error => { errors.value.push(error); return null; });
     }
 
     /** Loads the three collections once; used by views that need all of them. */
+    /** Loads the collections that are not loaded yet; resolves when all of them are available. */
     function fetchAll() {
-        if (!customersLoaded.value) fetchCustomers();
-        if (!componentsLoaded.value) fetchComponents();
-        if (!recuperationsLoaded.value) fetchRecuperations();
+        return Promise.all([
+            customersLoaded.value ? null : fetchCustomers(),
+            componentsLoaded.value ? null : fetchComponents(),
+            recuperationsLoaded.value ? null : fetchRecuperations()
+        ]);
     }
 
     return {

@@ -6,8 +6,10 @@ import useProcessMonitoringStore from "@/process-monitoring/application/process-
 import useEquipmentStore from "@/equipment/application/equipment.store.js";
 import useTraceabilityStore from "@/traceability/application/traceability.store.js";
 import ParameterCard from "@/process-monitoring/presentation/components/parameter-card.vue";
+import GenerateReportDialog from "@/reporting/presentation/components/generate-report-dialog.vue";
 import AbortSessionDialog from "@/process-monitoring/presentation/components/abort-session-dialog.vue";
-import {classify, ProcessReading} from "@/process-monitoring/domain/model/process-reading.entity.js";
+import ParameterTrendPanel from "@/process-monitoring/presentation/components/parameter-trend-panel.vue";
+import {ProcessReading} from "@/process-monitoring/domain/model/process-reading.entity.js";
 
 const {t} = useI18n();
 const route = useRoute();
@@ -18,6 +20,7 @@ const traceability = useTraceabilityStore();
 
 const isDev = import.meta.env.DEV;
 const abortVisible = ref(false);
+const reportVisible = ref(false);
 const sessionId = computed(() => parseInt(route.params.id));
 const session = computed(() => store.getSessionById(sessionId.value));
 const system = computed(() => session.value ? equipment.getHvofSystemById(session.value.hvofSystemId) : null);
@@ -42,24 +45,43 @@ const simulateReading = () => {
     const p = r.parameters[Math.floor(Math.random() * r.parameters.length)];
     const spread = (p.upperShutdown - p.lowerShutdown) * 0.35;
     const value = Math.round((p.setpoint + (Math.random() - 0.5) * spread) * 10) / 10;
-    const mapping = system.value?.tagMappings.find(m => m.parameter === p.parameter);
+    const subsystem = equipment.subsystemsOf(s.hvofSystemId).find(sub => sub.parameterNames.includes(p.parameter));
+    // The platform classifies the band against the bands frozen at session start.
     store.addReading(new ProcessReading({
-        spraySessionId: s.id, epochMillis: Date.now(), tagPath: mapping?.tagPath ?? p.parameter, parameter: p.parameter,
-        subsystemId: mapping?.subsystemId ?? null, partId: mapping?.partId ?? null, value,
-        unitSymbol: p.unitSymbol, unitCategory: p.unitCategory, band: classify(value, p), mappingPending: !mapping
+        spraySessionId: s.id, epochMillis: Date.now(), tagPath: `${subsystem?.alias ?? "SIM"}.${p.parameter}`, parameter: p.parameter,
+        subsystemId: subsystem?.id ?? null, partId: null, value, unitSymbol: p.unitSymbol, unitCategory: p.unitCategory, mappingPending: !subsystem
     }));
+};
+
+/** One reading per recipe parameter around its setpoint; `spreadFactor` > 0.35 pushes some values into warning/shutdown. */
+const readingsBurst = (count, spreadFactor) => {
+    const s = session.value, r = recipe.value;
+    const now = Date.now();
+    return Array.from({length: count}, (_, i) => {
+        const p = r.parameters[i % r.parameters.length];
+        const spread = (p.upperShutdown - p.lowerShutdown) * spreadFactor;
+        const value = Math.round((p.setpoint + (Math.random() - 0.5) * spread) * 10) / 10;
+        const subsystem = equipment.subsystemsOf(s.hvofSystemId).find(sub => sub.parameterNames.includes(p.parameter));
+        return new ProcessReading({
+            spraySessionId: s.id, epochMillis: now - (count - i) * 1000, tagPath: `${subsystem?.alias ?? "SIM"}.${p.parameter}`, parameter: p.parameter,
+            subsystemId: subsystem?.id ?? null, partId: null, value, unitSymbol: p.unitSymbol, unitCategory: p.unitCategory, mappingPending: !subsystem
+        });
+    });
+};
+
+/** Sends a batch of readings at once (a few seconds of telemetry) with enough spread to raise some deviations. */
+const simulateBurst = () => {
+    if (!session.value || !recipe.value || recipe.value.parameters.length === 0) return;
+    store.addReadings(session.value.id, readingsBurst(27, 0.8)).then(() => store.loadDeviations(session.value.id, true));
 };
 
 const complete = () => session.value && store.completeSession(session.value.id);
 
-const abort = (reason) => {
-    if (!session.value) return;
-    store.abortSession(session.value.id, reason).then(() => {
-        if (recuperation.value) traceability.patchRecuperation(recuperation.value.id, {status: "REWORK"});
-    });
-};
+const abort = (reason) => session.value && store.abortSession(session.value.id, reason);
 
 const back = () => router.push({name: "process-monitoring-spray-sessions"});
+const analyze = () => router.push({name: "process-monitoring-session-analysis", params: {id: sessionId.value}});
+const faultCases = () => router.push({name: "fault-diagnosis-cases", query: {spraySessionId: sessionId.value}});
 
 onMounted(() => {
     if (!store.sessionsLoaded) store.fetchSessions();
@@ -97,20 +119,40 @@ onUnmounted(() => store.clearReadings());
         <span v-if="store.lastUpdate" class="text-color-secondary">· {{ t('session-detail.last-update') }} {{ formatTime(store.lastUpdate) }}</span>
       </div>
 
-      <p v-if="cards.length === 0" class="text-color-secondary">{{ t('session-detail.no-readings') }}</p>
-      <div class="grid">
-        <div v-for="reading in cards" :key="reading.parameter" class="col-12 md:col-6 lg:col-4 xl:col-3">
-          <parameter-card :reading="reading" :recipe-parameter="recipeParameterOf(reading.parameter)"/>
-        </div>
-      </div>
+      <pv-tabs value="live">
+        <pv-tab-list>
+          <pv-tab value="live">{{ t('session-detail.tab-live') }}</pv-tab>
+          <pv-tab value="trends">{{ t('session-detail.tab-trends') }}</pv-tab>
+        </pv-tab-list>
+        <pv-tab-panels>
+          <pv-tab-panel value="live">
+            <p v-if="cards.length === 0" class="text-color-secondary">{{ t('session-detail.no-readings') }}</p>
+            <div class="grid">
+              <div v-for="reading in cards" :key="reading.parameter" class="col-12 md:col-6 lg:col-4 xl:col-3">
+                <parameter-card :reading="reading" :recipe-parameter="recipeParameterOf(reading.parameter)"/>
+              </div>
+            </div>
+          </pv-tab-panel>
+          <pv-tab-panel value="trends">
+            <parameter-trend-panel :readings="store.readings" :recipe="recipe" :band-counts="store.bandCounts"/>
+          </pv-tab-panel>
+        </pv-tab-panels>
+      </pv-tabs>
 
-      <div v-if="session.isActive" class="flex gap-2 mt-3">
-        <pv-button :label="t('session-detail.complete')" icon="pi pi-check-circle" @click="complete"/>
-        <pv-button :label="t('session-detail.abort')" icon="pi pi-stop-circle" severity="danger" @click="abortVisible = true"/>
-        <pv-button v-if="isDev" :label="t('session-detail.simulate')" icon="pi pi-wifi" outlined @click="simulateReading"/>
+      <div class="flex flex-wrap gap-2 mt-3">
+        <template v-if="session.isActive">
+          <pv-button :label="t('session-detail.complete')" icon="pi pi-check-circle" @click="complete"/>
+          <pv-button :label="t('session-detail.abort')" icon="pi pi-stop-circle" severity="danger" @click="abortVisible = true"/>
+          <pv-button v-if="isDev" :label="t('session-detail.simulate')" icon="pi pi-wifi" outlined @click="simulateReading"/>
+          <pv-button v-if="isDev" :label="t('session-detail.simulate-burst')" icon="pi pi-bolt" outlined @click="simulateBurst"/>
+        </template>
+        <pv-button :label="t('session-detail.analyze')" icon="pi pi-chart-bar" severity="secondary" outlined @click="analyze"/>
+        <pv-button :label="t('session-detail.fault-cases')" icon="pi pi-exclamation-triangle" severity="secondary" outlined @click="faultCases"/>
+        <pv-button :label="t('reports.generate')" icon="pi pi-file-pdf" severity="secondary" outlined @click="reportVisible = true"/>
       </div>
     </template>
     <abort-session-dialog v-model:visible="abortVisible" @confirm="abort"/>
+    <generate-report-dialog v-model:visible="reportVisible" :session-id="sessionId"/>
   </section>
 </template>
 

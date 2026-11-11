@@ -2,37 +2,29 @@ import {BaseApi} from "@/shared/infrastructure/base-api.js";
 import {BaseEndpoint} from "@/shared/infrastructure/base-endpoint.js";
 
 const hvofSystemsEndpointPath = import.meta.env.VITE_HVOF_SYSTEMS_ENDPOINT_PATH;
-const controllersEndpointPath = import.meta.env.VITE_CONTROLLERS_ENDPOINT_PATH;
-const subsystemsEndpointPath = import.meta.env.VITE_HVOF_SUBSYSTEMS_ENDPOINT_PATH;
-const partsEndpointPath = import.meta.env.VITE_HVOF_PARTS_ENDPOINT_PATH;
 const recipesEndpointPath = import.meta.env.VITE_RECIPES_ENDPOINT_PATH;
 
 /**
- * API gateway of the Equipment bounded context.
+ * API gateway of the Equipment bounded context (EdgeWatch Platform).
+ * Subsystems, parts and controllers are sub-resources of an HVOF system; recipes are a top-level resource.
  * @extends BaseApi
  */
 export class EquipmentApi extends BaseApi {
     #hvofSystemsEndpoint;
-    #controllersEndpoint;
-    #subsystemsEndpoint;
-    #partsEndpoint;
     #recipesEndpoint;
 
     constructor() {
         super();
         this.#hvofSystemsEndpoint = new BaseEndpoint(this, hvofSystemsEndpointPath);
-        this.#controllersEndpoint = new BaseEndpoint(this, controllersEndpointPath);
-        this.#subsystemsEndpoint = new BaseEndpoint(this, subsystemsEndpointPath);
-        this.#partsEndpoint = new BaseEndpoint(this, partsEndpointPath);
         this.#recipesEndpoint = new BaseEndpoint(this, recipesEndpointPath);
     }
 
-    getHvofSystems() {
-        return this.#hvofSystemsEndpoint.getAll();
+    getHvofSystemsByOrganizationId(organizationId) {
+        return this.#hvofSystemsEndpoint.getAllBy({organizationId});
     }
 
-    getHvofSystemsByOrganizationId(id) {
-        return this.#hvofSystemsEndpoint.getAllBy({organizationId: id});
+    getHvofSystemById(id) {
+        return this.#hvofSystemsEndpoint.getById(id);
     }
 
     createHvofSystem(resource) {
@@ -43,48 +35,46 @@ export class EquipmentApi extends BaseApi {
         return this.#hvofSystemsEndpoint.update(resource.id, resource);
     }
 
-    getControllers() {
-        return this.#controllersEndpoint.getAll();
+    /** GET /hvof-systems/{id}/subsystems (each one includes its parameters and parts) */
+    getSubsystemsBySystemId(hvofSystemId) {
+        return this.#hvofSystemsEndpoint.getNested(hvofSystemId, "subsystems");
+    }
+
+    createSubsystem(hvofSystemId, resource) {
+        return this.#hvofSystemsEndpoint.createNested(hvofSystemId, "subsystems", resource);
+    }
+
+    updateSubsystem(hvofSystemId, subsystemId, resource) {
+        return this.#hvofSystemsEndpoint.updateNested(hvofSystemId, `subsystems/${subsystemId}`, resource);
+    }
+
+    /** POST /hvof-systems/{id}/subsystems/{subsystemId}/parts */
+    createPart(hvofSystemId, subsystemId, resource) {
+        return this.#hvofSystemsEndpoint.createNested(hvofSystemId, `subsystems/${subsystemId}/parts`, resource);
+    }
+
+    deletePart(hvofSystemId, subsystemId, partId) {
+        return this.http.delete(`${hvofSystemsEndpointPath}/${hvofSystemId}/subsystems/${subsystemId}/parts/${partId}`);
     }
 
     getControllersBySystemId(hvofSystemId) {
-        return this.#controllersEndpoint.getAllBy({hvofSystemId});
+        return this.#hvofSystemsEndpoint.getNested(hvofSystemId, "controllers");
     }
 
-    createController(resource) {
-        return this.#controllersEndpoint.create(resource);
+    createController(hvofSystemId, resource) {
+        return this.#hvofSystemsEndpoint.createNested(hvofSystemId, "controllers", resource);
     }
 
-    updateController(resource) {
-        return this.#controllersEndpoint.update(resource.id, resource);
+    updateController(hvofSystemId, controllerId, resource) {
+        return this.#hvofSystemsEndpoint.updateNested(hvofSystemId, `controllers/${controllerId}`, resource);
     }
 
-    getSubsystems() {
-        return this.#subsystemsEndpoint.getAll();
+    getRecipesBySystemId(hvofSystemId) {
+        return this.#recipesEndpoint.getAllBy({hvofSystemId});
     }
 
-    createSubsystem(resource) {
-        return this.#subsystemsEndpoint.create(resource);
-    }
-
-    updateSubsystem(resource) {
-        return this.#subsystemsEndpoint.update(resource.id, resource);
-    }
-
-    getParts() {
-        return this.#partsEndpoint.getAll();
-    }
-
-    createPart(resource) {
-        return this.#partsEndpoint.create(resource);
-    }
-
-    deletePart(id) {
-        return this.#partsEndpoint.delete(id);
-    }
-
-    getRecipes() {
-        return this.#recipesEndpoint.getAll();
+    getRecipeById(id) {
+        return this.#recipesEndpoint.getById(id);
     }
 
     createRecipe(resource) {
@@ -95,7 +85,8 @@ export class EquipmentApi extends BaseApi {
         return this.#recipesEndpoint.update(resource.id, resource);
     }
 
-    patchRecipe(id, changes) {
-        return this.#recipesEndpoint.patch(id, changes);
+    /** PATCH /recipes/{id}/status with {status: "ACTIVE" | "RETIRED"} */
+    changeRecipeStatus(id, status) {
+        return this.#recipesEndpoint.patchNested(id, "status", {status});
     }
 }

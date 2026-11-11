@@ -12,6 +12,7 @@ const equipmentApi = new EquipmentApi();
 
 /**
  * Application store of the Equipment bounded context.
+ * Subsystems (with their parts), controllers and recipes are loaded per HVOF system of the organization.
  */
 const useEquipmentStore = defineStore("equipment", () => {
     const hvofSystems = ref([]);
@@ -20,50 +21,40 @@ const useEquipmentStore = defineStore("equipment", () => {
     const controllersLoaded = ref(false);
     const subsystems = ref([]);
     const subsystemsLoaded = ref(false);
-    const parts = ref([]);
-    const partsLoaded = ref(false);
     const recipes = ref([]);
     const recipesLoaded = ref(false);
     const errors = ref([]);
 
     const activeHvofSystems = computed(() => hvofSystems.value.filter(s => s.isActive));
+    /** Parts of every subsystem, flattened (kept for views that list parts). */
+    const parts = computed(() => subsystems.value.flatMap(s => s.parts));
+    const partsLoaded = computed(() => subsystemsLoaded.value);
+
+    const fail = (error) => { console.error(error); errors.value.push(error); };
 
     function fetchHvofSystems() {
         const organizationId = useIamStore().organizationId;
-        if (!organizationId) return;
-        equipmentApi.getHvofSystemsByOrganizationId(organizationId).then(response => {
+        if (!organizationId) return Promise.resolve([]);
+        return equipmentApi.getHvofSystemsByOrganizationId(organizationId).then(response => {
             hvofSystems.value = HvofSystemAssembler.toEntitiesFromResponse(response);
             hvofSystemsLoaded.value = true;
-        }).catch(error => errors.value.push(error));
+            return hvofSystems.value;
+        }).catch(error => { fail(error); return []; });
     }
 
-    function fetchControllers() {
-        equipmentApi.getControllers().then(response => {
-            controllers.value = ControllerAssembler.toEntitiesFromResponse(response);
-            controllersLoaded.value = true;
-        }).catch(error => errors.value.push(error));
+    /** Loads a collection of every system in parallel and flattens it. */
+    function fetchPerSystem(request, assembler, target, loaded) {
+        const systems = hvofSystems.value;
+        return Promise.all(systems.map(s => request(s.id).then(response => assembler.toEntitiesFromResponse(response)).catch(error => { fail(error); return []; })))
+            .then(lists => { target.value = lists.flat(); loaded.value = true; return target.value; });
     }
 
-    function fetchSubsystems() {
-        equipmentApi.getSubsystems().then(response => {
-            subsystems.value = HvofSubsystemAssembler.toEntitiesFromResponse(response);
-            subsystemsLoaded.value = true;
-        }).catch(error => errors.value.push(error));
-    }
+    const fetchSubsystems = () => fetchPerSystem(id => equipmentApi.getSubsystemsBySystemId(id), HvofSubsystemAssembler, subsystems, subsystemsLoaded);
+    const fetchControllers = () => fetchPerSystem(id => equipmentApi.getControllersBySystemId(id), ControllerAssembler, controllers, controllersLoaded);
+    const fetchRecipes = () => fetchPerSystem(id => equipmentApi.getRecipesBySystemId(id), RecipeAssembler, recipes, recipesLoaded);
 
-    function fetchParts() {
-        equipmentApi.getParts().then(response => {
-            parts.value = HvofPartAssembler.toEntitiesFromResponse(response);
-            partsLoaded.value = true;
-        }).catch(error => errors.value.push(error));
-    }
-
-    function fetchRecipes() {
-        equipmentApi.getRecipes().then(response => {
-            recipes.value = RecipeAssembler.toEntitiesFromResponse(response);
-            recipesLoaded.value = true;
-        }).catch(error => errors.value.push(error));
-    }
+    /** Kept for compatibility: parts travel inside their subsystem. */
+    const fetchParts = () => subsystemsLoaded.value ? Promise.resolve(parts.value) : fetchSubsystems();
 
     function getHvofSystemById(id) {
         const idNum = parseInt(id);
@@ -89,7 +80,7 @@ const useEquipmentStore = defineStore("equipment", () => {
     }
 
     function partsOf(subsystemId) {
-        return parts.value.filter(p => p.hvofSubsystemId === subsystemId);
+        return getSubsystemById(subsystemId)?.parts ?? [];
     }
 
     /** Distinct parameter names declared by the subsystems of a system (feeds the recipe form). */
@@ -111,7 +102,7 @@ const useEquipmentStore = defineStore("equipment", () => {
     }
 
     function recipeByNumber(hvofSystemId, recipeNumber) {
-        return recipesOf(hvofSystemId).find(r => r.recipeNumber === recipeNumber);
+        return activeRecipesOf(hvofSystemId).find(r => r.recipeNumber === recipeNumber) ?? recipesOf(hvofSystemId).find(r => r.recipeNumber === recipeNumber);
     }
 
     /** Generic create/update helper: keeps the store rhythm in one place. */
@@ -121,12 +112,14 @@ const useEquipmentStore = defineStore("equipment", () => {
             const index = list.value.findIndex(e => e.id === entity.id);
             if (index === -1) list.value.push(entity); else list.value[index] = entity;
             return entity;
-        }).catch(error => errors.value.push(error));
+        }).catch(fail);
     }
 
     function addHvofSystem(system) {
         const resource = HvofSystemAssembler.toResourceFromEntity(system);
         delete resource.id;
+        delete resource.tagMappings;
+        delete resource.status;
         return upsert(hvofSystems, equipmentApi.createHvofSystem(resource), HvofSystemAssembler);
     }
 
@@ -136,57 +129,72 @@ const useEquipmentStore = defineStore("equipment", () => {
 
     function addController(controller) {
         const resource = ControllerAssembler.toResourceFromEntity(controller);
-        delete resource.id;
-        return upsert(controllers, equipmentApi.createController(resource), ControllerAssembler);
+        return upsert(controllers, equipmentApi.createController(controller.hvofSystemId, resource), ControllerAssembler);
     }
 
     function updateController(controller) {
-        return upsert(controllers, equipmentApi.updateController(ControllerAssembler.toResourceFromEntity(controller)), ControllerAssembler);
+        const resource = ControllerAssembler.toResourceFromEntity(controller);
+        return upsert(controllers, equipmentApi.updateController(controller.hvofSystemId, controller.id, resource), ControllerAssembler);
     }
 
     function addSubsystem(subsystem) {
         const resource = HvofSubsystemAssembler.toResourceFromEntity(subsystem);
-        delete resource.id;
-        return upsert(subsystems, equipmentApi.createSubsystem(resource), HvofSubsystemAssembler);
+        return upsert(subsystems, equipmentApi.createSubsystem(subsystem.hvofSystemId, resource), HvofSubsystemAssembler);
     }
 
     function updateSubsystem(subsystem) {
-        return upsert(subsystems, equipmentApi.updateSubsystem(HvofSubsystemAssembler.toResourceFromEntity(subsystem)), HvofSubsystemAssembler);
-    }
-
-    function addPart(part) {
-        const resource = HvofPartAssembler.toResourceFromEntity(part);
-        delete resource.id;
-        return upsert(parts, equipmentApi.createPart(resource), HvofPartAssembler);
+        const resource = HvofSubsystemAssembler.toResourceFromEntity(subsystem);
+        return upsert(subsystems, equipmentApi.updateSubsystem(subsystem.hvofSystemId, subsystem.id, resource), HvofSubsystemAssembler);
     }
 
     function deletePart(id) {
-        return equipmentApi.deletePart(id).then(() => {
-            const index = parts.value.findIndex(p => p.id === id);
-            if (index !== -1) parts.value.splice(index, 1);
-        }).catch(error => errors.value.push(error));
+        const subsystem = subsystems.value.find(s => s.parts.some(p => p.id === id));
+        if (!subsystem) return Promise.resolve();
+        return equipmentApi.deletePart(subsystem.hvofSystemId, subsystem.id, id).then(() => {
+            const index = subsystem.parts.findIndex(p => p.id === id);
+            if (index !== -1) subsystem.parts.splice(index, 1);
+        }).catch(fail);
+    }
+
+    /** Adds a part to its subsystem and refreshes the subsystem in the store. */
+    function addPart(part) {
+        const subsystem = getSubsystemById(part.hvofSubsystemId);
+        if (!subsystem) return Promise.resolve(null);
+        const resource = HvofPartAssembler.toResourceFromEntity(part);
+        return equipmentApi.createPart(subsystem.hvofSystemId, subsystem.id, resource).then(response => {
+            const created = HvofPartAssembler.toEntityFromResource(response.data);
+            subsystem.parts.push(created);
+            return created;
+        }).catch(fail);
     }
 
     function addRecipe(recipe) {
         const resource = RecipeAssembler.toResourceFromEntity(recipe);
-        delete resource.id;
         return upsert(recipes, equipmentApi.createRecipe(resource), RecipeAssembler);
     }
 
     function updateRecipe(recipe) {
-        return upsert(recipes, equipmentApi.updateRecipe(RecipeAssembler.toResourceFromEntity(recipe)), RecipeAssembler);
+        const resource = {...RecipeAssembler.toResourceFromEntity(recipe), id: recipe.id};
+        return upsert(recipes, equipmentApi.updateRecipe(resource), RecipeAssembler);
     }
 
+    /** DRAFT → ACTIVE; the platform retires the previously active recipe with the same number, so the list is reloaded. */
     function publishRecipe(id) {
-        return upsert(recipes, equipmentApi.patchRecipe(id, {status: "ACTIVE"}), RecipeAssembler);
+        return upsert(recipes, equipmentApi.changeRecipeStatus(id, "ACTIVE"), RecipeAssembler).then(recipe => fetchRecipes().then(() => recipe));
     }
 
+    function retireRecipe(id) {
+        return upsert(recipes, equipmentApi.changeRecipeStatus(id, "RETIRED"), RecipeAssembler);
+    }
+
+    /** Loads the systems first and then the collections that hang from them. */
     function fetchAll() {
-        if (!hvofSystemsLoaded.value) fetchHvofSystems();
-        if (!controllersLoaded.value) fetchControllers();
-        if (!subsystemsLoaded.value) fetchSubsystems();
-        if (!partsLoaded.value) fetchParts();
-        if (!recipesLoaded.value) fetchRecipes();
+        const systems = hvofSystemsLoaded.value ? Promise.resolve(hvofSystems.value) : fetchHvofSystems();
+        return systems.then(() => Promise.all([
+            subsystemsLoaded.value ? null : fetchSubsystems(),
+            controllersLoaded.value ? null : fetchControllers(),
+            recipesLoaded.value ? null : fetchRecipes()
+        ]));
     }
 
     return {
@@ -195,7 +203,7 @@ const useEquipmentStore = defineStore("equipment", () => {
         addHvofSystem, updateHvofSystem, addController, updateController, upsert,
         subsystems, subsystemsLoaded, parts, partsLoaded, fetchSubsystems, fetchParts, subsystemsOf, getSubsystemById,
         partsOf, parametersOf, addSubsystem, updateSubsystem, addPart, deletePart,
-        recipes, recipesLoaded, fetchRecipes, recipesOf, activeRecipesOf, getRecipeById, recipeByNumber, addRecipe, updateRecipe, publishRecipe
+        recipes, recipesLoaded, fetchRecipes, recipesOf, activeRecipesOf, getRecipeById, recipeByNumber, addRecipe, updateRecipe, publishRecipe, retireRecipe
     };
 });
 

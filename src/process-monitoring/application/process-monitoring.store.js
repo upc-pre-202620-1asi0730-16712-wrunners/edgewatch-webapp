@@ -29,15 +29,18 @@ const useProcessMonitoringStore = defineStore("process-monitoring", () => {
 
     const bandCounts = computed(() => {
         const counts = {nominal: 0, out_of_nominal: 0, warning: 0, shutdown: 0};
-        for (const r of readings.value) counts[r.band]++;
+        for (const r of readings.value) counts[r.band] = (counts[r.band] ?? 0) + 1;
         return counts;
     });
 
+    const fail = (error) => { console.error(error); errors.value.push(error); };
+
     function fetchSessions() {
-        processMonitoringApi.getSessions().then(response => {
+        return processMonitoringApi.getSessions().then(response => {
             sessions.value = SpraySessionAssembler.toEntitiesFromResponse(response);
             sessionsLoaded.value = true;
-        }).catch(error => errors.value.push(error));
+            return sessions.value;
+        }).catch(fail);
     }
 
     function getSessionById(id) {
@@ -51,30 +54,30 @@ const useProcessMonitoringStore = defineStore("process-monitoring", () => {
             const index = sessions.value.findIndex(s => s.id === session.id);
             if (index === -1) sessions.value.push(session); else sessions.value[index] = session;
             return session;
-        }).catch(error => errors.value.push(error));
+        }).catch(fail);
     }
 
+    /** Starts a session; the platform freezes the recipe bands and links the session to the recuperation. */
     function startSession(session) {
-        const resource = SpraySessionAssembler.toResourceFromEntity(session);
-        delete resource.id;
-        return upsertSession(processMonitoringApi.createSession(resource));
+        return upsertSession(processMonitoringApi.createSession(SpraySessionAssembler.toResourceFromEntity(session)));
     }
 
     function completeSession(id) {
         stopPolling();
-        return upsertSession(processMonitoringApi.patchSession(id, {status: "completed", endedAt: new Date().toISOString()}));
+        return upsertSession(processMonitoringApi.patchSession(id, {status: "completed"}));
     }
 
     function abortSession(id, reason) {
         stopPolling();
-        return upsertSession(processMonitoringApi.patchSession(id, {status: "aborted", endedAt: new Date().toISOString(), abortReason: reason}));
+        return upsertSession(processMonitoringApi.patchSession(id, {status: "aborted", abortReason: reason}));
     }
 
     function loadReadings(sessionId) {
         return processMonitoringApi.getReadingsBySessionId(sessionId).then(response => {
             readings.value = ProcessReadingAssembler.toEntitiesFromResponse(response);
             lastUpdate.value = new Date();
-        }).catch(error => errors.value.push(error));
+            return readings.value;
+        }).catch(fail);
     }
 
     function startPolling(sessionId, everyMs = 5000) {
@@ -94,27 +97,31 @@ const useProcessMonitoringStore = defineStore("process-monitoring", () => {
         lastUpdate.value = null;
     }
 
-    function addReading(reading) {
-        const resource = ProcessReadingAssembler.toResourceFromEntity(reading);
-        delete resource.id;
-        return processMonitoringApi.createReading(resource).then(response => {
-            readings.value.push(ProcessReadingAssembler.toEntityFromResource(response.data));
-        }).catch(error => errors.value.push(error));
+    /** Sends one or many readings; the platform classifies them against the frozen recipe bands. */
+    function addReadings(sessionId, list) {
+        const resources = list.map(ProcessReadingAssembler.toResourceFromEntity);
+        return processMonitoringApi.createReadings(sessionId, resources).then(response => {
+            const created = ProcessReadingAssembler.toEntitiesFromResponse(response);
+            readings.value.push(...created);
+            lastUpdate.value = new Date();
+            return created;
+        }).catch(fail);
     }
 
-    function loadDeviations(sessionId) {
-        if (deviations.value.has(sessionId)) return;
-        Promise.all([
-            processMonitoringApi.getReadingsBySessionIdAndBand(sessionId, "warning"),
-            processMonitoringApi.getReadingsBySessionIdAndBand(sessionId, "shutdown")
-        ]).then(([w, s]) => {
-            deviations.value = new Map(deviations.value).set(sessionId, w.data.length + s.data.length);
+    function addReading(reading) {
+        return addReadings(reading.spraySessionId, [reading]);
+    }
+
+    function loadDeviations(sessionId, force = false) {
+        if (!force && deviations.value.has(sessionId)) return;
+        processMonitoringApi.getDeviationsBySessionId(sessionId).then(response => {
+            deviations.value = new Map(deviations.value).set(sessionId, response.data.total ?? 0);
         }).catch(() => { deviations.value = new Map(deviations.value).set(sessionId, -1); });
     }
 
     return {
         sessions, sessionsLoaded, activeSessions, errors, fetchSessions, getSessionById, startSession, upsertSession,
-        readings, lastUpdate, latestByParameter, bandCounts, loadReadings, startPolling, stopPolling, clearReadings, addReading,
+        readings, lastUpdate, latestByParameter, bandCounts, loadReadings, startPolling, stopPolling, clearReadings, addReading, addReadings,
         completeSession, abortSession, deviations, loadDeviations
     };
 });

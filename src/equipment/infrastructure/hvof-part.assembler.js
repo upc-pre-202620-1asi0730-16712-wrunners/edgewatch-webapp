@@ -12,6 +12,7 @@ export class HvofPartAssembler {
     }
 
     static toResourceFromEntity(entity) {
-        return {...entity};
+        const {id, hvofSubsystemId, ...resource} = entity;
+        return {...resource};
     }
 }

@@ -39,15 +39,10 @@ const submit = () => {
         hvofSystemId: form.hvofSystemId, recuperationId: form.recuperationId, operatorId: iam.userId,
         recipeNumber: form.recipeNumber, startedAt: new Date().toISOString(), status: "active"
     });
+    // The platform links the session to the recuperation (RECEIVED → IN_PROGRESS); the local copy is refreshed.
     store.startSession(session).then(created => {
         if (!created) return;
-        const recuperation = traceability.getRecuperationById(created.recuperationId);
-        if (recuperation) {
-            traceability.patchRecuperation(recuperation.id, {
-                status: "IN_PROGRESS",
-                linkedSessions: [...recuperation.linkedSessions, {sessionId: created.id}]
-            });
-        }
+        traceability.fetchRecuperations();
         router.push({name: "process-monitoring-session-detail", params: {id: created.id}});
     });
 };

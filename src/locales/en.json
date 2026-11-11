@@ -8,7 +8,11 @@
     "spray-sessions": "Spray Sessions",
     "users": "Users",
     "subscription": "Subscription",
-    "about": "About Us"
+    "about": "About Us",
+    "fault-cases": "Fault Cases",
+    "quick-start": "Quick Start",
+    "generated-reports": "Reports",
+    "report-templates": "Report Templates"
   },
   "home": {
     "title": "Welcome to EdgeWatch",
@@ -125,7 +129,9 @@
       "DELIVERED": "Delivered",
       "REWORK": "Rework"
     },
-    "error": { "required": "This field is required" }
+    "error": {
+      "required": "This field is required"
+    }
   },
   "hvof-systems": {
     "title": "HVOF Systems",
@@ -152,9 +158,20 @@
     "tab-subsystems": "Subsystems",
     "tab-recipes": "Recipes",
     "back": "Back to list",
-    "fuel-option": { "HYDROGEN": "Hydrogen", "PROPANE": "Propane", "KEROSENE": "Kerosene", "NATURAL_GAS": "Natural gas" },
-    "status-option": { "ACTIVE": "Active", "MAINTENANCE": "Maintenance", "OUT_OF_SERVICE": "Out of service" },
-    "error": { "required": "This field is required" }
+    "fuel-option": {
+      "HYDROGEN": "Hydrogen",
+      "PROPANE": "Propane",
+      "KEROSENE": "Kerosene",
+      "NATURAL_GAS": "Natural gas"
+    },
+    "status-option": {
+      "ACTIVE": "Active",
+      "MAINTENANCE": "Maintenance",
+      "OUT_OF_SERVICE": "Out of service"
+    },
+    "error": {
+      "required": "This field is required"
+    }
   },
   "controllers": {
     "number": "#",
@@ -182,7 +199,10 @@
     "protocols": "Supported protocols",
     "save": "Save",
     "cancel": "Cancel",
-    "error": { "required": "This field is required", "ip-invalid": "Enter a valid IPv4 address" }
+    "error": {
+      "required": "This field is required",
+      "ip-invalid": "Enter a valid IPv4 address"
+    }
   },
   "subsystems": {
     "new": "New Subsystem",
@@ -203,10 +223,16 @@
     "save": "Save",
     "cancel": "Cancel",
     "type-option": {
-      "GAS_CONSOLE": "Gas console", "POWDER_FEEDER": "Powder feeder", "COOLING_UNIT": "Cooling unit",
-      "MANIPULATOR": "Manipulator", "DUST_COLLECTOR": "Dust collector", "SPRAY_GUN": "Spray gun"
+      "GAS_CONSOLE": "Gas console",
+      "POWDER_FEEDER": "Powder feeder",
+      "COOLING_UNIT": "Cooling unit",
+      "MANIPULATOR": "Manipulator",
+      "DUST_COLLECTOR": "Dust collector",
+      "SPRAY_GUN": "Spray gun"
     },
-    "error": { "required": "This field is required" }
+    "error": {
+      "required": "This field is required"
+    }
   },
   "part": {
     "new-title": "New Part",
@@ -216,9 +242,14 @@
     "save": "Save",
     "cancel": "Cancel",
     "type-option": {
-      "MASS_FLOW_CONTROLLER": "Mass flow controller", "HOPPER": "Hopper", "CARRIER_GAS_MFC": "Carrier gas MFC",
-      "COOLANT_PUMP": "Coolant pump", "TEMPERATURE_SENSOR": "Temperature sensor", "SPINDLE_VFD": "Spindle VFD",
-      "AXIS_DRIVE": "Axis drive", "NOZZLE": "Nozzle"
+      "MASS_FLOW_CONTROLLER": "Mass flow controller",
+      "HOPPER": "Hopper",
+      "CARRIER_GAS_MFC": "Carrier gas MFC",
+      "COOLANT_PUMP": "Coolant pump",
+      "TEMPERATURE_SENSOR": "Temperature sensor",
+      "SPINDLE_VFD": "Spindle VFD",
+      "AXIS_DRIVE": "Axis drive",
+      "NOZZLE": "Nozzle"
     }
   },
   "recipes": {
@@ -231,7 +262,11 @@
     "new": "New Recipe",
     "publish": "Publish",
     "empty": "No recipes defined yet.",
-    "status-option": { "DRAFT": "Draft", "ACTIVE": "Active", "RETIRED": "Retired" }
+    "status-option": {
+      "DRAFT": "Draft",
+      "ACTIVE": "Active",
+      "RETIRED": "Retired"
+    }
   },
   "recipe": {
     "new-title": "New Recipe",
@@ -282,7 +317,13 @@
     "filter-to": "To",
     "clear-filters": "Clear",
     "empty": "No sessions match the selected filters.",
-    "status-option": { "active": "Active", "completed": "Completed", "aborted": "Aborted", "interrupted": "Interrupted" }
+    "status-option": {
+      "active": "Active",
+      "completed": "Completed",
+      "aborted": "Aborted",
+      "interrupted": "Interrupted"
+    },
+    "analyze": "Analyze"
   },
   "spray-session": {
     "start-title": "Start Spray Session",
@@ -292,7 +333,10 @@
     "recipe-hint": "Only active recipes of the selected system",
     "start": "Start Session",
     "cancel": "Cancel",
-    "error": { "required": "This field is required", "no-active-recipes": "The selected system has no active recipes" }
+    "error": {
+      "required": "This field is required",
+      "no-active-recipes": "The selected system has no active recipes"
+    }
   },
   "session-detail": {
     "title": "Session",
@@ -315,13 +359,35 @@
     "abort-notes": "Notes (optional)",
     "abort-confirm": "Abort session",
     "abort-cancel": "Keep running",
-    "abort-reason-option": { "FLAME_OUT": "Flame out", "POWDER_DEPLETED": "Powder depleted", "MACHINE_FAULT": "Machine fault", "OPERATOR_DECISION": "Operator decision", "OTHER": "Other" },
-    "band": { "nominal": "Nominal", "out_of_nominal": "Out of nominal", "warning": "Warning", "shutdown": "Shutdown" },
+    "abort-reason-option": {
+      "FLAME_OUT": "Flame out",
+      "POWDER_DEPLETED": "Powder depleted",
+      "MACHINE_FAULT": "Machine fault",
+      "OPERATOR_DECISION": "Operator decision",
+      "OTHER": "Other"
+    },
+    "band": {
+      "nominal": "Nominal",
+      "out_of_nominal": "Out of nominal",
+      "warning": "Warning",
+      "shutdown": "Shutdown"
+    },
     "parameter": {
-      "fuel_gas_flow": "Fuel gas flow", "oxygen_flow": "Oxygen flow", "cooling_air_flow": "Cooling air flow",
-      "powder_feed_rate": "Powder feed rate", "carrier_gas_flow": "Carrier gas flow", "hopper_pressure": "Hopper pressure",
-      "coolant_flow": "Coolant flow", "coolant_outlet_temp": "Coolant outlet temp", "spindle_speed": "Spindle speed"
-    }
+      "fuel_gas_flow": "Fuel gas flow",
+      "oxygen_flow": "Oxygen flow",
+      "cooling_air_flow": "Cooling air flow",
+      "powder_feed_rate": "Powder feed rate",
+      "carrier_gas_flow": "Carrier gas flow",
+      "hopper_pressure": "Hopper pressure",
+      "coolant_flow": "Coolant flow",
+      "coolant_outlet_temp": "Coolant outlet temp",
+      "spindle_speed": "Spindle speed"
+    },
+    "tab-live": "Live",
+    "tab-trends": "Trends",
+    "analyze": "Analyze session",
+    "fault-cases": "Fault cases",
+    "simulate-burst": "Simulate burst"
   },
   "iam": {
     "sign-up": {
@@ -377,9 +443,12 @@
       "save": "Save roles",
       "cancel": "Cancel",
       "role-option": {
-        "ROLE_ORG_ADMIN": "Organization admin", "ROLE_QUALITY_ENGINEER": "Quality & research engineer",
-        "ROLE_MAINTENANCE_SUPERVISOR": "Machine maintenance supervisor", "ROLE_HVOF_OPERATOR": "HVOF operator",
-        "ROLE_OPERATIONS_SUPERVISOR": "Operations supervisor", "ROLE_RELIABILITY_ENGINEER": "Reliability engineer",
+        "ROLE_ORG_ADMIN": "Organization admin",
+        "ROLE_QUALITY_ENGINEER": "Quality & research engineer",
+        "ROLE_MAINTENANCE_SUPERVISOR": "Machine maintenance supervisor",
+        "ROLE_HVOF_OPERATOR": "HVOF operator",
+        "ROLE_OPERATIONS_SUPERVISOR": "Operations supervisor",
+        "ROLE_RELIABILITY_ENGINEER": "Reliability engineer",
         "ROLE_PROCUREMENT_ANALYST": "Procurement analyst"
       }
     }
@@ -403,8 +472,20 @@
     "none": "Your organization has no active subscription yet.",
     "choose": "Choose a plan"
   },
-  "common": { "view": "View", "edit": "Edit", "delete": "Delete", "back": "Back", "yes": "Yes", "no": "No" },
-  "errors": { "occurred": "An error occurred while loading the data." },
+  "common": {
+    "view": "View",
+    "edit": "Edit",
+    "delete": "Delete",
+    "back": "Back",
+    "yes": "Yes",
+    "no": "No",
+    "cancel": "Cancel",
+    "save": "Save",
+    "actions": "Actions"
+  },
+  "errors": {
+    "occurred": "An error occurred while loading the data."
+  },
   "page-not-found": {
     "title": "Page not found",
     "content": "The path {unavailable-route} is not available.",
@@ -415,7 +496,9 @@
     "use": "using",
     "author": "by {brand} Developer Team"
   },
-  "language-switcher": { "label": "Select the application language" },
+  "language-switcher": {
+    "label": "Select the application language"
+  },
   "footer": {
     "rights": "All rights reserved.",
     "terms": "Terms & Conditions"
@@ -424,13 +507,304 @@
     "title": "Terms & Conditions",
     "updated": "Last updated: October 5, 2026",
     "intro": "These terms govern the use of EdgeWatch, the platform developed by WebRunners for the traceability and monitoring of HVOF coating processes. By creating an account or using the platform, your organization accepts them.",
-    "s1": { "title": "1. Service", "content": "EdgeWatch lets recuperation suppliers register customers, components, recuperation orders, HVOF equipment and spray sessions, and lets asset owners review the evidence related to their components. The platform supports decisions; it does not replace the technical judgment of the engineers responsible for each process." },
-    "s2": { "title": "2. Accounts and roles", "content": "Each organization is responsible for the accounts it creates, the roles it assigns and for keeping its credentials confidential. Access to each function is restricted by role, and every user must act only within the permissions granted by their organization." },
-    "s3": { "title": "3. Data ownership and confidentiality", "content": "Process data, readings, work orders and documents belong to the organization that registers them. WebRunners does not sell or share this information with third parties and only uses it to provide the service, under the confidentiality expected from software engineering professionals." },
-    "s4": { "title": "4. Personal data protection", "content": "Personal data of users (name, corporate email and role) is processed in accordance with Peruvian Law No. 29733 on Personal Data Protection and its regulations. Users may request access, correction or deletion of their data by contacting WebRunners." },
-    "s5": { "title": "5. Acceptable use", "content": "Users must register truthful information, must not alter readings or quality evidence, and must not use the platform to harm the interests of customers, suppliers or third parties. Falsifying quality records is grounds for suspending the account." },
-    "s6": { "title": "6. Availability and responsibility", "content": "WebRunners works to keep the platform available and to correct any defect promptly, and will notify organizations of incidents that affect their information. WebRunners is not liable for decisions taken without validating the data recorded in the platform." },
-    "s7": { "title": "7. Professional ethics", "content": "WebRunners develops and operates EdgeWatch following the ACM/IEEE Software Engineering Code of Ethics and the Code of Ethics of the Colegio de Ingenieros del Perú: acting in the public interest, being honest about the capabilities and limitations of the product, and protecting the safety of the people involved in industrial processes." },
-    "s8": { "title": "8. Changes and contact", "content": "These terms may be updated; relevant changes will be communicated within the platform before they take effect. Questions can be sent to the WebRunners team through the contact channels published on the EdgeWatch website." }
+    "s1": {
+      "title": "1. Service",
+      "content": "EdgeWatch lets recuperation suppliers register customers, components, recuperation orders, HVOF equipment and spray sessions, and lets asset owners review the evidence related to their components. The platform supports decisions; it does not replace the technical judgment of the engineers responsible for each process."
+    },
+    "s2": {
+      "title": "2. Accounts and roles",
+      "content": "Each organization is responsible for the accounts it creates, the roles it assigns and for keeping its credentials confidential. Access to each function is restricted by role, and every user must act only within the permissions granted by their organization."
+    },
+    "s3": {
+      "title": "3. Data ownership and confidentiality",
+      "content": "Process data, readings, work orders and documents belong to the organization that registers them. WebRunners does not sell or share this information with third parties and only uses it to provide the service, under the confidentiality expected from software engineering professionals."
+    },
+    "s4": {
+      "title": "4. Personal data protection",
+      "content": "Personal data of users (name, corporate email and role) is processed in accordance with Peruvian Law No. 29733 on Personal Data Protection and its regulations. Users may request access, correction or deletion of their data by contacting WebRunners."
+    },
+    "s5": {
+      "title": "5. Acceptable use",
+      "content": "Users must register truthful information, must not alter readings or quality evidence, and must not use the platform to harm the interests of customers, suppliers or third parties. Falsifying quality records is grounds for suspending the account."
+    },
+    "s6": {
+      "title": "6. Availability and responsibility",
+      "content": "WebRunners works to keep the platform available and to correct any defect promptly, and will notify organizations of incidents that affect their information. WebRunners is not liable for decisions taken without validating the data recorded in the platform."
+    },
+    "s7": {
+      "title": "7. Professional ethics",
+      "content": "WebRunners develops and operates EdgeWatch following the ACM/IEEE Software Engineering Code of Ethics and the Code of Ethics of the Colegio de Ingenieros del Perú: acting in the public interest, being honest about the capabilities and limitations of the product, and protecting the safety of the people involved in industrial processes."
+    },
+    "s8": {
+      "title": "8. Changes and contact",
+      "content": "These terms may be updated; relevant changes will be communicated within the platform before they take effect. Questions can be sent to the WebRunners team through the contact channels published on the EdgeWatch website."
+    }
+  },
+  "charts": {
+    "trend-title": "Parameter trend",
+    "select-parameter": "Parameter",
+    "band-distribution": "Band distribution",
+    "no-data": "No data to chart yet.",
+    "setpoint": "Setpoint",
+    "nominal-min": "Nominal min",
+    "nominal-max": "Nominal max",
+    "lower-warning": "Lower warning",
+    "upper-warning": "Upper warning",
+    "lower-shutdown": "Lower shutdown",
+    "upper-shutdown": "Upper shutdown"
+  },
+  "analysis": {
+    "title": "Session analysis",
+    "back": "Back to session",
+    "export-readings": "Export readings (CSV)",
+    "export-statistics": "Export statistics (CSV)",
+    "compliance": "Compliance",
+    "duration": "Duration",
+    "readings": "Readings",
+    "deviations": "Deviations",
+    "normalized-title": "Deviation from the recipe",
+    "normalized-hint": "0 = setpoint, ±1 = shutdown limits; every parameter on the same scale.",
+    "normalized-axis": "Normalized deviation",
+    "statistics-title": "Statistics per parameter",
+    "deviations-title": "Warning and shutdown readings",
+    "no-deviations": "No deviations in this session.",
+    "parameter": "Parameter",
+    "unit": "Unit",
+    "count": "Count",
+    "min": "Min",
+    "mean": "Mean",
+    "max": "Max",
+    "std-dev": "Std. dev.",
+    "setpoint": "Setpoint",
+    "nominal-range": "Nominal range",
+    "time": "Time",
+    "value": "Value",
+    "band": "Band",
+    "tag": "Tag"
+  },
+  "fault-cases": {
+    "title": "Fault Cases",
+    "manage-rules": "Manage rules",
+    "all-statuses": "All statuses",
+    "session": "Session",
+    "refresh": "Refresh",
+    "empty": "No fault cases match the filters.",
+    "detected-at": "Detected",
+    "system": "System",
+    "parameter": "Parameter",
+    "band": "Band",
+    "value": "Value",
+    "probable-cause": "Probable cause",
+    "recommended-action": "Recommended action",
+    "status": "Status",
+    "actions": "Actions",
+    "acknowledge": "Acknowledge",
+    "resolve": "Resolve",
+    "cancel": "Cancel",
+    "resolve-title": "Resolve fault case",
+    "resolution-notes": "Resolution notes (optional)",
+    "status-option": {
+      "open": "Open",
+      "acknowledged": "Acknowledged",
+      "resolved": "Resolved"
+    }
+  },
+  "fault-rules": {
+    "title": "Fault Rules",
+    "new": "New rule",
+    "hint": "When a reading leaves its band, the platform opens a fault case with the probable cause and recommended action of the matching rule. The cooldown avoids one case per reading.",
+    "empty": "No rules yet.",
+    "parameter": "Parameter",
+    "band": "Band",
+    "probable-cause": "Probable cause",
+    "recommended-action": "Recommended action",
+    "cooldown": "Cooldown (s)",
+    "actions": "Actions",
+    "new-title": "New fault rule",
+    "edit-title": "Edit fault rule",
+    "save": "Save"
+  },
+  "dashboard": {
+    "title": "Operations dashboard",
+    "subtitle": "Last {days} days of HVOF recuperation activity.",
+    "active-sessions": "Active sessions",
+    "open-fault-cases": "Open fault cases",
+    "recent-sessions": "Sessions started",
+    "aborted-share": "{percent}% aborted",
+    "recuperations-in-progress": "Recuperations in progress",
+    "active-systems": "{count} active HVOF systems",
+    "sessions-per-day": "Sessions per day",
+    "fault-cases-by-parameter": "Fault cases by parameter",
+    "latest-open-cases": "Latest open fault cases",
+    "see-all": "See all",
+    "no-open-cases": "No open fault cases.",
+    "no-fault-cases": "No fault cases yet.",
+    "empty-title": "Your plant is empty",
+    "empty-description": "Load the demo plant and start your first spray session in one click.",
+    "empty-action": "Quick start"
+  },
+  "nav": {
+    "group": {
+      "overview": "Overview",
+      "traceability": "Traceability",
+      "equipment": "Equipment",
+      "account": "Account",
+      "reports": "Reports"
+    },
+    "segment": {
+      "RECUPERATION_SUPPLIER": "Recuperation supplier",
+      "ASSET_OWNER": "Asset owner",
+      "GUEST": "Guest"
+    }
+  },
+  "quick-start": {
+    "title": "Quick start",
+    "subtitle": "Everything a spray session needs, in one place: check what is missing or load the demo plant and start monitoring in one click.",
+    "checklist": "Session prerequisites",
+    "loading": "Checking your plant...",
+    "count": "{count} registered",
+    "ready": "Your plant is ready: you can start a spray session.",
+    "missing": "{count} prerequisites missing. Load the demo plant or register them from each page.",
+    "demo-title": "Demo plant (FESA)",
+    "demo-description": "Registers an HVOF Diamond Jet 2700 system with its four subsystems and nine parameters, publishes recipe #12 (WC-10Co-4Cr), and opens a recuperation order for a CAT 797F hydraulic rod of Cerro Verde. Records that already exist are reused.",
+    "already-exists": "already registered",
+    "failed": "The demo plant could not be loaded completely. Check the platform and try again.",
+    "provisioned": "Demo plant ready.",
+    "load-and-start": "Load demo plant and start session",
+    "load-only": "Load demo plant only",
+    "start-session": "Start spray session",
+    "go-to-start": "Start a session",
+    "step": {
+      "hvof-system": "HVOF system",
+      "subsystems": "Subsystems with parameters",
+      "recipe": "Active recipe",
+      "customer": "Customer",
+      "component": "Component",
+      "recuperation": "Open recuperation order"
+    }
+  },
+  "reports": {
+    "templates-title": "Report templates",
+    "templates-hint": "Design the layout, branding and content of the PDF reports of your organization.",
+    "new-template": "New template",
+    "edit-template": "Edit template",
+    "show-archived": "Show archived",
+    "no-templates": "No templates for this kind yet.",
+    "name": "Name",
+    "description": "Description",
+    "kind-label": "Report kind",
+    "default": "Default",
+    "default-for-kind": "Default template for this kind",
+    "archived": "Archived",
+    "layout": "Layout",
+    "sections-count": "{count} sections",
+    "widgets-count": "{count} widgets",
+    "archive": "Archive",
+    "reactivate": "Reactivate",
+    "general": "General",
+    "branding": "Branding and page",
+    "primary-color": "Primary color",
+    "secondary-color": "Accent color",
+    "header-text": "Header text",
+    "footer-text": "Footer text",
+    "signature-block": "Signature block",
+    "sections": "Sections",
+    "add-section": "Add section",
+    "section-title": "Section title",
+    "add-widget": "Add widget",
+    "variable-label": "Variable",
+    "label": "Label",
+    "preview": "Preview",
+    "form-invalid": "Complete the name, valid colors and at least one section with its widgets (variable and label).",
+    "preview-header": "Header text",
+    "preview-title": "Template name",
+    "preview-section": "Section",
+    "preview-widget": "Widget",
+    "generate": "Generate PDF",
+    "generate-title": "Generate report",
+    "template": "Template",
+    "download-pdf": "Download PDF",
+    "empty-table": "No records.",
+    "generated-title": "Generated reports",
+    "generated-hint": "Every PDF generated from a template is registered here.",
+    "no-generated": "No reports generated yet.",
+    "generated-at": "Generated",
+    "file": "File",
+    "subject-label": "Subject",
+    "generated-by": "Generated by",
+    "format": "Format",
+    "manage-templates": "Manage templates",
+    "kind": {
+      "QUALITY_CERTIFICATE": "Quality certificate",
+      "SESSION_REPORT": "Session report",
+      "FAULT_SUMMARY": "Fault summary"
+    },
+    "orientation-option": {
+      "PORTRAIT": "Portrait",
+      "LANDSCAPE": "Landscape"
+    },
+    "source": {
+      "PROCESS": "Process",
+      "SESSION": "Session",
+      "RECUPERATION": "Order",
+      "FAULT_CASES": "Fault cases"
+    },
+    "view": {
+      "VALUE": "Value",
+      "MIN_MAX": "Min – Max",
+      "TREND": "Trend chart",
+      "TABLE": "Table",
+      "TEXT": "Text"
+    },
+    "aggregation": {
+      "AVG": "Average",
+      "MIN": "Minimum",
+      "MAX": "Maximum",
+      "RANGE": "Range",
+      "LAST": "Last",
+      "COUNT": "Count"
+    },
+    "width": {
+      "HALF": "Half",
+      "FULL": "Full"
+    },
+    "subject": {
+      "session": "Session",
+      "recuperation": "Order"
+    },
+    "signature": {
+      "quality": "Quality engineer",
+      "supervisor": "Operations supervisor"
+    },
+    "variable": {
+      "SESSION": {
+        "system": "HVOF system",
+        "recipe": "Recipe",
+        "operator": "Operator",
+        "started_at": "Started at",
+        "ended_at": "Ended at",
+        "duration": "Duration",
+        "status": "Status",
+        "readings": "Readings",
+        "compliance": "Nominal compliance",
+        "deviations": "Out-of-band readings"
+      },
+      "RECUPERATION": {
+        "work_order_number": "Work order",
+        "manufacturing_order_number": "Manufacturing order",
+        "component_serial": "Component serial",
+        "component_part_number": "Part number",
+        "machine": "Machine",
+        "customer_name": "Customer",
+        "mine_site": "Mine site",
+        "operation": "Operation",
+        "powder_lot_number": "Powder lot",
+        "powder_chemical_composition": "Powder composition"
+      },
+      "FAULT_CASES": {
+        "cases": "Fault cases",
+        "open_cases": "Open fault cases"
+      }
+    }
   }
 }

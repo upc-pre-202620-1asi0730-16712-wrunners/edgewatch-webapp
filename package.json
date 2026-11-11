@@ -1,7 +1,7 @@
 {
   "name": "edgewatch-webapp",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "EdgeWatch Web Application",
   "author": "WebRunners",
   "license": "MIT",
@@ -15,6 +15,9 @@
   "dependencies": {
     "@primeuix/themes": "^3.0.1",
     "axios": "^1.20.0",
+    "chart.js": "^4.6.1",
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.9",
     "pinia": "^4.0.3",
     "primeflex": "^4.0.0",
     "primeicons": "^8.0.2",

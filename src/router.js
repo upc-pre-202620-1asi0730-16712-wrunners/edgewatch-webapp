@@ -2,22 +2,28 @@ import {createRouter, createWebHistory} from "vue-router";
 import traceabilityRoutes from "@/traceability/presentation/traceability-routes.js";
 import equipmentRoutes from "@/equipment/presentation/equipment-routes.js";
 import processMonitoringRoutes from "@/process-monitoring/presentation/process-monitoring-routes.js";
+import faultDiagnosisRoutes from "@/fault-diagnosis/presentation/fault-diagnosis-routes.js";
+import reportingRoutes from "@/reporting/presentation/reporting-routes.js";
 import iamRoutes from "@/iam/presentation/iam-routes.js";
 import billingRoutes from "@/billing/presentation/billing-routes.js";
 import {authenticationGuard} from "@/iam/infrastructure/authentication.guard.js";
 
 const home = () => import("@/shared/presentation/views/home.vue");
 const about = () => import("@/shared/presentation/views/about.vue");
+const quickStart = () => import("@/shared/presentation/views/quick-start.vue");
 const termsAndConditions = () => import("@/shared/presentation/views/terms-and-conditions.vue");
 const pageNotFound = () => import("@/shared/presentation/views/page-not-found.vue");
 
 const routes = [
     {path: "/home",               name: "home",               component: home,          meta: {title: "Home"}},
+    {path: "/quick-start",        name: "quick-start",        component: quickStart,    meta: {title: "Quick Start", requiresSupplier: true}},
     {path: "/about",              name: "about",              component: about,         meta: {title: "About"}},
     {path: "/terms",              name: "terms",              component: termsAndConditions, meta: {title: "Terms & Conditions"}},
     {path: "/traceability",       name: "traceability",       meta: {requiresSupplier: true}, children: traceabilityRoutes},
     {path: "/equipment",          name: "equipment",          meta: {requiresSupplier: true}, children: equipmentRoutes},
     {path: "/process-monitoring", name: "process-monitoring", meta: {requiresSupplier: true}, children: processMonitoringRoutes},
+    {path: "/fault-diagnosis",    name: "fault-diagnosis",    meta: {requiresSupplier: true}, children: faultDiagnosisRoutes},
+    {path: "/reporting",          name: "reporting",          meta: {requiresSupplier: true}, children: reportingRoutes},
     {path: "/iam",                name: "iam",                children: iamRoutes},
     {path: "/billing",            name: "billing",            children: billingRoutes},
     {path: "/",                   name: "default",            redirect: "/home"},

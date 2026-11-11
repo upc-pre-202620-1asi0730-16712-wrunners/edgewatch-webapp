@@ -11,8 +11,8 @@ export class SpraySessionAssembler {
         return resources.map(resource => this.toEntityFromResource(resource));
     }
 
+    /** Request of POST /spray-sessions: the operator and the start time come from the platform. */
     static toResourceFromEntity(entity) {
-        const {isActive, ...resource} = entity;
-        return {...resource};
+        return {hvofSystemId: entity.hvofSystemId, recuperationId: entity.recuperationId, recipeNumber: entity.recipeNumber, timeZone: entity.timeZone};
     }
 }
