@@ -3,6 +3,7 @@ import traceabilityRoutes from "@/traceability/presentation/traceability-routes.
 import equipmentRoutes from "@/equipment/presentation/equipment-routes.js";
 import processMonitoringRoutes from "@/process-monitoring/presentation/process-monitoring-routes.js";
 import faultDiagnosisRoutes from "@/fault-diagnosis/presentation/fault-diagnosis-routes.js";
+import reportingRoutes from "@/reporting/presentation/reporting-routes.js";
 import iamRoutes from "@/iam/presentation/iam-routes.js";
 import billingRoutes from "@/billing/presentation/billing-routes.js";
 import {authenticationGuard} from "@/iam/infrastructure/authentication.guard.js";
@@ -22,6 +23,7 @@ const routes = [
     {path: "/equipment",          name: "equipment",          meta: {requiresSupplier: true}, children: equipmentRoutes},
     {path: "/process-monitoring", name: "process-monitoring", meta: {requiresSupplier: true}, children: processMonitoringRoutes},
     {path: "/fault-diagnosis",    name: "fault-diagnosis",    meta: {requiresSupplier: true}, children: faultDiagnosisRoutes},
+    {path: "/reporting",          name: "reporting",          meta: {requiresSupplier: true}, children: reportingRoutes},
     {path: "/iam",                name: "iam",                children: iamRoutes},
     {path: "/billing",            name: "billing",            children: billingRoutes},
     {path: "/",                   name: "default",            redirect: "/home"},

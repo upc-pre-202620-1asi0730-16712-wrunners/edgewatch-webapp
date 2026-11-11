@@ -10,7 +10,9 @@
     "subscription": "Suscripción",
     "about": "Acerca de",
     "fault-cases": "Casos de falla",
-    "quick-start": "Puesta en marcha"
+    "quick-start": "Puesta en marcha",
+    "generated-reports": "Reportes",
+    "report-templates": "Plantillas de reporte"
   },
   "home": {
     "title": "Bienvenido a EdgeWatch",
@@ -476,7 +478,10 @@
     "delete": "Eliminar",
     "back": "Volver",
     "yes": "Sí",
-    "no": "No"
+    "no": "No",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "actions": "Acciones"
   },
   "errors": {
     "occurred": "Ocurrió un error al cargar los datos."
@@ -643,7 +648,8 @@
       "overview": "Resumen",
       "traceability": "Trazabilidad",
       "equipment": "Equipos",
-      "account": "Cuenta"
+      "account": "Cuenta",
+      "reports": "Reportes"
     },
     "segment": {
       "RECUPERATION_SUPPLIER": "Proveedor de recuperación",
@@ -675,6 +681,130 @@
       "customer": "Cliente",
       "component": "Componente",
       "recuperation": "Orden de recuperación abierta"
+    }
+  },
+  "reports": {
+    "templates-title": "Plantillas de reporte",
+    "templates-hint": "Diseña el formato, la marca y el contenido de los reportes PDF de tu organización.",
+    "new-template": "Nueva plantilla",
+    "edit-template": "Editar plantilla",
+    "show-archived": "Mostrar archivadas",
+    "no-templates": "Aún no hay plantillas de este tipo.",
+    "name": "Nombre",
+    "description": "Descripción",
+    "kind-label": "Tipo de reporte",
+    "default": "Predeterminada",
+    "default-for-kind": "Plantilla predeterminada para este tipo",
+    "archived": "Archivada",
+    "layout": "Formato",
+    "sections-count": "{count} secciones",
+    "widgets-count": "{count} widgets",
+    "archive": "Archivar",
+    "reactivate": "Reactivar",
+    "general": "General",
+    "branding": "Marca y página",
+    "primary-color": "Color principal",
+    "secondary-color": "Color de acento",
+    "header-text": "Texto de cabecera",
+    "footer-text": "Texto de pie",
+    "signature-block": "Bloque de firmas",
+    "sections": "Secciones",
+    "add-section": "Agregar sección",
+    "section-title": "Título de la sección",
+    "add-widget": "Agregar widget",
+    "variable-label": "Variable",
+    "label": "Etiqueta",
+    "preview": "Vista previa",
+    "form-invalid": "Completa el nombre, colores válidos y al menos una sección con sus widgets (variable y etiqueta).",
+    "preview-header": "Texto de cabecera",
+    "preview-title": "Nombre de la plantilla",
+    "preview-section": "Sección",
+    "preview-widget": "Widget",
+    "generate": "Generar PDF",
+    "generate-title": "Generar reporte",
+    "template": "Plantilla",
+    "download-pdf": "Descargar PDF",
+    "empty-table": "Sin registros.",
+    "generated-title": "Reportes generados",
+    "generated-hint": "Cada PDF generado desde una plantilla queda registrado aquí.",
+    "no-generated": "Aún no se han generado reportes.",
+    "generated-at": "Generado",
+    "file": "Archivo",
+    "subject-label": "Sujeto",
+    "generated-by": "Generado por",
+    "format": "Formato",
+    "manage-templates": "Gestionar plantillas",
+    "kind": {
+      "QUALITY_CERTIFICATE": "Certificado de calidad",
+      "SESSION_REPORT": "Reporte de sesión",
+      "FAULT_SUMMARY": "Resumen de fallas"
+    },
+    "orientation-option": {
+      "PORTRAIT": "Vertical",
+      "LANDSCAPE": "Horizontal"
+    },
+    "source": {
+      "PROCESS": "Proceso",
+      "SESSION": "Sesión",
+      "RECUPERATION": "Orden",
+      "FAULT_CASES": "Casos de falla"
+    },
+    "view": {
+      "VALUE": "Valor",
+      "MIN_MAX": "Mín – Máx",
+      "TREND": "Gráfico de tendencia",
+      "TABLE": "Tabla",
+      "TEXT": "Texto"
+    },
+    "aggregation": {
+      "AVG": "Promedio",
+      "MIN": "Mínimo",
+      "MAX": "Máximo",
+      "RANGE": "Rango",
+      "LAST": "Último",
+      "COUNT": "Conteo"
+    },
+    "width": {
+      "HALF": "Media",
+      "FULL": "Completa"
+    },
+    "subject": {
+      "session": "Sesión",
+      "recuperation": "Orden"
+    },
+    "signature": {
+      "quality": "Ingeniero de calidad",
+      "supervisor": "Supervisor de operaciones"
+    },
+    "variable": {
+      "SESSION": {
+        "system": "Sistema HVOF",
+        "recipe": "Receta",
+        "operator": "Operador",
+        "started_at": "Inicio",
+        "ended_at": "Fin",
+        "duration": "Duración",
+        "status": "Estado",
+        "readings": "Lecturas",
+        "compliance": "Cumplimiento nominal",
+        "deviations": "Lecturas fuera de banda"
+      },
+      "RECUPERATION": {
+        "work_order_number": "Orden de trabajo",
+        "manufacturing_order_number": "Orden de fabricación",
+        "component_serial": "Serie del componente",
+        "component_part_number": "Número de parte",
+        "machine": "Máquina",
+        "customer_name": "Cliente",
+        "mine_site": "Mina",
+        "operation": "Operación",
+        "powder_lot_number": "Lote de polvo",
+        "powder_chemical_composition": "Composición del polvo"
+      },
+      "FAULT_CASES": {
+        "cases": "Casos de falla",
+        "open_cases": "Casos de falla abiertos"
+      }
     }
   }
 }
