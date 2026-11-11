@@ -19,11 +19,12 @@ Frontend Web Application of **EdgeWatch**, the platform by **WebRunners** for th
 
 ```bash
 npm install
-npm run api   # Fake API (json-server) on http://localhost:3000/api/v1
+npm run api   # Fake API (json-server) on http://localhost:3000/api/v1 — only Billing still uses it
 npm run dev   # Vite development server on http://localhost:5173
 ```
 
-Sample users are available in `server/db.json` (collection `users`).
+The application consumes the **EdgeWatch Platform** REST API (`edgewatch-platform`, ASP.NET Core) at `VITE_EDGEWATCH_API_URL`
+(`http://localhost:5262/api/v1` in development). Sign up an organization from the application to get a user.
 
 ## Scripts
 

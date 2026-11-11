@@ -12,7 +12,7 @@ export class RecipeAssembler {
     }
 
     static toResourceFromEntity(entity) {
-        const {isActive, ...resource} = entity;
+        const {isActive, id, status, ...resource} = entity;
         return {...resource};
     }
 }

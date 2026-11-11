@@ -1,11 +1,11 @@
-import {BaseApi} from "@/shared/infrastructure/base-api.js";
+import {BaseApi, mockApi} from "@/shared/infrastructure/base-api.js";
 import {BaseEndpoint} from "@/shared/infrastructure/base-endpoint.js";
 
 const plansEndpointPath = import.meta.env.VITE_PLANS_ENDPOINT_PATH;
 const subscriptionsEndpointPath = import.meta.env.VITE_SUBSCRIPTIONS_ENDPOINT_PATH;
 
 /**
- * API gateway of the Billing bounded context.
+ * API gateway of the Billing bounded context. Billing is not part of the platform yet, so it is served by the fake API.
  * @extends BaseApi
  */
 export class BillingApi extends BaseApi {
@@ -13,7 +13,7 @@ export class BillingApi extends BaseApi {
     #subscriptionsEndpoint;
 
     constructor() {
-        super();
+        super(mockApi);
         this.#plansEndpoint = new BaseEndpoint(this, plansEndpointPath);
         this.#subscriptionsEndpoint = new BaseEndpoint(this, subscriptionsEndpointPath);
     }

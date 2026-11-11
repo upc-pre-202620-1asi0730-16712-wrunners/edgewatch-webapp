@@ -5,6 +5,7 @@ import {SignInAssembler} from "@/iam/infrastructure/sign-in.assembler.js";
 import {ROLE} from "@/iam/domain/model/role.entity.js";
 import {UserAssembler} from "@/iam/infrastructure/user.assembler.js";
 import {RoleAssembler} from "@/iam/infrastructure/role.assembler.js";
+import {errorMessageOf} from "@/shared/infrastructure/base-api.js";
 
 const iamApi = new IamApi();
 const TOKEN_KEY = "edgewatch.token";
@@ -18,7 +19,7 @@ const restore = () => {
 };
 
 /**
- * Application store of the IAM bounded context: session, sign-in, sign-up, sign-out.
+ * Application store of the IAM bounded context: session, sign-in, sign-up, sign-out, users and roles.
  */
 const useIamStore = defineStore("iam", () => {
     const session = ref(restore());
@@ -68,7 +69,7 @@ const useIamStore = defineStore("iam", () => {
         }).catch(err => {
             console.error("Sign-in failed:", err);
             clear();
-            error.value = err.message;
+            error.value = errorMessageOf(err);
         });
     }
 
@@ -76,12 +77,19 @@ const useIamStore = defineStore("iam", () => {
         error.value = null;
         return iamApi.signUp(command)
             .then(() => router.push({name: "iam-sign-in"}))
-            .catch(err => { console.error("Sign-up failed:", err); error.value = err.message; });
+            .catch(err => { console.error("Sign-up failed:", err); error.value = errorMessageOf(err); });
     }
 
     function signOut(router) {
         clear();
         router.push({name: "iam-sign-in"});
+    }
+
+    /** Called by the HTTP layer when the platform answers 401: the token expired or was revoked. */
+    function expire() {
+        if (!isSignedIn.value) return;
+        clear();
+        window.location.assign("/iam/sign-in");
     }
 
     function fetchUsersAndRoles() {
@@ -99,12 +107,12 @@ const useIamStore = defineStore("iam", () => {
             const updated = UserAssembler.toEntityFromResource(response.data);
             const index = users.value.findIndex(u => u.id === updated.id);
             if (index !== -1) users.value[index] = updated;
-        }).catch(err => { error.value = err.message; });
+        }).catch(err => { error.value = errorMessageOf(err); });
     }
 
     return {
         session, error, isSignedIn, userId, email, fullName, organizationId, organizationType, roleIds,
-        isSupplier, isAssetOwner, isAdmin, currentToken, hasRole, signIn, signUp, signOut,
+        isSupplier, isAssetOwner, isAdmin, currentToken, hasRole, signIn, signUp, signOut, expire,
         users, roles, assignableRoles, fetchUsersAndRoles, roleName, updateUserRoles
     };
 });
