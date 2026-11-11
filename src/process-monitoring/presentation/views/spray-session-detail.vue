@@ -57,6 +57,7 @@ const abort = (reason) => session.value && store.abortSession(session.value.id, 
 
 const back = () => router.push({name: "process-monitoring-spray-sessions"});
 const analyze = () => router.push({name: "process-monitoring-session-analysis", params: {id: sessionId.value}});
+const faultCases = () => router.push({name: "fault-diagnosis-cases", query: {spraySessionId: sessionId.value}});
 
 onMounted(() => {
     if (!store.sessionsLoaded) store.fetchSessions();
@@ -121,6 +122,7 @@ onUnmounted(() => store.clearReadings());
           <pv-button v-if="isDev" :label="t('session-detail.simulate')" icon="pi pi-wifi" outlined @click="simulateReading"/>
         </template>
         <pv-button :label="t('session-detail.analyze')" icon="pi pi-chart-bar" severity="secondary" outlined @click="analyze"/>
+        <pv-button :label="t('session-detail.fault-cases')" icon="pi pi-exclamation-triangle" severity="secondary" outlined @click="faultCases"/>
       </div>
     </template>
     <abort-session-dialog v-model:visible="abortVisible" @confirm="abort"/>
