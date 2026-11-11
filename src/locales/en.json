@@ -9,7 +9,8 @@
     "users": "Users",
     "subscription": "Subscription",
     "about": "About Us",
-    "fault-cases": "Fault Cases"
+    "fault-cases": "Fault Cases",
+    "quick-start": "Quick Start"
   },
   "home": {
     "title": "Welcome to EdgeWatch",
@@ -383,7 +384,8 @@
     "tab-live": "Live",
     "tab-trends": "Trends",
     "analyze": "Analyze session",
-    "fault-cases": "Fault cases"
+    "fault-cases": "Fault cases",
+    "simulate-burst": "Simulate burst"
   },
   "iam": {
     "sign-up": {
@@ -631,7 +633,10 @@
     "latest-open-cases": "Latest open fault cases",
     "see-all": "See all",
     "no-open-cases": "No open fault cases.",
-    "no-fault-cases": "No fault cases yet."
+    "no-fault-cases": "No fault cases yet.",
+    "empty-title": "Your plant is empty",
+    "empty-description": "Load the demo plant and start your first spray session in one click.",
+    "empty-action": "Quick start"
   },
   "nav": {
     "group": {
@@ -644,6 +649,32 @@
       "RECUPERATION_SUPPLIER": "Recuperation supplier",
       "ASSET_OWNER": "Asset owner",
       "GUEST": "Guest"
+    }
+  },
+  "quick-start": {
+    "title": "Quick start",
+    "subtitle": "Everything a spray session needs, in one place: check what is missing or load the demo plant and start monitoring in one click.",
+    "checklist": "Session prerequisites",
+    "loading": "Checking your plant...",
+    "count": "{count} registered",
+    "ready": "Your plant is ready: you can start a spray session.",
+    "missing": "{count} prerequisites missing. Load the demo plant or register them from each page.",
+    "demo-title": "Demo plant (FESA)",
+    "demo-description": "Registers an HVOF Diamond Jet 2700 system with its four subsystems and nine parameters, publishes recipe #12 (WC-10Co-4Cr), and opens a recuperation order for a CAT 797F hydraulic rod of Cerro Verde. Records that already exist are reused.",
+    "already-exists": "already registered",
+    "failed": "The demo plant could not be loaded completely. Check the platform and try again.",
+    "provisioned": "Demo plant ready.",
+    "load-and-start": "Load demo plant and start session",
+    "load-only": "Load demo plant only",
+    "start-session": "Start spray session",
+    "go-to-start": "Start a session",
+    "step": {
+      "hvof-system": "HVOF system",
+      "subsystems": "Subsystems with parameters",
+      "recipe": "Active recipe",
+      "customer": "Customer",
+      "component": "Component",
+      "recuperation": "Open recuperation order"
     }
   }
 }

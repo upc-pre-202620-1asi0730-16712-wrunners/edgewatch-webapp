@@ -9,7 +9,8 @@
     "users": "Usuarios",
     "subscription": "Suscripción",
     "about": "Acerca de",
-    "fault-cases": "Casos de falla"
+    "fault-cases": "Casos de falla",
+    "quick-start": "Puesta en marcha"
   },
   "home": {
     "title": "Bienvenido a EdgeWatch",
@@ -383,7 +384,8 @@
     "tab-live": "En vivo",
     "tab-trends": "Tendencias",
     "analyze": "Analizar sesión",
-    "fault-cases": "Casos de falla"
+    "fault-cases": "Casos de falla",
+    "simulate-burst": "Simular ráfaga"
   },
   "iam": {
     "sign-up": {
@@ -631,7 +633,10 @@
     "latest-open-cases": "Últimos casos de falla abiertos",
     "see-all": "Ver todos",
     "no-open-cases": "Sin casos de falla abiertos.",
-    "no-fault-cases": "Aún no hay casos de falla."
+    "no-fault-cases": "Aún no hay casos de falla.",
+    "empty-title": "Tu planta está vacía",
+    "empty-description": "Carga la planta de demostración e inicia tu primera sesión de rociado con un clic.",
+    "empty-action": "Puesta en marcha"
   },
   "nav": {
     "group": {
@@ -644,6 +649,32 @@
       "RECUPERATION_SUPPLIER": "Proveedor de recuperación",
       "ASSET_OWNER": "Propietario de activos",
       "GUEST": "Invitado"
+    }
+  },
+  "quick-start": {
+    "title": "Puesta en marcha",
+    "subtitle": "Todo lo que necesita una sesión de rociado en un solo lugar: revisa qué falta o carga la planta de demostración y empieza a monitorear con un clic.",
+    "checklist": "Requisitos de una sesión",
+    "loading": "Revisando tu planta...",
+    "count": "{count} registrados",
+    "ready": "Tu planta está lista: ya puedes iniciar una sesión de rociado.",
+    "missing": "Faltan {count} requisitos. Carga la planta de demostración o regístralos desde cada página.",
+    "demo-title": "Planta de demostración (FESA)",
+    "demo-description": "Registra un sistema HVOF Diamond Jet 2700 con sus cuatro subsistemas y nueve parámetros, publica la receta #12 (WC-10Co-4Cr) y abre una orden de recuperación de un vástago hidráulico CAT 797F de Cerro Verde. Lo que ya existe se reutiliza.",
+    "already-exists": "ya registrado",
+    "failed": "No se pudo cargar toda la planta de demostración. Revisa la plataforma e inténtalo de nuevo.",
+    "provisioned": "Planta de demostración lista.",
+    "load-and-start": "Cargar planta demo e iniciar sesión",
+    "load-only": "Solo cargar planta demo",
+    "start-session": "Iniciar sesión de rociado",
+    "go-to-start": "Iniciar una sesión",
+    "step": {
+      "hvof-system": "Sistema HVOF",
+      "subsystems": "Subsistemas con parámetros",
+      "recipe": "Receta activa",
+      "customer": "Cliente",
+      "component": "Componente",
+      "recuperation": "Orden de recuperación abierta"
     }
   }
 }
