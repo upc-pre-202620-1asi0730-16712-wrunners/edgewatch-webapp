@@ -1,0 +1,436 @@
+{
+  "option": {
+    "home": "Inicio",
+    "recuperations": "Recuperaciones",
+    "components": "Componentes",
+    "customers": "Clientes",
+    "hvof-systems": "Sistemas HVOF",
+    "spray-sessions": "Sesiones de rociado",
+    "users": "Usuarios",
+    "subscription": "Suscripción",
+    "about": "Acerca de"
+  },
+  "home": {
+    "title": "Bienvenido a EdgeWatch",
+    "content": "Trazabilidad y monitoreo de proceso para la recuperación de componentes por HVOF."
+  },
+  "about": {
+    "title": "Acerca de nosotros",
+    "content": "EdgeWatch es una plataforma de WebRunners que vincula cada sesión de rociado HVOF con el componente recuperado y su cliente."
+  },
+  "customers": {
+    "title": "Clientes",
+    "id": "ID",
+    "legal-name": "Razón social",
+    "ruc": "RUC",
+    "mine-site": "Sede / unidad minera",
+    "actions": "Acciones",
+    "new": "Nuevo cliente",
+    "confirm-delete": "¿Seguro que deseas eliminar {name}?",
+    "delete-header": "Confirmar eliminación",
+    "empty": "Aún no hay clientes registrados."
+  },
+  "customer": {
+    "new-title": "Nuevo cliente",
+    "edit-title": "Editar cliente",
+    "legal-name": "Razón social",
+    "ruc": "RUC",
+    "mine-site": "Sede / unidad minera",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "error": {
+      "legal-name-required": "La razón social es obligatoria",
+      "ruc-invalid": "El RUC debe tener 11 dígitos"
+    }
+  },
+  "components": {
+    "title": "Componentes",
+    "serial-number": "N.º de serie",
+    "part-number": "Part number",
+    "type": "Tipo",
+    "machine": "Máquina",
+    "customer": "Cliente",
+    "pcr-target-hours": "PCR objetivo (h)",
+    "status": "Estado",
+    "actions": "Acciones",
+    "new": "Nuevo componente",
+    "empty": "Aún no hay componentes registrados."
+  },
+  "component": {
+    "title": "Componentes",
+    "new-title": "Nuevo componente",
+    "edit-title": "Editar componente",
+    "serial-number": "Número de serie",
+    "part-number": "Part number",
+    "type": "Tipo de componente",
+    "machine-manufacturer": "Fabricante de la máquina",
+    "machine-model": "Modelo de la máquina",
+    "customer": "Cliente",
+    "pcr-target-hours": "Horas objetivo de PCR",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "type-option": {
+      "HYDRAULIC_ROD": "Vástago hidráulico",
+      "CYLINDER_BLOCK": "Bloque de cilindros",
+      "SHAFT": "Eje",
+      "IMPELLER": "Impulsor",
+      "OTHER": "Otro"
+    },
+    "status-option": {
+      "RECEIVED": "Recibido",
+      "IN_RECUPERATION": "En recuperación",
+      "IN_SERVICE": "En servicio",
+      "RETURNED": "Retornado",
+      "SCRAPPED": "Dado de baja"
+    },
+    "error": {
+      "required": "Este campo es obligatorio",
+      "pcr-min": "El PCR objetivo debe ser mayor que 0"
+    }
+  },
+  "recuperations": {
+    "title": "Recuperaciones",
+    "work-order": "WO",
+    "manufacturing-order": "OF",
+    "component": "Componente",
+    "customer": "Cliente",
+    "status": "Estado",
+    "received-at": "Recibido",
+    "actions": "Acciones",
+    "new": "Nueva recuperación",
+    "empty": "Aún no hay órdenes de recuperación registradas."
+  },
+  "recuperation": {
+    "new-title": "Nueva orden de recuperación",
+    "edit-title": "Editar orden de recuperación",
+    "component": "Componente",
+    "customer": "Cliente",
+    "work-order": "Orden de trabajo (WO)",
+    "manufacturing-order": "Orden de fabricación (OF)",
+    "segment": "Segmento",
+    "operation": "Operación",
+    "weight": "Peso",
+    "weight-unit": "Unidad",
+    "hourmeter": "Horómetro de ingreso (h)",
+    "powder-supplier": "Proveedor de polvo",
+    "powder-lot": "Lote de polvo",
+    "powder-composition": "Composición del polvo",
+    "received-at": "Fecha de recepción",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "status-option": {
+      "RECEIVED": "Recibida",
+      "IN_PROGRESS": "En proceso",
+      "COMPLETED": "Completada",
+      "DELIVERED": "Entregada",
+      "REWORK": "Retrabajo"
+    },
+    "error": { "required": "Este campo es obligatorio" }
+  },
+  "hvof-systems": {
+    "title": "Sistemas HVOF",
+    "code": "Código",
+    "manufacturer": "Fabricante",
+    "model": "Modelo",
+    "fuel-type": "Combustible",
+    "status": "Estado",
+    "actions": "Acciones",
+    "new": "Nuevo sistema HVOF",
+    "empty": "Aún no hay sistemas HVOF registrados."
+  },
+  "hvof-system": {
+    "new-title": "Nuevo sistema HVOF",
+    "edit-title": "Editar sistema HVOF",
+    "code": "Código",
+    "serial-number": "Número de serie",
+    "manufacturer": "Fabricante del sistema",
+    "model": "Modelo del sistema",
+    "fuel-type": "Tipo de combustible",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "tab-controllers": "Controladores",
+    "tab-subsystems": "Subsistemas",
+    "tab-recipes": "Recetas",
+    "back": "Volver a la lista",
+    "fuel-option": { "HYDROGEN": "Hidrógeno", "PROPANE": "Propano", "KEROSENE": "Kerosene", "NATURAL_GAS": "Gas natural" },
+    "status-option": { "ACTIVE": "Activo", "MAINTENANCE": "En mantenimiento", "OUT_OF_SERVICE": "Fuera de servicio" },
+    "error": { "required": "Este campo es obligatorio" }
+  },
+  "controllers": {
+    "number": "#",
+    "device-type": "Dispositivo",
+    "manufacturer": "Fabricante",
+    "model": "Modelo",
+    "ip-address": "Dirección IP",
+    "protocols": "Protocolos",
+    "actions": "Acciones",
+    "new": "Nuevo controlador",
+    "empty": "Aún no hay controladores registrados."
+  },
+  "controller": {
+    "new-title": "Nuevo controlador",
+    "edit-title": "Editar controlador",
+    "device-type": "Tipo de dispositivo",
+    "manufacturer": "Fabricante",
+    "model": "Modelo",
+    "part-number": "Part number",
+    "serial-number": "Número de serie",
+    "ip-address": "Dirección IP",
+    "port": "Puerto",
+    "rack": "Rack",
+    "slot": "Slot",
+    "protocols": "Protocolos soportados",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "error": { "required": "Este campo es obligatorio", "ip-invalid": "Ingresa una dirección IPv4 válida" }
+  },
+  "subsystems": {
+    "new": "Nuevo subsistema",
+    "empty": "Aún no hay subsistemas registrados.",
+    "parameters": "Parámetros",
+    "parts": "Partes",
+    "new-part": "Nueva parte",
+    "no-parts": "Sin partes registradas.",
+    "confirm-delete-part": "¿Eliminar la parte {serial}?"
+  },
+  "subsystem": {
+    "new-title": "Nuevo subsistema",
+    "edit-title": "Editar subsistema",
+    "type": "Tipo de subsistema",
+    "name": "Nombre",
+    "alias": "Alias (como en el controlador)",
+    "parameters": "Parámetros (escribe y presiona Enter)",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "type-option": {
+      "GAS_CONSOLE": "Consola de gases", "POWDER_FEEDER": "Alimentador de polvo", "COOLING_UNIT": "Unidad de enfriamiento",
+      "MANIPULATOR": "Manipulador", "DUST_COLLECTOR": "Colector de polvo", "SPRAY_GUN": "Pistola de rociado"
+    },
+    "error": { "required": "Este campo es obligatorio" }
+  },
+  "part": {
+    "new-title": "Nueva parte",
+    "type": "Tipo de parte",
+    "serial-number": "Número de serie",
+    "manufacturer": "Fabricante",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "type-option": {
+      "MASS_FLOW_CONTROLLER": "Controlador de flujo másico", "HOPPER": "Tolva", "CARRIER_GAS_MFC": "MFC de gas portador",
+      "COOLANT_PUMP": "Bomba de refrigerante", "TEMPERATURE_SENSOR": "Sensor de temperatura", "SPINDLE_VFD": "Variador del husillo",
+      "AXIS_DRIVE": "Drive de eje", "NOZZLE": "Boquilla"
+    }
+  },
+  "recipes": {
+    "number": "N.º",
+    "name": "Nombre",
+    "powder": "Polvo",
+    "status": "Estado",
+    "parameters": "Parámetros",
+    "actions": "Acciones",
+    "new": "Nueva receta",
+    "publish": "Publicar",
+    "empty": "Aún no hay recetas definidas.",
+    "status-option": { "DRAFT": "Borrador", "ACTIVE": "Activa", "RETIRED": "Retirada" }
+  },
+  "recipe": {
+    "new-title": "Nueva receta",
+    "edit-title": "Editar receta",
+    "number": "Número de receta",
+    "name": "Nombre",
+    "powder": "Especificación del polvo",
+    "applicabilities": "Componentes aplicables",
+    "component-type": "Tipo de componente",
+    "machine-model": "Modelo de máquina",
+    "position": "Posición",
+    "add-applicability": "Agregar componente",
+    "parameters": "Parámetros y bandas de umbral",
+    "parameter": "Parámetro",
+    "setpoint": "SP",
+    "lsd": "LSD",
+    "law": "LAW",
+    "nmin": "Mín",
+    "nmax": "Máx",
+    "haw": "HAW",
+    "hsd": "HSD",
+    "unit": "Unidad",
+    "unit-category": "Categoría",
+    "add-parameter": "Agregar parámetro",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "error": {
+      "required": "Este campo es obligatorio",
+      "order": "Los umbrales deben cumplir LSD < LAW < Mín ≤ SP ≤ Máx < HAW < HSD",
+      "no-parameters": "Agrega al menos un parámetro"
+    }
+  },
+  "spray-sessions": {
+    "title": "Sesiones de rociado",
+    "id": "ID",
+    "started-at": "Inicio",
+    "hvof-system": "Sistema HVOF",
+    "recuperation": "Orden (WO)",
+    "recipe": "Receta",
+    "status": "Estado",
+    "deviations": "Desviaciones",
+    "actions": "Acciones",
+    "start": "Iniciar sesión",
+    "open": "Abrir",
+    "filter-system": "Sistema HVOF",
+    "filter-recuperation": "Orden",
+    "filter-from": "Desde",
+    "filter-to": "Hasta",
+    "clear-filters": "Limpiar",
+    "empty": "Ninguna sesión coincide con los filtros.",
+    "status-option": { "active": "Activa", "completed": "Completada", "aborted": "Abortada", "interrupted": "Interrumpida" }
+  },
+  "spray-session": {
+    "start-title": "Iniciar sesión de rociado",
+    "hvof-system": "Sistema HVOF",
+    "recuperation": "Orden de recuperación",
+    "recipe": "Receta",
+    "recipe-hint": "Solo recetas activas del sistema seleccionado",
+    "start": "Iniciar sesión",
+    "cancel": "Cancelar",
+    "error": { "required": "Este campo es obligatorio", "no-active-recipes": "El sistema seleccionado no tiene recetas activas" }
+  },
+  "session-detail": {
+    "title": "Sesión",
+    "back": "Volver a sesiones",
+    "started": "Inicio",
+    "ended": "Fin",
+    "recipe": "Receta",
+    "order": "Orden",
+    "system": "Sistema",
+    "readings": "lecturas",
+    "last-update": "Última actualización",
+    "live": "EN VIVO",
+    "no-readings": "Aún no se reciben lecturas.",
+    "setpoint": "SP",
+    "simulate": "Simular lectura",
+    "complete": "Completar",
+    "abort": "Abortar",
+    "abort-title": "Abortar sesión",
+    "abort-reason": "Motivo",
+    "abort-notes": "Notas (opcional)",
+    "abort-confirm": "Abortar sesión",
+    "abort-cancel": "Seguir corriendo",
+    "abort-reason-option": { "FLAME_OUT": "Pérdida de llama", "POWDER_DEPLETED": "Polvo agotado", "MACHINE_FAULT": "Falla de máquina", "OPERATOR_DECISION": "Decisión del operador", "OTHER": "Otro" },
+    "band": { "nominal": "Nominal", "out_of_nominal": "Fuera de nominal", "warning": "Advertencia", "shutdown": "Parada" },
+    "parameter": {
+      "fuel_gas_flow": "Flujo de combustible", "oxygen_flow": "Flujo de oxígeno", "cooling_air_flow": "Flujo de aire de enfriamiento",
+      "powder_feed_rate": "Alimentación de polvo", "carrier_gas_flow": "Flujo de gas portador", "hopper_pressure": "Presión de tolva",
+      "coolant_flow": "Flujo de refrigerante", "coolant_outlet_temp": "Temp. salida refrigerante", "spindle_speed": "Velocidad del husillo"
+    }
+  },
+  "iam": {
+    "sign-up": {
+      "title": "Registra tu organización",
+      "organization-step": "Organización",
+      "admin-step": "Administrador",
+      "organization-name": "Nombre de la organización",
+      "ruc": "RUC",
+      "organization-type": "Tipo de organización",
+      "supplier": "Recuperation Supplier",
+      "supplier-hint": "Operamos sistemas HVOF y recuperamos componentes para nuestros clientes",
+      "asset-owner": "Asset Owner",
+      "asset-owner-hint": "Somos dueños de los componentes y los enviamos a proveedores de recuperación",
+      "full-name": "Nombre completo",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "next": "Siguiente",
+      "back": "Atrás",
+      "submit": "Crear organización",
+      "have-account": "¿Ya estás registrado?",
+      "sign-in-link": "Inicia sesión"
+    },
+    "sign-in": {
+      "title": "Iniciar sesión",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "submit": "Ingresar",
+      "no-account": "¿Organización nueva?",
+      "sign-up-link": "Regístrate",
+      "failed": "Correo o contraseña inválidos"
+    },
+    "section": {
+      "welcome": "Hola, {name}",
+      "sign-in": "Ingresar",
+      "sign-up": "Registrarse",
+      "sign-out": "Salir"
+    },
+    "error": {
+      "required": "Este campo es obligatorio",
+      "email": "Ingresa un correo válido",
+      "ruc": "El RUC debe tener 11 dígitos",
+      "password-min": "Mínimo 8 caracteres"
+    },
+    "users": {
+      "title": "Usuarios y roles",
+      "name": "Nombre",
+      "email": "Correo",
+      "roles": "Roles",
+      "status": "Estado",
+      "actions": "Acciones",
+      "edit-roles": "Editar roles",
+      "roles-title": "Roles de {name}",
+      "save": "Guardar roles",
+      "cancel": "Cancelar",
+      "role-option": {
+        "ROLE_ORG_ADMIN": "Administrador de organización", "ROLE_QUALITY_ENGINEER": "Ingeniero de calidad e investigación",
+        "ROLE_MAINTENANCE_SUPERVISOR": "Supervisor de mantenimiento de máquina", "ROLE_HVOF_OPERATOR": "Operador HVOF",
+        "ROLE_OPERATIONS_SUPERVISOR": "Supervisor de operación", "ROLE_RELIABILITY_ENGINEER": "Ingeniero de confiabilidad",
+        "ROLE_PROCUREMENT_ANALYST": "Analista de compras"
+      }
+    }
+  },
+  "billing": {
+    "plans-title": "Elige tu plan",
+    "plans-hint": "Solo puede seleccionarse el plan que corresponde al tipo de tu organización.",
+    "per-month": "/ mes",
+    "monitored-systems": "sistemas HVOF monitoreados",
+    "tracked-components": "componentes bajo seguimiento",
+    "select": "Seleccionar plan",
+    "current": "Plan actual",
+    "not-available": "No disponible para tu tipo de organización",
+    "subscription-title": "Suscripción",
+    "plan": "Plan",
+    "valid-from": "Vigente desde",
+    "valid-until": "Vigente hasta",
+    "status": "Estado",
+    "days-left": "Quedan {days} días",
+    "expiring-soon": "Próxima a vencer",
+    "none": "Tu organización aún no tiene una suscripción activa.",
+    "choose": "Elegir un plan"
+  },
+  "common": { "view": "Ver", "edit": "Editar", "delete": "Eliminar", "back": "Volver", "yes": "Sí", "no": "No" },
+  "errors": { "occurred": "Ocurrió un error al cargar los datos." },
+  "page-not-found": {
+    "title": "Página no encontrada",
+    "content": "La ruta {unavailable-route} no está disponible.",
+    "go-home": "Ir a Inicio"
+  },
+  "authoring-phrase": {
+    "intro": "Hecho con",
+    "use": "utilizando",
+    "author": "por el equipo de desarrollo de {brand}"
+  },
+  "language-switcher": { "label": "Seleccionar el idioma de la aplicación" },
+  "footer": {
+    "rights": "Todos los derechos reservados.",
+    "terms": "Términos y Condiciones"
+  },
+  "terms": {
+    "title": "Términos y Condiciones",
+    "updated": "Última actualización: 5 de octubre de 2026",
+    "intro": "Estos términos regulan el uso de EdgeWatch, la plataforma desarrollada por WebRunners para la trazabilidad y el monitoreo de procesos de recubrimiento HVOF. Al crear una cuenta o usar la plataforma, su organización los acepta.",
+    "s1": { "title": "1. Servicio", "content": "EdgeWatch permite a los proveedores de recuperación registrar clientes, componentes, órdenes de recuperación, equipos HVOF y sesiones de rociado, y a los propietarios de activos revisar la evidencia relacionada con sus componentes. La plataforma apoya la toma de decisiones; no reemplaza el criterio técnico de los ingenieros responsables de cada proceso." },
+    "s2": { "title": "2. Cuentas y roles", "content": "Cada organización es responsable de las cuentas que crea, de los roles que asigna y de mantener la confidencialidad de sus credenciales. El acceso a cada función está restringido por rol, y cada usuario debe actuar solo dentro de los permisos otorgados por su organización." },
+    "s3": { "title": "3. Propiedad y confidencialidad de los datos", "content": "Los datos del proceso, las lecturas, las órdenes de trabajo y los documentos pertenecen a la organización que los registra. WebRunners no vende ni comparte esta información con terceros y solo la usa para brindar el servicio, con la confidencialidad que se espera de profesionales de la ingeniería de software." },
+    "s4": { "title": "4. Protección de datos personales", "content": "Los datos personales de los usuarios (nombre, correo corporativo y rol) se tratan conforme a la Ley N.° 29733, Ley de Protección de Datos Personales del Perú, y su reglamento. Los usuarios pueden solicitar el acceso, la rectificación o la eliminación de sus datos contactando a WebRunners." },
+    "s5": { "title": "5. Uso aceptable", "content": "Los usuarios deben registrar información veraz, no deben alterar lecturas ni evidencias de calidad y no deben usar la plataforma para perjudicar los intereses de clientes, proveedores o terceros. Falsificar registros de calidad es causal de suspensión de la cuenta." },
+    "s6": { "title": "6. Disponibilidad y responsabilidad", "content": "WebRunners trabaja para mantener la plataforma disponible y corregir oportunamente cualquier defecto, y notificará a las organizaciones los incidentes que afecten su información. WebRunners no se responsabiliza por decisiones tomadas sin validar los datos registrados en la plataforma." },
+    "s7": { "title": "7. Ética profesional", "content": "WebRunners desarrolla y opera EdgeWatch siguiendo el Código de Ética de Ingeniería de Software de ACM/IEEE y el Código de Ética del Colegio de Ingenieros del Perú: actuar en favor del interés público, ser honestos sobre las capacidades y limitaciones del producto y proteger la seguridad de las personas involucradas en los procesos industriales." },
+    "s8": { "title": "8. Cambios y contacto", "content": "Estos términos pueden actualizarse; los cambios relevantes se comunicarán dentro de la plataforma antes de entrar en vigencia. Las consultas pueden enviarse al equipo de WebRunners mediante los canales de contacto publicados en el sitio web de EdgeWatch." }
+  }
+}
