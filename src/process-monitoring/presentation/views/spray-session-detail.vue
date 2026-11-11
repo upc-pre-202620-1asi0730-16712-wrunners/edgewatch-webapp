@@ -6,6 +6,7 @@ import useProcessMonitoringStore from "@/process-monitoring/application/process-
 import useEquipmentStore from "@/equipment/application/equipment.store.js";
 import useTraceabilityStore from "@/traceability/application/traceability.store.js";
 import ParameterCard from "@/process-monitoring/presentation/components/parameter-card.vue";
+import GenerateReportDialog from "@/reporting/presentation/components/generate-report-dialog.vue";
 import AbortSessionDialog from "@/process-monitoring/presentation/components/abort-session-dialog.vue";
 import ParameterTrendPanel from "@/process-monitoring/presentation/components/parameter-trend-panel.vue";
 import {ProcessReading} from "@/process-monitoring/domain/model/process-reading.entity.js";
@@ -19,6 +20,7 @@ const traceability = useTraceabilityStore();
 
 const isDev = import.meta.env.DEV;
 const abortVisible = ref(false);
+const reportVisible = ref(false);
 const sessionId = computed(() => parseInt(route.params.id));
 const session = computed(() => store.getSessionById(sessionId.value));
 const system = computed(() => session.value ? equipment.getHvofSystemById(session.value.hvofSystemId) : null);
@@ -146,9 +148,11 @@ onUnmounted(() => store.clearReadings());
         </template>
         <pv-button :label="t('session-detail.analyze')" icon="pi pi-chart-bar" severity="secondary" outlined @click="analyze"/>
         <pv-button :label="t('session-detail.fault-cases')" icon="pi pi-exclamation-triangle" severity="secondary" outlined @click="faultCases"/>
+        <pv-button :label="t('reports.generate')" icon="pi pi-file-pdf" severity="secondary" outlined @click="reportVisible = true"/>
       </div>
     </template>
     <abort-session-dialog v-model:visible="abortVisible" @confirm="abort"/>
+    <generate-report-dialog v-model:visible="reportVisible" :session-id="sessionId"/>
   </section>
 </template>
 

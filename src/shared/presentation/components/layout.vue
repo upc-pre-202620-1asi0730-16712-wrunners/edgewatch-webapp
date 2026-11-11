@@ -29,6 +29,10 @@ const groups = computed(() => [
   {label: t("nav.group.equipment"), options: [
     {label: t("option.hvof-systems"),   to: "/equipment/hvof-systems",            icon: "pi pi-cog",                  visible: iam.isSupplier}
   ]},
+  {label: t("nav.group.reports"), options: [
+    {label: t("option.generated-reports"), to: "/reporting/generated",             icon: "pi pi-file-pdf",             visible: iam.isSupplier},
+    {label: t("option.report-templates"),  to: "/reporting/templates",             icon: "pi pi-objects-column",       visible: iam.isSupplier}
+  ]},
   {label: t("nav.group.account"), options: [
     {label: t("option.users"),          to: "/iam/users",                         icon: "pi pi-users",                visible: iam.isAdmin},
     {label: t("option.subscription"),   to: "/billing/subscription",              icon: "pi pi-credit-card",          visible: iam.isAdmin},
