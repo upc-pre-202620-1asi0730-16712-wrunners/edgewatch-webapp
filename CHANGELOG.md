@@ -2,6 +2,10 @@
 
 All notable changes to the EdgeWatch Web Application are documented in this file. The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project adheres to [Semantic Versioning](https://semver.org/).
 
+## [2.0.2] - 2026-11-11
+### Added
+- Azure Static Web Apps configuration (SPA fallback) and production API URL of the Azure App Service.
+
 ## [2.0.1] - 2026-11-11
 ### Added
 - PrimeUI community license key for development and `.gitattributes` normalizing line endings to LF.
