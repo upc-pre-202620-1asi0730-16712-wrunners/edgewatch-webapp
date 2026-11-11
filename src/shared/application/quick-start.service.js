@@ -56,7 +56,7 @@ export class QuickStartService {
             onStep(key, "running");
             if (existing) { onStep(key, "skipped"); return existing; }
             const created = await create();
-            if (!created) throw new Error(`quick-start:${key}`);
+            if (!created) throw this.#lastError(`quick-start:${key}`);
             onStep(key, "done");
             return created;
         };
@@ -92,11 +92,21 @@ export class QuickStartService {
         return {hvofSystem, recipe, recuperation};
     }
 
-    /** Starts a spray session on the given system, order and recipe; the platform freezes the recipe bands. */
+    /** Starts a spray session on the given system, order and recipe; the platform freezes the recipe bands. Rejects with the API error. */
     startSession({hvofSystem, recipe, recuperation}) {
         return this.#monitoring.startSession(new SpraySession({
             hvofSystemId: hvofSystem.id, recuperationId: recuperation.id, operatorId: this.#iam.userId,
             recipeNumber: recipe.recipeNumber, startedAt: new Date().toISOString(), status: "active"
-        })).then(session => { this.#traceability.fetchRecuperations(); return session; });
+        })).then(session => {
+            if (!session) throw this.#lastError("quick-start:session");
+            this.#traceability.fetchRecuperations();
+            return session;
+        });
+    }
+
+    /** The stores swallow API errors into their `errors` list; the most recent one explains a failed step. */
+    #lastError(fallback) {
+        const errors = [this.#equipment, this.#traceability, this.#monitoring].flatMap(store => store.errors);
+        return errors.length ? errors[errors.length - 1] : new Error(fallback);
     }
 }

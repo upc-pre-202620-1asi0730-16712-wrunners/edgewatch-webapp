@@ -4,6 +4,7 @@ import {useRouter} from "vue-router";
 import {useI18n} from "vue-i18n";
 import {QuickStartService} from "@/shared/application/quick-start.service.js";
 import {QUICK_START_STEPS} from "@/shared/domain/model/demo-plant.js";
+import {errorMessageOf} from "@/shared/infrastructure/base-api.js";
 
 /**
  * Quick start: shows which prerequisites of a spray session are missing and provisions a demo plant
@@ -16,6 +17,7 @@ const service = new QuickStartService();
 const loading = ref(true);
 const running = ref(false);
 const failed = ref(false);
+const errorText = ref("");
 const provisioned = ref(null);
 const progress = reactive(Object.fromEntries(QUICK_START_STEPS.map(k => [k, "pending"])));
 const readiness = ref([]);
@@ -33,14 +35,15 @@ const provision = () => {
     QUICK_START_STEPS.forEach(k => progress[k] = "pending");
     service.provision((key, status) => { progress[key] = status; })
         .then(result => { provisioned.value = result; })
-        .catch(error => { console.error(error); failed.value = true; })
+        .catch(error => { console.error(error); failed.value = true; errorText.value = errorMessageOf(error); })
         .finally(() => { refresh(); running.value = false; });
 };
 
 const startSession = () => {
-    running.value = true;
+    running.value = true; failed.value = false;
     service.startSession(provisioned.value)
-        .then(session => session && router.push({name: "process-monitoring-session-detail", params: {id: session.id}}))
+        .then(session => router.push({name: "process-monitoring-session-detail", params: {id: session.id}}))
+        .catch(error => { console.error(error); failed.value = true; errorText.value = errorMessageOf(error); })
         .finally(() => { running.value = false; });
 };
 
@@ -49,8 +52,8 @@ const provisionAndStart = () => {
     QUICK_START_STEPS.forEach(k => progress[k] = "pending");
     service.provision((key, status) => { progress[key] = status; })
         .then(result => { provisioned.value = result; return service.startSession(result); })
-        .then(session => session && router.push({name: "process-monitoring-session-detail", params: {id: session.id}}))
-        .catch(error => { console.error(error); failed.value = true; })
+        .then(session => router.push({name: "process-monitoring-session-detail", params: {id: session.id}}))
+        .catch(error => { console.error(error); failed.value = true; errorText.value = errorMessageOf(error); })
         .finally(() => { refresh(); running.value = false; });
 };
 </script>
@@ -95,7 +98,7 @@ const provisionAndStart = () => {
                 <small v-if="progress[key] === 'skipped'" class="text-color-secondary">· {{ t('quick-start.already-exists') }}</small>
               </li>
             </ol>
-            <pv-message v-if="failed" severity="error" :closable="false" class="mb-3">{{ t('quick-start.failed') }}</pv-message>
+            <pv-message v-if="failed" severity="error" :closable="false" class="mb-3">{{ t('quick-start.failed') }}<br><small>{{ errorText }}</small></pv-message>
             <pv-message v-if="provisioned" severity="success" :closable="false" class="mb-3">{{ t('quick-start.provisioned') }}</pv-message>
             <div class="flex flex-wrap gap-2">
               <pv-button :label="t('quick-start.load-and-start')" icon="pi pi-bolt" :loading="running" :disabled="loading" @click="provisionAndStart"/>
