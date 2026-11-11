@@ -318,7 +318,8 @@
       "completed": "Completed",
       "aborted": "Aborted",
       "interrupted": "Interrupted"
-    }
+    },
+    "analyze": "Analyze"
   },
   "spray-session": {
     "start-title": "Start Spray Session",
@@ -379,7 +380,8 @@
       "spindle_speed": "Spindle speed"
     },
     "tab-live": "Live",
-    "tab-trends": "Trends"
+    "tab-trends": "Trends",
+    "analyze": "Analyze session"
   },
   "iam": {
     "sign-up": {
@@ -541,5 +543,34 @@
     "upper-warning": "Upper warning",
     "lower-shutdown": "Lower shutdown",
     "upper-shutdown": "Upper shutdown"
+  },
+  "analysis": {
+    "title": "Session analysis",
+    "back": "Back to session",
+    "export-readings": "Export readings (CSV)",
+    "export-statistics": "Export statistics (CSV)",
+    "compliance": "Compliance",
+    "duration": "Duration",
+    "readings": "Readings",
+    "deviations": "Deviations",
+    "normalized-title": "Deviation from the recipe",
+    "normalized-hint": "0 = setpoint, ±1 = shutdown limits; every parameter on the same scale.",
+    "normalized-axis": "Normalized deviation",
+    "statistics-title": "Statistics per parameter",
+    "deviations-title": "Warning and shutdown readings",
+    "no-deviations": "No deviations in this session.",
+    "parameter": "Parameter",
+    "unit": "Unit",
+    "count": "Count",
+    "min": "Min",
+    "mean": "Mean",
+    "max": "Max",
+    "std-dev": "Std. dev.",
+    "setpoint": "Setpoint",
+    "nominal-range": "Nominal range",
+    "time": "Time",
+    "value": "Value",
+    "band": "Band",
+    "tag": "Tag"
   }
 }

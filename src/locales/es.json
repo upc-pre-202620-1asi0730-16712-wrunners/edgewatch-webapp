@@ -318,7 +318,8 @@
       "completed": "Completada",
       "aborted": "Abortada",
       "interrupted": "Interrumpida"
-    }
+    },
+    "analyze": "Analizar"
   },
   "spray-session": {
     "start-title": "Iniciar sesión de rociado",
@@ -379,7 +380,8 @@
       "spindle_speed": "Velocidad del husillo"
     },
     "tab-live": "En vivo",
-    "tab-trends": "Tendencias"
+    "tab-trends": "Tendencias",
+    "analyze": "Analizar sesión"
   },
   "iam": {
     "sign-up": {
@@ -541,5 +543,34 @@
     "upper-warning": "Alerta superior",
     "lower-shutdown": "Parada inferior",
     "upper-shutdown": "Parada superior"
+  },
+  "analysis": {
+    "title": "Análisis de sesión",
+    "back": "Volver a la sesión",
+    "export-readings": "Exportar lecturas (CSV)",
+    "export-statistics": "Exportar estadísticas (CSV)",
+    "compliance": "Cumplimiento",
+    "duration": "Duración",
+    "readings": "Lecturas",
+    "deviations": "Desvíos",
+    "normalized-title": "Desvío respecto a la receta",
+    "normalized-hint": "0 = setpoint, ±1 = límites de parada; todos los parámetros en la misma escala.",
+    "normalized-axis": "Desvío normalizado",
+    "statistics-title": "Estadísticas por parámetro",
+    "deviations-title": "Lecturas en alerta y parada",
+    "no-deviations": "Sin desvíos en esta sesión.",
+    "parameter": "Parámetro",
+    "unit": "Unidad",
+    "count": "N",
+    "min": "Mín",
+    "mean": "Media",
+    "max": "Máx",
+    "std-dev": "Desv. est.",
+    "setpoint": "Setpoint",
+    "nominal-range": "Rango nominal",
+    "time": "Hora",
+    "value": "Valor",
+    "band": "Banda",
+    "tag": "Tag"
   }
 }
