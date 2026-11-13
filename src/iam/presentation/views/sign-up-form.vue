@@ -1,17 +1,21 @@
 <script setup lang="js">
 import {computed, reactive, ref} from "vue";
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {useI18n} from "vue-i18n";
 import useIamStore from "@/iam/application/iam.store.js";
 import {SignUpCommand} from "@/iam/domain/model/sign-up.command.js";
 
 const {t} = useI18n();
 const router = useRouter();
+const route = useRoute();
 const store = useIamStore();
 
 const step = ref("1");
 const submitted = ref(false);
-const org = reactive({organizationName: "", ruc: "", organizationType: "RECUPERATION_SUPPLIER"});
+// The landing page call-to-actions preselect the segment: /iam/sign-up?organizationType=ASSET_OWNER
+const requestedType = String(route.query.organizationType ?? "").toUpperCase();
+const initialType = ["RECUPERATION_SUPPLIER", "ASSET_OWNER"].includes(requestedType) ? requestedType : "RECUPERATION_SUPPLIER";
+const org = reactive({organizationName: "", ruc: "", organizationType: initialType});
 const admin = reactive({fullName: "", email: "", password: ""});
 
 const required = (v) => String(v ?? "").trim().length > 0;
